@@ -1,0 +1,6 @@
+name: console
+version: 1.0.0
+description: "Console Prompts, Progress Bars, and even a Window System!"
+author: "Kenneth Endfinger <kaendfinger@gmail.com>"
+environment:
+  sdk: ">=1.5.0"
