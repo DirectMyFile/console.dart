@@ -2,9 +2,11 @@ build/
 packages
 pubspec.lock
 .idea/
-*.iml
 docs/
 dartdoc-viewer/
 .project
 .settings
 .buildlog
+.pub
+out/
+*.iml
