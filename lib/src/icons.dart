@@ -1,5 +1,6 @@
 part of console;
 
+/// UTF-8 Icons
 class Icon {
   static const String CHECKMARK = "\u2713";
   static const String BALLOT_X = "\u2717";

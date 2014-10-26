@@ -1,6 +1,8 @@
 part of console;
 
+/// The root of the console API
 class Console {
+  /// ANSI Escape Code
   static const String ANSI_ESCAPE = "\x1b[";
   static bool _registeredCTRLC = false;
   static bool initialized = false;
@@ -9,6 +11,7 @@ class Console {
 
   static String TERM;
   
+  /// Initializes the Console
   static void init() {
     if (initialized) return;
     
@@ -25,21 +28,30 @@ class Console {
     }
   }
   
+  /// Moves the Cursor Forward the specified amount of [times].
   static void moveCursorForward([int times = 1]) => writeANSI("${times}C");
+  /// Moves the Cursor Back the specified amount of [times].
   static void moveCursorBack([int times = 1]) => writeANSI("${times}D");
+  /// Moves the Cursor Up the specified amount of [times].
   static void moveCursorUp([int times = 1]) => writeANSI("${times}A");
+  /// Moves the Cursor Down the specified amount of [times].
   static void moveCursorDown([int times = 1]) => writeANSI("${times}B");
+  /// Erases the Display
   static void eraseDisplay([int type = 0]) => writeANSI("${type}J");
+  /// Erases the Line
   static void eraseLine([int type = 0]) => writeANSI("${type}K");
 
+  /// Moves the the column specified in [number].
   static void moveToColumn(int number) => writeANSI("${number}G");
 
+  /// Overwrites the current line with [line].
   static void overwriteLine(String line) {
     moveToColumn(1);
     eraseLine(2);
     write(line);
   }
 
+  /// Sets the Current Text Color.
   static void setTextColor(int id, {bool xterm: false, bool bright: false}) {
     Color color;
     if (xterm) {

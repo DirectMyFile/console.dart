@@ -1,9 +1,11 @@
 part of console;
 
+/// Prints a tree. This is ported from the NPM code (the dependency tree)
 void printTree(input, {String prefix: '', Map opts}) {
   stdout.write(createTree(input, prefix: prefix, opts: opts));
 }
 
+/// Creates a Tree (this is like the npm dependency tree)
 String createTree(input, {String prefix: '', Map opts}) {
   
   if (input is String) {

@@ -1,6 +1,6 @@
 part of console;
 
-/* A Mimic of Pub's Timer */
+/// A timer display that mimics pub's timer.
 class TimeDisplay {
   Stopwatch _watch;
   bool _isStart = true;
@@ -9,6 +9,7 @@ class TimeDisplay {
   
   TimeDisplay();
   
+  /// Starts the Timer
   void start([int place = 1]) {
     stdin.echoMode = false;
     _watch = new Stopwatch();
@@ -18,12 +19,14 @@ class TimeDisplay {
     _watch.start();
   }
   
+  /// Stops the Timer
   void stop() {
     _watch.stop();
     stdin.echoMode = true;
     _updateTimer.cancel();
   }
   
+  /// Updates the Timer
   void update([int place = 1]) {
     if (_isStart) {
       var msg = "(${_watch.elapsed.inSeconds}s)";

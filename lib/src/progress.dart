@@ -1,12 +1,17 @@
 part of console;
 
+/// A fancy progress bar
 class ProgressBar {
   final int complete;
   
   int current = 0;
     
+  /// Creates a Progress Bar.
+  /// 
+  /// [complete] is the number that is considered 100%.
   ProgressBar({this.complete: 100});
   
+  /// Updates the Progress Bar with a progress of [progress].
   void update(int progress) {
     if (progress == current) {
       return;
@@ -48,8 +53,10 @@ class ProgressBar {
   }
 }
 
+/// Specifies the next position of the loading bar
 typedef NextPositionLoadingBar();
 
+/// A loading bar
 class LoadingBar {
   Timer _timer;
   bool started = true;
@@ -57,10 +64,12 @@ class LoadingBar {
   String lastPosition;
   NextPositionLoadingBar nextPosition;
   
+  /// Creates a loading bar.
   LoadingBar() {
     nextPosition = _nextPosition;
   }
   
+  /// Starts the Loading Bar
   void start() {
     Console.hideCursor();
     _timer = new Timer.periodic(new Duration(milliseconds: 75), (timer) {
@@ -69,6 +78,7 @@ class LoadingBar {
     });
   }
   
+  /// Stops the Loading Bar with the specified (and optional) [message].
   void stop([String message]) {
     _timer.cancel();
     if (message != null) {
@@ -79,6 +89,7 @@ class LoadingBar {
     print("");
   }
   
+  /// Updates the Loading Bar
   void update() {
     if (started) {
       Console.write(position);
@@ -111,11 +122,14 @@ class LoadingBar {
   }
 }
 
+/// A wide loading bar. Kind of like a Progress Bar.
 class WideLoadingBar {
   int position = 0;
   
+  /// Creates a wide loading bar.
   WideLoadingBar();
   
+  /// Loops the loading bar.
   Timer loop() {
     var width = Console.columns - 2;
     bool goForward = true;
@@ -134,6 +148,7 @@ class WideLoadingBar {
     });
   }
   
+  /// Moves the Bar Forward
   void forward() {
     var out = new StringBuffer("[");
     var width = Console.columns - 2;
@@ -150,6 +165,7 @@ class WideLoadingBar {
     Console.overwriteLine(out.toString());
   }
   
+  /// Moves the Bar Backward
   void backward() {
     var out = new StringBuffer("[");
     var width = Console.columns - 2;

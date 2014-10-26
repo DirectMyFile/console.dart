@@ -1,5 +1,8 @@
 part of console;
 
+/// Very limited clipboard support.
+/// 
+/// **NOTICE**: This is very unstable so far. I don't recommend you use it yet.
 class Clipboard {
   static bool _isSupported;
   

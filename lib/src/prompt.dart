@@ -11,6 +11,8 @@ const List<String> _YES_RESPONSES = const [
   "yerp"
 ];
 
+/// Prompts a user with the specified [prompt].
+/// If [secret] is true, then the typed input wont be shown to the user.
 String prompt(String prompt, {bool secret: false}) {
   stdout.write(prompt);
   
@@ -25,25 +27,44 @@ String prompt(String prompt, {bool secret: false}) {
   return response;
 }
 
+/// Prompts a user for a yes or no answer.
+/// 
+/// The following are considered yes responses:
+/// 
+/// - yes
+/// - y
+/// - sure
+/// - ok
+/// - yep
+/// - yeah
+/// - true
+/// - yerp
+/// 
+/// The input will be changed to lowercase and then checked.
 bool yesOrNo(String message) {
   var answer = prompt(message);
   return _YES_RESPONSES.contains(answer.toLowerCase());
 }
 
+/// Emulates a Shell Prompt
 class ShellPrompt {
+  /// Shell Prompt
   String message;
   bool _stop = false;
   
   ShellPrompt({this.message: r"$ "});
   
+  /// Reads a Single Line
   String read() {
     return prompt(message);
   }
   
+  /// Stops a Loop
   void stop() {
     _stop = true;
   }
   
+  /// Runs a shell prompt in a loop.
   Stream<String> loop() {
     var controller = new StreamController<String>();
     
