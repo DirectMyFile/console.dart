@@ -13,4 +13,4 @@ part 'src/progress.dart';
 part 'src/prompt.dart';
 part 'src/timer.dart';
 part 'src/tree.dart';
-
+part 'src/color.dart';
