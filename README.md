@@ -13,5 +13,6 @@ void main() {
   // Initialize the Console. Throws an exception if advanced terminal features are not supported.
   Console.init();
   
-  Console.
+  // Use the library.
 }
+```
