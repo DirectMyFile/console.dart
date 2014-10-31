@@ -44,6 +44,9 @@ void main() {
     print(format("{color.gold}Hello!{color.end}"));
   }
   
-  print(format("Dart Version: {platform.version}"));
-  print(format("Script Path: {platform.script}"));
+  // Use Zones to isolate actions with a format variable style
+  VariableStyle.withStyle(VariableStyle.DOUBLE_BRACKET, () {
+    print(format("Dart Version: {{platform.version}}"));
+    print(format("Script Path: {{platform.script}}"));
+  });
 }

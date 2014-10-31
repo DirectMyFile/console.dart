@@ -14,7 +14,7 @@ abstract class VariableStyle {
   
   /// Calls [action] in a [Zone] that has it's format
   /// variable style set to [style].
-  void withStyle(VariableStyle style, void action()) {
+  static void withStyle(VariableStyle style, void action()) {
     runZoned(() {
       action();
     }, zoneValues: {
