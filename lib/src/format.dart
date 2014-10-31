@@ -11,6 +11,16 @@ abstract class VariableStyle {
 
   List<String> findVariables(String input);
   String replace(String input, String variable, String value);
+  
+  /// Calls [action] in a [Zone] that has it's format
+  /// variable style set to [style].
+  void withStyle(VariableStyle style, void action()) {
+    runZoned(() {
+      action();
+    }, zoneValues: {
+      "console.format.variable_style": style
+    });
+  }
 }
 
 class _DoubleBracketVariableStyle extends VariableStyle {
@@ -96,6 +106,10 @@ class _SingleBracketVariableStyle extends VariableStyle {
 String format(String input, {List<String> args, Map<String, String> replace, VariableStyle style}) {
   if (style == null) {
     style = VariableStyle.DEFAULT;
+  }
+  
+  if (Zone.current['console.format.variable_style'] != null) {
+    style = Zone.current['console.format.variable_style'];
   }
   
   var out = input;
