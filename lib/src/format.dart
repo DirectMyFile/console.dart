@@ -1,15 +1,17 @@
 part of console;
 
 abstract class VariableStyle {
-  static const _SingleBracketVariableStyle SINGLE_BRACKET = const _SingleBracketVariableStyle();
-  static const _DoubleBracketVariableStyle DOUBLE_BRACKET = const _DoubleBracketVariableStyle();
-  static const _BashBracketVariableStyle BASH_BRACKET = const _BashBracketVariableStyle();
-  
+  static const _SingleBracketVariableStyle SINGLE_BRACKET =
+    const _SingleBracketVariableStyle();
+  static const _DoubleBracketVariableStyle DOUBLE_BRACKET =
+    const _DoubleBracketVariableStyle();
+  static const _BashBracketVariableStyle BASH_BRACKET =
+    const _BashBracketVariableStyle();
   static VariableStyle DEFAULT = SINGLE_BRACKET;
 
   const VariableStyle();
 
-  List<String> findVariables(String input);
+  Set<String> findVariables(String input);
   String replace(String input, String variable, String value);
   
   /// Calls [action] in a [Zone] that has it's format
@@ -29,7 +31,7 @@ class _DoubleBracketVariableStyle extends VariableStyle {
   const _DoubleBracketVariableStyle();
 
   @override
-  List<String> findVariables(String input) {
+  Set<String> findVariables(String input) {
     var matches = _REGEX.allMatches(input);
     var allKeys = new Set<String>();
 
@@ -56,7 +58,7 @@ class _BashBracketVariableStyle extends VariableStyle {
   const _BashBracketVariableStyle();
 
   @override
-  List<String> findVariables(String input) {
+  Set<String> findVariables(String input) {
     var matches = _REGEX.allMatches(input);
     var allKeys = new Set<String>();
 
@@ -83,7 +85,7 @@ class _SingleBracketVariableStyle extends VariableStyle {
   const _SingleBracketVariableStyle();
 
   @override
-  List<String> findVariables(String input) {
+  Set<String> findVariables(String input) {
     var matches = _REGEX.allMatches(input);
     var allKeys = new Set<String>();
 
@@ -103,7 +105,14 @@ class _SingleBracketVariableStyle extends VariableStyle {
   }
 }
 
-String format(String input, {List<String> args, Map<String, String> replace, VariableStyle style}) {
+typedef String VariableResolver(String variable);
+
+String format(String input, {
+    List<String> args,
+    Map<String, String> replace,
+    VariableStyle style,
+    VariableResolver resolver
+}) {
   if (style == null) {
     style = VariableStyle.DEFAULT;
   }
@@ -153,7 +162,6 @@ String format(String input, {List<String> args, Map<String, String> replace, Var
       var envVariable = id.substring(4);
       if (envVariable.isEmpty) {
         throw new Exception("Unknown Key: ${id}");
-
       }
       var value = Platform.environment[envVariable];
       if (value == null) value = "";
@@ -174,7 +182,12 @@ String format(String input, {List<String> args, Map<String, String> replace, Var
       continue;
     }
 
-    throw new Exception("Unknown Key: ${id}");
+    if (resolver != null) {
+      var value = resolver(id);
+      out = style.replace(out, id, value);
+    } else {
+      throw new Exception("Unknown Key: ${id}");
+    }
   }
 
   return out;
