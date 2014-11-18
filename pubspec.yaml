@@ -1,7 +1,7 @@
 name: console
 author: Kenneth Endfinger <kaendfinger@gmail.com>
 description: "Console Power Library"
-version: 1.1.1
+version: 1.1.2
 homepage: https://github.com/DirectMyFile/console.dart
 dependencies:
-  quiver: '>=0.18.2 <0.19.0'
+  quiver: '>=0.18.2 <0.20.0'
