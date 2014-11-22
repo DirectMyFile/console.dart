@@ -20,7 +20,7 @@ String prompt(String prompt, {bool secret: false}) {
     stdin.echoMode = false;
   }
   
-  var response = Console.readLine();
+  var response = Terminal.readLine();
   if (secret) {
     print("");
   }

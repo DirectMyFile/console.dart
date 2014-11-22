@@ -1,7 +1,7 @@
 part of console;
 
 /// The root of the console API
-class Console {
+class Terminal {
   /// ANSI Escape Code
   static const String ANSI_ESCAPE = "\x1b[";
   static bool _registeredCTRLC = false;

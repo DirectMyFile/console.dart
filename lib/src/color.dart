@@ -29,13 +29,13 @@ class Color {
   @override
   String toString() {
     if (xterm) {
-      return "${Console.ANSI_ESCAPE}38;5;${id}m";
+      return "${Terminal.ANSI_ESCAPE}38;5;${id}m";
     }
     
     if (bright) {
-      return "${Console.ANSI_ESCAPE}${30 + id}m";
+      return "${Terminal.ANSI_ESCAPE}${30 + id}m";
     } else {
-      return "${Console.ANSI_ESCAPE}${30 + id}m";
+      return "${Terminal.ANSI_ESCAPE}${30 + id}m";
     }
   }
 }

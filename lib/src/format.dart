@@ -153,7 +153,7 @@ String format(String input, {
       }
 
       if (color == "normal" || color == "end") {
-        out = style.replace(out, id, "${Console.ANSI_ESCAPE}0m");
+        out = style.replace(out, id, "${Terminal.ANSI_ESCAPE}0m");
         continue;
       }
     }

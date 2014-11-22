@@ -1,19 +1,19 @@
 import "package:console/console.dart";
 
 void main() {
-  Console.init();
+  Terminal.init();
 
   print("Demo of Console Features");
   print("------------------------------");
-  Console.setCrossedOut(true);
+  Terminal.setCrossedOut(true);
   print("Crossed Out");
-  Console.setCrossedOut(false);
-  Console.setBold(true);
+  Terminal.setCrossedOut(false);
+  Terminal.setBold(true);
   print("Bold");
-  Console.setBold(false);
-  Console.setTextColor(1, bright: true);
+  Terminal.setBold(false);
+  Terminal.setTextColor(1, bright: true);
   print("Bright Red");
-  Console.resetAll();
+  Terminal.resetAll();
   print("Progress Bar");
   var bar = new ProgressBar(complete: 5);
   bar.update(5);
