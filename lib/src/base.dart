@@ -16,18 +16,26 @@ class Terminal {
     if (initialized) return;
     
     initialized = true;
-    
-    try {
-      stdout.terminalColumns;
-    } on StdoutException catch (e) {
+
+    if (!supported()) {
       throw "Advanced Terminal Features are not supported with your current environment.";
     }
-    
+
     if (Platform.isLinux) {
       TERM = Platform.environment["TERM"];
     }
   }
-  
+
+  /// Check if terminal features are supported.
+  static bool supported() {
+    try {
+      stdout.terminalColumns;
+      return true;
+    } on StdoutException catch (e) {
+      return false;
+    }
+  }
+
   /// Moves the Cursor Forward the specified amount of [times].
   static void moveCursorForward([int times = 1]) => writeANSI("${times}C");
   /// Moves the Cursor Back the specified amount of [times].
