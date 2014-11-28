@@ -11,7 +11,7 @@ import "package:console/console.dart";
 
 void main() {
   // Initialize the Console. Throws an exception if advanced terminal features are not supported.
-  Console.init();
+  Terminal.init();
   
   // Use the library.
 }

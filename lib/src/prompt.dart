@@ -13,18 +13,13 @@ const List<String> _YES_RESPONSES = const [
 
 /// Prompts a user with the specified [prompt].
 /// If [secret] is true, then the typed input wont be shown to the user.
-String prompt(String prompt, {bool secret: false}) {
-  _STDOUT.write(prompt);
-  
-  if (secret) {
-    stdin.echoMode = false;
-  }
-  
-  var response = Terminal.readLine();
-  if (secret) {
-    print("");
-  }
-  return response;
+Future<String> prompt(String prompt, {bool secret: false}) {
+  return Terminal.writeAndFlush(prompt).then((_) {
+    if (secret) stdin.echoMode = false;
+    var response = Terminal.readLine();
+    if (secret) stdin.echoMode = true;
+    return response;
+  });
 }
 
 /// Prompts a user for a yes or no answer.

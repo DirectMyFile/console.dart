@@ -1,23 +1,23 @@
 import "package:console/console.dart";
+import "dart:io";
+
 
 void main() {
   Terminal.init();
-
-  print("Demo of Console Features");
-  print("------------------------------");
+  stdout.writeln("Demo of Console Features");
+  stdout.writeln("------------------------");
   Terminal.setCrossedOut(true);
-  print("Crossed Out");
+  stdout.writeln("Crossed Out");
   Terminal.setCrossedOut(false);
   Terminal.setBold(true);
-  print("Bold");
+  stdout.writeln("Bold");
   Terminal.setBold(false);
   Terminal.setTextColor(1, bright: true);
-  print("Bright Red");
+  stdout.writeln("Bright Red");
   Terminal.resetAll();
-  print("Progress Bar");
+  stdout.writeln("Progress Bar");
   var bar = new ProgressBar(complete: 5);
-  bar.update(5);
-  print("${Icon.CHECKMARK} Icons");
-  print("You can even copy and paste to the clipboard! (Hard to demo with a screenshot)");
+  bar.update(3);
+  stdout.writeln("${Icon.CHECKMARK} Icons");
+  stdout.writeln("You can even copy and paste to the clipboard! (Hard to demo with a screenshot)");
 }
-

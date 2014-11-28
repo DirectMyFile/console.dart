@@ -180,12 +180,18 @@ class Terminal {
 
   static void nextLine([int times = 1]) => writeANSI("${times}E");
   static void previousLine([int times = 1]) => writeANSI("${times}F");
-  
+
   static void write(String content) {
     init();
     _STDOUT.write(content);
   }
-  
+
+  static Future writeAndFlush(String content) {
+    _STDOUT.write(content);
+    return _STDOUT.flush();
+    //return _STDOUT.addStream((new StreamController()..add(content)..close()).stream);
+  }
+
   static String readLine() => stdin.readLineSync();
   
   static void writeANSI(String after) => write("${ANSI_ESCAPE}${after}");
