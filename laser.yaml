@@ -1,0 +1,5 @@
+mapping:
+  lib:
+    - "(\\w*?).dart": $1_test.dart
+  lib/src:
+    - "(\\w*?).dart": $1_test.dart
