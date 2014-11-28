@@ -14,7 +14,7 @@ const List<String> _YES_RESPONSES = const [
 /// Prompts a user with the specified [prompt].
 /// If [secret] is true, then the typed input wont be shown to the user.
 String prompt(String prompt, {bool secret: false}) {
-  stdout.write(prompt);
+  _STDOUT.write(prompt);
   
   if (secret) {
     stdin.echoMode = false;

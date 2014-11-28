@@ -29,7 +29,7 @@ class Terminal {
   /// Check if terminal features are supported.
   static bool supported() {
     try {
-      stdout.terminalColumns;
+      _STDOUT.terminalColumns;
       return true;
     } on StdoutException catch (e) {
       return false;
@@ -113,11 +113,11 @@ class Terminal {
 
   static void centerCursor({bool row: true}) {
     if (row) {
-      var column = (stdout.terminalColumns / 2).round();
-      var row = (stdout.terminalLines / 2).round();
+      var column = (columns / 2).round();
+      var row = (rows / 2).round();
       moveCursor(row: row, column: column);
     } else {
-      moveToColumn((stdout.terminalColumns / 2).round());
+      moveToColumn((columns / 2).round());
     }
   }
 
@@ -175,15 +175,15 @@ class Terminal {
     writeANSI("${stuff}m");
   }
 
-  static int get rows => stdout.terminalLines;
-  static int get columns => stdout.terminalColumns;
+  static int get rows => _STDOUT.terminalLines;
+  static int get columns => _STDOUT.terminalColumns;
 
   static void nextLine([int times = 1]) => writeANSI("${times}E");
   static void previousLine([int times = 1]) => writeANSI("${times}F");
   
   static void write(String content) {
     init();
-    stdout.write(content);
+    _STDOUT.write(content);
   }
   
   static String readLine() => stdin.readLineSync();
