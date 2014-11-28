@@ -3,5 +3,3 @@ author: Kenneth Endfinger <kaendfinger@gmail.com>
 description: "Console Power Library"
 version: 2.0.0
 homepage: https://github.com/DirectMyFile/console.dart
-dependencies:
-  quiver: '>=0.18.2 <0.20.0'
