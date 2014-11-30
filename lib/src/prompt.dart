@@ -36,9 +36,8 @@ Future<String> prompt(String prompt, {bool secret: false}) {
 /// - yerp
 /// 
 /// The input will be changed to lowercase and then checked.
-bool yesOrNo(String message) {
-  var answer = prompt(message);
-  return _YES_RESPONSES.contains(answer.toLowerCase());
+Future<bool> yesOrNo(String message) {
+  return prompt(message).then((answer) +> _YES_RESPONSES.contains(answer.toLowerCase()));
 }
 
 /// Emulates a Shell Prompt
