@@ -2,7 +2,7 @@ part of console;
 
 // Set up Terminal to use a StringBuffer based stdout. Useful for testing.
 Stdout useStringStdout([Stdout custom]) {
-  _STDOUT = custom!=null ? custom : new StringBufferStdout();
+  _STDOUT = custom !=null ? custom : new StringBufferStdout();
   return _STDOUT;
 }
 
