@@ -1,6 +1,6 @@
 # Console
 
-A Console Library for Epicness
+A high-level console library.
 
 ## Usage
 
@@ -17,13 +17,13 @@ void main() {
 }
 ```
 
-## Unittesting
+## Unit Testing
 
-You can unittest the output produced by this library (and thus your own app that uses this lib). Here is an example:
+You can test the output produced by this library (and thus your own project that uses this library). Here is an example:
 
 
 ```dart
-library somelib.test;
+library someproject.test;
 
 import 'package:unittest/unittest.dart';
 import 'package:console/console.dart';
@@ -41,7 +41,7 @@ void main() {
   group('base functions', () {
     test('centerCursor', () {
       Terminal.centerCursor();
-      expect(output.str, equals(Terminal.ANSI_ESCAPE+"10;40H"));
+      expect(output.str, equals(Terminal.ANSI_ESCAPE + "10;40H"));
     });
   });
 }
