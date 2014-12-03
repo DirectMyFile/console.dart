@@ -47,12 +47,7 @@ class ShellPrompt {
   bool _stop = false;
   
   ShellPrompt({this.message: r"$ "});
-  
-  /// Reads a Single Line
-  String read() {
-    return prompt(message);
-  }
-  
+    
   /// Stops a Loop
   void stop() {
     _stop = true;
@@ -69,9 +64,10 @@ class ShellPrompt {
         _stop = false;
         return;
       }
-      var input = read();
-      controller.add(input);
-      new Future(doRead);
+      prompt(message).then((it) {
+        controller.add(it);
+        new Future(doRead);
+      });
     };
     
     new Future(doRead);
