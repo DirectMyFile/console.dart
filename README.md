@@ -2,6 +2,21 @@
 
 A high-level console library.
 
+## Features
+
+- Console Colors (ANSI)
+- Icons (UTF-8)
+- Keyboard Capture
+- Experimental Clipboard Support
+- Progress Bars
+- Flexible Prompts
+- Shell Prompts
+- Fancy Formatting
+- Loading Bars
+- Timer (like pub's timer)
+- Fancy Trees (like the npm dependency trees)
+- Simple Unit Testing
+
 ## Usage
 
 This library does not work in browsers (for a hopefully obvious reason).
