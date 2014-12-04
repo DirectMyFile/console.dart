@@ -28,7 +28,7 @@ class ShellPrompt {
         _stop = false;
         return;
       }
-      new Prompt(message).prompt().then((it) {
+      new Prompt(message).promptAsync().then((it) {
         controller.add(it);
         new Future(doRead);
       });
@@ -47,10 +47,45 @@ class Chooser<T> {
 
   Chooser(this.choices, {this.message: "Choice: ", this.formatter: _defaultFormatter});
 
-  static String _defaultFormatter(input, int index) =>
-      "[${index}] ${input}";
-  
-  Future<T> choose() {
+  static String _defaultFormatter(input, int index) => "[${index}] ${input}";
+
+  T choose() {
+    var buff = new StringBuffer();
+    int i = -1;
+
+    for (var choice in choices) {
+      i++;
+      buff.writeln(formatter(choice, i + 1));
+    }
+
+    buff.write(message);
+
+    while (true) {
+      var input = readInput(buff.toString());
+      int result = _parseInteger(input);
+
+      if (result == null) {
+        bool exists = choices.map((it) => it.toString().trim().toLowerCase()).contains(input.trim().toLowerCase());
+        if (exists) {
+          var val = choices.firstWhere((it) {
+            return it.toString().trim().toLowerCase() == input.trim().toLowerCase();
+          });
+
+          return val;
+        }
+      }
+
+      var choice;
+
+      try {
+        choice = choices[result - 1];
+        return choice;
+      } catch (e) {
+      }
+    }
+  }
+
+  Future<T> chooseAsync() {
     var buff = new StringBuffer();
     int i = -1;
 
@@ -85,11 +120,11 @@ class Chooser<T> {
         choice = choices[result - 1];
         completer.complete(choice);
       } catch (e) {
-        new Prompt(buff.toString()).prompt().then(process);
+        new Prompt(buff.toString()).promptAsync().then(process);
       }
     };
 
-    new Prompt(buff.toString()).prompt().then(process);
+    new Prompt(buff.toString()).promptAsync().then(process);
 
     return completer.future;
   }
@@ -100,7 +135,7 @@ typedef String ChooserEntryFormatter<T>(T choice, int index);
 class Prompt {
   final String message;
   final bool secret;
-  
+
   Prompt(this.message, {this.secret: false});
 
   /// Prompts a user for a yes or no answer.
@@ -119,14 +154,26 @@ class Prompt {
   /// You can add more to the list of positive responses using the [positive] argument.
   ///
   /// The input will be changed to lowercase and then checked.
-  Future<bool> ask({List<String> positive: const []}) {
-    return prompt()
-        .then((answer) => _YES_RESPONSES.contains(answer.toLowerCase()) || positive.contains(message.toLowerCase()));
+  bool ask({List<String> positive: const []}) {
+    var answer = prompt();
+    return _YES_RESPONSES.contains(answer.toLowerCase()) || positive.contains(message.toLowerCase());
   }
-  
-  Future<String> prompt({ResponseChecker checker}) {
+
+  String prompt({ResponseChecker checker}) {
+    while (true) {
+      terminalAdapter.write(message);
+      if (secret) terminalAdapter.echoMode = false;
+      var response = Terminal.readLine();
+      if (secret) terminalAdapter.echoMode = true;
+      if (checker != null ? checker(response) : true) {
+        return response;
+      }
+    }
+  }
+
+  Future<String> promptAsync({ResponseChecker checker}) {
     var completer = new Completer();
-    
+
     var doAsk;
     doAsk = () {
       terminalAdapter.write(message);
@@ -141,14 +188,14 @@ class Prompt {
         completer.complete(response);
       });
     };
-    
+
     doAsk();
-    
+
     return completer.future;
   }
 }
 
-Future<String> readInput(String message, {bool secret: false, ResponseChecker checker}) {
+String readInput(String message, {bool secret: false, ResponseChecker checker}) {
   return new Prompt(message, secret: secret).prompt(checker: checker);
 }
 

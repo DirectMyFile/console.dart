@@ -8,7 +8,6 @@ void main() {
     "D"
   ], message: "Select a Letter: ");
   
-  chooser.choose().then((value) {
-    print("You chose ${value}.");
-  });
+  var letter = chooser.choose();
+  print("You chose ${letter}.");
 }
