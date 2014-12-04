@@ -11,6 +11,7 @@ A high-level console library.
 - Progress Bars
 - Flexible Prompts
 - Shell Prompts
+- Choosers
 - Fancy Formatting
 - Loading Bars
 - Timer (like pub's timer)
