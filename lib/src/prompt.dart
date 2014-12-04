@@ -43,21 +43,23 @@ class ShellPrompt {
 class Chooser<T> {
   final String message;
   final List<T> choices;
+  final ChooserEntryFormatter<T> formatter;
 
-  Chooser(this.choices, {this.message});
+  Chooser(this.choices, {this.message: "Choice: ", this.formatter: _defaultFormatter});
 
+  static String _defaultFormatter(input, int index) =>
+      "[${index}] ${input}";
+  
   Future<T> choose() {
     var buff = new StringBuffer();
-    if (message != null) buff.writeln(message);
-
     int i = -1;
 
     for (var choice in choices) {
       i++;
-      buff.writeln("[${i + 1}] ${choice}");
+      buff.writeln(formatter(choice, i + 1));
     }
 
-    buff.write("Choice: ");
+    buff.write(message);
 
     var completer = new Completer();
 
@@ -92,6 +94,8 @@ class Chooser<T> {
     return completer.future;
   }
 }
+
+typedef String ChooserEntryFormatter<T>(T choice, int index);
 
 class Prompt {
   final String message;
