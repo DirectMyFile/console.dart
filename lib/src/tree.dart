@@ -2,7 +2,7 @@ part of console;
 
 /// Prints a tree. This is ported from the NPM code (the dependency tree)
 void printTree(input, {String prefix: '', Map opts}) {
-  _STDOUT.write(createTree(input, prefix: prefix, opts: opts));
+  Terminal.write(createTree(input, prefix: prefix, opts: opts));
 }
 
 /// Creates a Tree (this is like the npm dependency tree)

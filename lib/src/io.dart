@@ -1,36 +1,42 @@
 part of console;
 
-// Set up Terminal to use a StringBuffer based stdout. Useful for testing.
-Stdout useStringStdout([Stdout custom]) {
-  _STDOUT = custom !=null ? custom : new StringBufferStdout();
-  return _STDOUT;
-}
+class BufferTerminalAdapter extends TerminalAdapter {
+  StringBuffer buffer = new StringBuffer();
+  String input = "";
+  
+  @override
+  int get columns => 80;
+  @override
+  int get rows => 20;
+  
+  @override
+  String read() => input;
 
-class StringBufferStdout implements Stdout {
-  bool hasTerminal = true;
-  int terminalColumns = 80;
-  int terminalLines = 20;
-
-  StringBuffer buffer;
-  StringBufferStdout() {
-    buffer = new StringBuffer();
+  @override
+  Stream<List<int>> byteStream() {
+    var c = new StreamController();
+    new Future(() {
+      c.add(input.codeUnits);
+      c.add("\n".codeUnits);
+    });
+    return c.stream;
   }
 
-  String get str => buffer.toString();
-  void clear() => buffer.clear();
+  @override
+  void write(String data) {
+    buffer.write(data);
+  }
 
-  Encoding get encoding => UTF8;
-  void set encoding(Encoding encoding) {}
-  void write(object) => buffer.write(object);
-  void writeln([object = "" ]) => buffer.writeln(object);
-  void writeAll(objects, [sep = ""]) => buffer.writeAll(objects, sep);
-  void add(List<int> data) => buffer.write(data.join());
-  void addError(error, [StackTrace stackTrace]) => buffer.write(error);
-  void writeCharCode(int charCode) => buffer.writeCharCode(charCode);
-  Future addStream(Stream<List<int>> stream) => stream.listen((data) => buffer.write(data)).asFuture();
-  Future flush() => new Future.value();
-  Future close() => new Future.value();
-  Future get done => new Future.value();
+  @override
+  void writeln(String data) {
+    buffer.writeln(data);
+  }
+
+  bool echoMode = true;
+  bool lineMode = true;
+
+  @override
+  int readByte() => 0;
 }
 
 void inheritIO(Process process, {String prefix, bool lineBased: true}) {

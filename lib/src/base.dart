@@ -8,32 +8,12 @@ class Terminal {
   static bool initialized = false;
   static Color _currentTextColor;
   static Color _currentBackgroundColor;
-
-  static String TERM;
   
   /// Initializes the Console
   static void init() {
     if (initialized) return;
     
     initialized = true;
-
-    if (!supported()) {
-      throw "Advanced Terminal Features are not supported with your current environment.";
-    }
-
-    if (Platform.isLinux) {
-      TERM = Platform.environment["TERM"];
-    }
-  }
-
-  /// Check if terminal features are supported.
-  static bool supported() {
-    try {
-      _STDOUT.terminalColumns;
-      return true;
-    } on StdoutException catch (e) {
-      return false;
-    }
   }
 
   /// Moves the Cursor Forward the specified amount of [times].
@@ -149,8 +129,8 @@ class Terminal {
 
   static void resetAll() {
     sgr(0);
-    stdin.echoMode = true;
-    stdin.lineMode = true;
+    terminalAdapter.echoMode = true;
+    terminalAdapter.lineMode = true;
     _currentTextColor = null;
     _currentBackgroundColor = null;
   }
@@ -175,24 +155,18 @@ class Terminal {
     writeANSI("${stuff}m");
   }
 
-  static int get rows => _STDOUT.terminalLines;
-  static int get columns => _STDOUT.terminalColumns;
+  static int get rows => terminalAdapter.rows;
+  static int get columns => terminalAdapter.columns;
 
   static void nextLine([int times = 1]) => writeANSI("${times}E");
   static void previousLine([int times = 1]) => writeANSI("${times}F");
 
   static void write(String content) {
     init();
-    _STDOUT.write(content);
+    terminalAdapter.write(content);
   }
 
-  static Future writeAndFlush(String content) {
-    _STDOUT.write(content);
-    return _STDOUT.flush();
-    //return _STDOUT.addStream((new StreamController()..add(content)..close()).stream);
-  }
-
-  static String readLine() => stdin.readLineSync();
+  static String readLine() => terminalAdapter.read();
   
   static void writeANSI(String after) => write("${ANSI_ESCAPE}${after}");
   
@@ -204,27 +178,26 @@ class Terminal {
     return true;
   }
   
-  
   static CursorPosition getCursorPosition() {
-    var lm = stdin.lineMode;
-    var em = stdin.echoMode;
+    var lm = terminalAdapter.lineMode;
+    var em = terminalAdapter.echoMode;
     
-    stdin.lineMode = false;
-    stdin.echoMode = false;
+    terminalAdapter.lineMode = false;
+    terminalAdapter.echoMode = false;
     
     writeANSI("6n");
     var bytes = [];
     
     while (true) {
-      var byte = stdin.readByteSync();
+      var byte = terminalAdapter.readByte();
       bytes.add(byte);
       if (byte == 82) {
         break;
       }
     }
     
-    stdin.lineMode = lm;
-    stdin.echoMode = em;
+    terminalAdapter.lineMode = lm;
+    terminalAdapter.echoMode = em;
     
     var str = new String.fromCharCodes(bytes);
     

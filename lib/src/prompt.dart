@@ -125,10 +125,11 @@ class Prompt {
     
     var doAsk;
     doAsk = () {
-      Terminal.writeAndFlush(message).then((_) {
-        if (secret) stdin.echoMode = false;
+      terminalAdapter.write(message);
+      new Future(() {
+        if (secret) terminalAdapter.echoMode = false;
         var response = Terminal.readLine();
-        if (secret) stdin.echoMode = true;
+        if (secret) terminalAdapter.echoMode = true;
         if (checker != null && !checker(response)) {
           doAsk();
           return;
