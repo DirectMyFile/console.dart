@@ -14,6 +14,6 @@ part 'src/prompt.dart';
 part 'src/timer.dart';
 part 'src/tree.dart';
 part 'src/color.dart';
-part 'src/keycode.dart';
+part 'src/keyboard.dart';
 
 Stdout _STDOUT = stdout;

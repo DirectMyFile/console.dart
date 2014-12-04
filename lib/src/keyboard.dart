@@ -1,6 +1,5 @@
 part of console;
 
-
 abstract class KeyCode {
   static const String UP = "${Terminal.ANSI_ESCAPE}A";
   static const String DOWN = "${Terminal.ANSI_ESCAPE}B";
@@ -29,5 +28,20 @@ abstract class KeyCode {
   static const String PAGE_DOWN = "${Terminal.ANSI_ESCAPE}6~";
 
   static const String SPACE = " ";
+}
 
+class Keyboard {
+  static Stream<String> _input = stdin.transform(ASCII.decoder).asBroadcastStream();
+
+  static Stream<String> listenKey(String code) {
+    return _input.where((it) {
+      return it == code;
+    });
+  }
+
+  static Stream<String> listenKeys(List<String> codes) {
+    return _input.where((it) {
+      return codes.contains(it);
+    });
+  }
 }

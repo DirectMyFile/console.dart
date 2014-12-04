@@ -6,7 +6,7 @@ class Icon {
   static const String BALLOT_X = "\u2717";
   static const String VERTICAL_LINE = "\u23D0";
   static const String HORIZONTAL_LINE = "\u23AF";
-  static const String LEFT_VERTICLE_LINE = "\u23B8";
+  static const String LEFT_VERTICAL_LINE = "\u23B8";
   static const String LOW_LINE = "\uFF3F";
   static const String PIPE_VERTICAL = "\u2502";
   static const String PIPE_LEFT_HALF_VERTICAL = "\u2514";
