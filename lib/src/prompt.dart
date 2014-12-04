@@ -11,14 +11,16 @@ const List<String> _YES_RESPONSES = const [
   "yerp"
 ];
 
-/// Prompts a user with the specified [prompt].
+const Duration _PROMPT_DELAY = const Duration(milliseconds: 2);
+
+/// Prompts a user with the specified [message].
 /// If [secret] is true, then the typed input wont be shown to the user.
-Future<String> prompt(String prompt, {bool secret: false}) {
-  return Terminal.writeAndFlush(prompt).then((_) {
+Future<String> prompt(String message, {bool secret: false}) {
+  return Terminal.writeAndFlush(message).then((_) {
     if (secret) stdin.echoMode = false;
     var response = Terminal.readLine();
     if (secret) stdin.echoMode = true;
-    return response;
+    return new Future.delayed(_PROMPT_DELAY, () => response);
   });
 }
 
@@ -34,10 +36,12 @@ Future<String> prompt(String prompt, {bool secret: false}) {
 /// - yeah
 /// - true
 /// - yerp
-/// 
+///
+/// You can add more to the list of positive responses using the [positive] argument.
+///
 /// The input will be changed to lowercase and then checked.
-Future<bool> yesOrNo(String message) {
-  return prompt(message).then((answer) => _YES_RESPONSES.contains(answer.toLowerCase()));
+Future<bool> yesOrNo(String message, {List<String> positive: const []}) {
+  return prompt(message).then((answer) => _YES_RESPONSES.contains(answer.toLowerCase()) || positive.contains(message.toLowerCase()));
 }
 
 /// Emulates a Shell Prompt

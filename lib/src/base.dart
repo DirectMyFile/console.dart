@@ -228,7 +228,7 @@ class Terminal {
     
     var str = new String.fromCharCodes(bytes);
     
-    List<int> parts = new List.from(str.substring(2, str.length - 1).split(";").map((it) => int.parse(it)));
+    List<int> parts = new List.from(str.substring(2, str.length - 1).split(";").map((it) => int.parse(it))).toList();
     
     return new CursorPosition(parts[0], parts[1]);
   }
