@@ -129,8 +129,8 @@ class Terminal {
 
   static void resetAll() {
     sgr(0);
-    terminalAdapter.echoMode = true;
-    terminalAdapter.lineMode = true;
+//    terminalAdapter.echoMode = true;
+//    terminalAdapter.lineMode = true;
     _currentTextColor = null;
     _currentBackgroundColor = null;
   }

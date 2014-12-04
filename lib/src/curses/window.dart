@@ -19,10 +19,10 @@ abstract class Window {
     stdin.echoMode = false;
   }
   
-  void update() {
+  void draw() {
     Terminal.eraseDisplay(2);
-    var width = Terminal.rows;
-    Terminal.moveCursorUp(Terminal.columns);
+    var width = Terminal.columns;
+    Terminal.moveCursor(row: 1, column: 1);
     Terminal.setBackgroundColor(7, bright: true);
     _repeatFunction((i) => Terminal.write(" "), width);
     Terminal.setTextColor(0);
@@ -31,21 +31,17 @@ abstract class Window {
     _repeatFunction((i) => Terminal.write("\n"), Terminal.rows - 1);
     Terminal.moveCursor(row: 2, column: 1);
     Terminal.centerCursor(row: true);
-  }
-  
-  void open() {
-    update();
-    startUpdateLoop();
+    Terminal.resetBackgroundColor();
   }
   
   void display() {
-    update();
+    draw();
   }
   
   Timer startUpdateLoop([Duration wait]) {
     if (wait == null) wait = new Duration(seconds: 2);
     _updateTimer = new Timer.periodic(wait, (timer) {
-      update();
+      draw();
     });
     return _updateTimer;
   }

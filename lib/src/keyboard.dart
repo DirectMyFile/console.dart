@@ -33,13 +33,25 @@ abstract class KeyCode {
 class Keyboard {
   static Stream<String> _input = terminalAdapter.byteStream().transform(ASCII.decoder).asBroadcastStream();
 
-  static Stream<String> listenKey(String code) {
+  static bool _initialized = false;
+  
+  static void init() {
+    if (!_initialized) {
+      stdin.echoMode = false;
+      stdin.lineMode = false;
+      _initialized = true;
+    }
+  }
+  
+  static Stream<String> bindKey(String code) {
+    init();
     return _input.where((it) {
       return it == code;
     });
   }
 
-  static Stream<String> listenKeys(List<String> codes) {
+  static Stream<String> bindKeys(List<String> codes) {
+    init();
     return _input.where((it) {
       return codes.contains(it);
     });
