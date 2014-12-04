@@ -70,6 +70,7 @@ class Terminal {
     }
     writeANSI("?25l");
   }
+  
   static void showCursor() {
     writeANSI("?25h");
   }
@@ -129,8 +130,6 @@ class Terminal {
 
   static void resetAll() {
     sgr(0);
-//    terminalAdapter.echoMode = true;
-//    terminalAdapter.lineMode = true;
     _currentTextColor = null;
     _currentBackgroundColor = null;
   }

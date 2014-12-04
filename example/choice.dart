@@ -8,6 +8,6 @@ void main() {
     "D"
   ], message: "Select a Letter: ");
   
-  var letter = chooser.choose();
+  var letter = chooser.chooseSync();
   print("You chose ${letter}.");
 }
