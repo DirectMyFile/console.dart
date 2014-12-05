@@ -1,15 +1,32 @@
+import "dart:io";
 import "package:console/console.dart";
 
 var questionCount = 0;
+var points = 0;
+
+class Question {
+  final String message;
+  final answer;
+  final List<String> choices;
+
+  Question(this.message, this.answer, {this.choices});
+
+  bool askQuestion() {
+    if (choices != null) {
+      console.log(message);
+      var chooser = new Chooser<String>(scramble(choices), message: "Answer: ");
+      return chooser.chooseSync() == answer;
+    } else if (answer is String) {
+      return new Prompter("${message} ").promptSync().toLowerCase().trim() == answer.toLowerCase().trim();
+    } else if (answer is bool) {
+      return new Prompter("${message} ").askSync() == answer;
+    } else {
+      throw new Exception("");
+    }
+  }
+}
 
 void main() {
-  question("What conference was Dart released at?", "GOTO Conference", [
-    "Google I/O",
-    "GOTO Conference",
-    "JavaOne",
-    "Dart Summit"
-  ]);
-
   var dartPeople = [
     "Lars Bak",
     "Kasper Lund",
@@ -19,21 +36,41 @@ void main() {
     "Kathy Walrath"
   ];
 
-  question("Who is the Product Manager for Dart at Google?", "Seth Ladd", dartPeople);
+  [
+    new Question("What conference was Dart released at?", "GOTO Conference", choices: [
+      "Google I/O",
+      "GOTO Conference",
+      "JavaOne",
+      "Dart Summit"
+    ]),
+    new Question("Who is the Product Manager for Dart at Google?", "Seth Ladd", choices: dartPeople),
+    new Question("What type system does Dart have?", "Dynamic", choices: [ "Static", "Dynamic" ]),
+    new Question("What is the package manager for Dart called?", "pub"),
+    new Question("What type of execution model does Dart have?", "Event Loop", choices: [ "Multi Threaded", "Single Threaded", "Event Loop" ]),
+    new Question("Does Dart have an interface keyword?", false),
+    new Question("Is this valid Dart code?\n  main() => print(\"Hello World\");\nAnswer: ", true),
+    new Question("Is this valid Dart code?\n  void main() => print(\"Hello World\");\nAnswer: ", true),
+    new Question("Can you use Dart in the browser?", true),
+    new Question("Before dart2js, what was the name of the Dart to JavaScript Compiler?", "frog")
+  ].forEach((q) {
+   questionCount++;
+    var correct = q.askQuestion();
+    if (correct) {
+      print(format("{color.green}${Icon.CHECKMARK}{color.normal} Correct"));
+      points++;
+    } else {
+      print(format("{color.red}${Icon.BALLOT_X}{color.normal} Incorrect"));
+    }
+  });
+
+  results();
 }
 
-void question(String question, String correct, List<String> choices) {
-  questionCount++;
-  print("${question}");
-  var chooser = new Chooser<String>(scramble(choices), message: "Select an Answer: ", formatter: (value, i) {
-    return "  [${i}] ${value}";
-  });
-  var choice = chooser.chooseSync();
-  if (choice != correct) {
-    print(format("{color.red}${Icon.BALLOT_X}{color.normal} Sorry, the correct answer is '${correct}'"));
-  } else {
-    print(format("{color.green}${Icon.CHECKMARK}{color.normal} Correct"));
-  }
+void results() {
+  print("Quiz Results:");
+  print("  Correct: ${points}");
+  print("  Incorrect: ${questionCount - points}");
+  print("  Score: ${((points / questionCount) * 100).toStringAsFixed(2)}%");
 }
 
 List<String> scramble(List<String> choices) {

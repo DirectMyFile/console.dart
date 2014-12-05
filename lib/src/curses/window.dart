@@ -55,12 +55,12 @@ abstract class Window {
       _updateTimer.cancel();
     }
     Terminal.eraseDisplay();
-    Terminal.moveCursor(1, 1);
+    Terminal.moveCursor(row: 1, column: 1);
     stdin.echoMode = true;
   }
   
   void writeCentered(String text) {
-    Terminal.moveCursorTo((text.length / 2).round());
+    Terminal.moveCursor(column: (text.length / 2).round());
     Terminal.write(text);
   }
 }
