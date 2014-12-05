@@ -1,6 +1,6 @@
 part of console;
 
-Map<String, Color> _COLORS = {
+final Map<String, Color> _COLORS = {
   "black": new Color(0),
   "gray": new Color(0, bright: true),
   "red": new Color(1),
@@ -24,8 +24,8 @@ class Color {
   final bool xterm;
   final bool bright;
   
-  Color(this.id, {this.xterm: false, this.bright: false});
-  
+  const Color(this.id, {this.xterm: false, this.bright: false});
+
   @override
   String toString() {
     if (xterm) {

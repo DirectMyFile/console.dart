@@ -159,7 +159,7 @@ class Prompter {
     return _YES_RESPONSES.contains(answer.toLowerCase()) || positive.contains(message.toLowerCase());
   }
   
-  Future<bool> ask({List<String> positive: const []}) async {
+  Future<bool> ask({List<String> positive: const []}) {
     return prompt().then((answer) {
       return _YES_RESPONSES.contains(answer.toLowerCase()) || positive.contains(message.toLowerCase());
     });

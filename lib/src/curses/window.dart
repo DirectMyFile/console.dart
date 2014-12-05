@@ -17,14 +17,15 @@ abstract class Window {
   
   void _init() {
     stdin.echoMode = false;
+
+    Terminal.onResize.listen((_) {
+      draw();
+    });
   }
   
   void draw() {
     Terminal.eraseDisplay(2);
     var width = Terminal.columns;
-    ProcessSignal.SIGWINCH.watch().listen((_) {
-      
-    });
     Terminal.moveCursor(row: 1, column: 1);
     Terminal.setBackgroundColor(7, bright: true);
     _repeatFunction((i) => Terminal.write(" "), width);
@@ -53,12 +54,13 @@ abstract class Window {
     if (_updateTimer != null) {
       _updateTimer.cancel();
     }
-    Terminal.eraseDisplay(2);
+    Terminal.eraseDisplay();
+    Terminal.moveCursor(1, 1);
     stdin.echoMode = true;
   }
   
   void writeCentered(String text) {
-    Terminal.moveCursorBack((text.length / 2).round());
+    Terminal.moveCursorTo((text.length / 2).round());
     Terminal.write(text);
   }
 }
