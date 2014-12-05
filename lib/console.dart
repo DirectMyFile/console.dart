@@ -15,3 +15,4 @@ part 'src/timer.dart';
 part 'src/tree.dart';
 part 'src/color.dart';
 part 'src/keyboard.dart';
+part 'src/adapter.dart';
