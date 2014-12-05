@@ -22,6 +22,9 @@ abstract class Window {
   void draw() {
     Terminal.eraseDisplay(2);
     var width = Terminal.columns;
+    ProcessSignal.SIGWINCH.watch().listen((_) {
+      
+    });
     Terminal.moveCursor(row: 1, column: 1);
     Terminal.setBackgroundColor(7, bright: true);
     _repeatFunction((i) => Terminal.write(" "), width);

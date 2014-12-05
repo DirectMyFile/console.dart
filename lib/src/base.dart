@@ -15,6 +15,8 @@ class Terminal {
     
     initialized = true;
   }
+  
+  static Stream get onResize => ProcessSignal.SIGWINCH.watch();
 
   /// Moves the Cursor Forward the specified amount of [times].
   static void moveCursorForward([int times = 1]) => writeANSI("${times}C");

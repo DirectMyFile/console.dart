@@ -170,7 +170,10 @@ class Prompter {
       terminalAdapter.write(message);
       if (secret) terminalAdapter.echoMode = false;
       var response = Terminal.readLine();
-      if (secret) terminalAdapter.echoMode = true;
+      if (secret) {
+        terminalAdapter.echoMode = true;
+        print("");
+      }
       if (checker != null ? checker(response) : true) {
         return response;
       }
