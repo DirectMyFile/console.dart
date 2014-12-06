@@ -4,7 +4,8 @@ part of console;
 class Terminal {
   /// ANSI Escape Code
   static const String ANSI_ESCAPE = "\x1b[";
-  static bool _registeredCTRLC = false;
+  static bool _cursorCTRLC = false;
+  static bool _buffCTRLC = false;
   static bool initialized = false;
   static Color _currentTextColor;
   static Color _currentBackgroundColor;
@@ -73,18 +74,33 @@ class Terminal {
   static Color getBackgroundColor() => _currentBackgroundColor;
 
   static void hideCursor() {
-    if (!_registeredCTRLC) {
+    if (!_cursorCTRLC) {
       ProcessSignal.SIGINT.watch().listen((signal) {
         showCursor();
         exit(0);
       });
-      _registeredCTRLC = true;
+      _cursorCTRLC = true;
     }
     writeANSI("?25l");
   }
   
   static void showCursor() {
     writeANSI("?25h");
+  }
+
+  static void altBuffer() {
+    if (!_buffCTRLC) {
+      ProcessSignal.SIGINT.watch().listen((signal) {
+        normBuffer();
+        exit(0);
+      });
+      _buffCTRLC = true;
+    }
+    writeANSI("?47h");
+  }
+
+  static void normBuffer() {
+    writeANSI("?47l");
   }
   
   static void setBackgroundColor(int id, {bool xterm: false, bool bright: false}) {
