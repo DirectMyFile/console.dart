@@ -225,8 +225,8 @@ class CursorPosition {
   final int row;
   final int column;
 
-  CursorPosition(this.row, this.column);
+  CursorPosition(this.column, this.row);
   
   @override
-  String toString() => "(${row}, ${column})";
+  String toString() => "(${column}, ${row})";
 }
