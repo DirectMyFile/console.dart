@@ -16,14 +16,34 @@ void main([args, port]) {
       expect(output, ansi("10;40H"));
     });
     
+    test('hideCursor', () {
+      Terminal.hideCursor();
+      expect(output, ansi("?25l"));
+    });
+    
     test('showCursor', () {
       Terminal.showCursor();
       expect(output, ansi("?25h"));
     });
     
-    test('hideCursor', () {
-      Terminal.hideCursor();
-      expect(output, ansi("?25l"));
+    test('moveCursorForward', () {
+      Terminal.moveCursorForward(1);
+      expect(output, ansi("1C"));
+    });
+    
+    test('moveCursorBack', () {
+      Terminal.moveCursorForward(1);
+      expect(output, ansi("1D"));
+    });
+    
+    test('moveCursorUp', () {
+      Terminal.moveCursorForward(1);
+      expect(output, ansi("1A"));
+    });
+    
+    test('moveCursorDown', () {
+      Terminal.moveCursorForward(1);
+      expect(output, ansi("1B"));
     });
   });
 }

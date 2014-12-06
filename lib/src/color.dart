@@ -102,8 +102,9 @@ class TextPen {
     buffer.write(color.toString());
     return this;
   }
-  
+
   TextPen print() {
+    normal();
     console.log(buffer.toString());
     return this;
   }
@@ -111,6 +112,14 @@ class TextPen {
   TextPen reset() {
     buffer.clear();
     return this;
+  }
+  
+  void call([String input]) {
+    if (input != null) {
+      text(input);
+    } else {
+      print();
+    }
   }
   
   @override

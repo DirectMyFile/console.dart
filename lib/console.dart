@@ -21,3 +21,4 @@ part 'src/adapter.dart';
 part 'src/sequences.dart';
 part 'src/utils.dart';
 part 'src/cursor.dart';
+part 'src/signal.dart';

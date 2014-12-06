@@ -51,7 +51,9 @@ void main() {
     new Question("Is this valid Dart code?\n  main() => print(\"Hello World\");\nAnswer: ", true),
     new Question("Is this valid Dart code?\n  void main() => print(\"Hello World\");\nAnswer: ", true),
     new Question("Can you use Dart in the browser?", true),
-    new Question("Before dart2js, what was the name of the Dart to JavaScript Compiler?", "frog")
+    new Question("What was the first Dart to JavaScript Compiler called?", "dartc"),
+    new Question("Before dart2js, what was the name of the Dart to JavaScript Compiler?", "frog"),
+    new Question("Is Dart faster than JavaScript in most cases?", true)
   ].forEach((q) {
    questionCount++;
     var correct = q.askQuestion();
