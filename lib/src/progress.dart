@@ -80,7 +80,10 @@ class LoadingBar {
   
   /// Stops the Loading Bar with the specified (and optional) [message].
   void stop([String message]) {
-    _timer.cancel();
+    if (_timer != null) {
+      _timer.cancel();
+    }
+    
     if (message != null) {
       position = message;
       update();
