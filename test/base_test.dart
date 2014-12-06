@@ -13,7 +13,35 @@ void main([args, port]) {
   group('base functions', () {
     test('centerCursor', () {
       Terminal.centerCursor();
-      expect(output.toString(), equals(Terminal.ANSI_ESCAPE + "10;40H"));
+      expect(output, ansi("10;40H"));
+    });
+    
+    test('showCursor', () {
+      Terminal.showCursor();
+      expect(output, ansi("?25h"));
+    });
+    
+    test('hideCursor', () {
+      Terminal.hideCursor();
+      expect(output, ansi("?25l"));
     });
   });
 }
+
+class ANSIMatcher extends Matcher {
+  final String value;
+  
+  const ANSIMatcher(this.value);
+  
+  @override
+  Description describe(Description description) {
+    return description;
+  }
+
+  @override
+  bool matches(item, Map matchState) {
+    return item.toString() == "${Terminal.ANSI_ESCAPE}${value}";
+  }
+}
+
+Matcher ansi(String value) => new ANSIMatcher(value);
