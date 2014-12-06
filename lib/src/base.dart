@@ -40,16 +40,6 @@ class Terminal {
     eraseLine(2);
     write(line);
   }
-  
-  static void enableMouseTracking() {
-    writeANSI("?1000h");
-    writeANSI("?1002h");
-  }
-  
-  static void disableMouseTracking() {
-    writeANSI("?1002l");
-    writeANSI("?1000l");
-  }
 
   /// Sets the Current Text Color.
   static void setTextColor(int id, {bool xterm: false, bool bright: false}) {
