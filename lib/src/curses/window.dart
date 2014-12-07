@@ -60,7 +60,9 @@ abstract class Window {
   }
   
   void writeCentered(String text) {
-    Terminal.moveCursor(column: (text.length / 2).round());
+    var column = ((Terminal.columns / 2) - (text.length / 2)).round();
+    var row = (Terminal.rows / 2).round();
+    Terminal.moveCursor(row: row, column: column);
     Terminal.write(text);
   }
 }
