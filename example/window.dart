@@ -1,15 +1,30 @@
 import "package:console/curses.dart";
 import "dart:io";
 import "package:console/console.dart";
+import "dart:async";
 
-class HelloWindow extends Window {
-  HelloWindow() : super("Hello");
+class DemoWindow extends Window {
+  bool showWelcomeMessage = true;
+  Timer loaderTimer;
+  
+  DemoWindow() : super("Hello");
   
   @override
   void draw() {
     super.draw();
     
-    writeCentered("Hello World");
+    if (loaderTimer != null) {
+      loaderTimer.cancel();
+    }
+    
+    if (showWelcomeMessage) {
+      writeCentered("Welcome!");
+    } else {
+      Terminal.centerCursor();
+      Terminal.moveToColumn(1);
+      var loader = new WideLoadingBar();
+      loaderTimer = loader.loop();
+    }
   }
 
   @override
@@ -20,10 +35,27 @@ class HelloWindow extends Window {
       Terminal.eraseDisplay();
       exit(0);
     });
+    
+    Keyboard.bindKey("x").listen((_) {
+      title = title == "Hello" ? "Goodbye" : "Hello";
+      draw();
+    });
+    
+    Keyboard.bindKey(KeyCode.SPACE).listen((_) {
+      showWelcomeMessage = false;
+      draw();
+    });
+    
+    Keyboard.bindKey("p").listen((_) {
+      if (loaderTimer != null) {
+        loaderTimer.cancel();
+        loaderTimer = null;
+      }
+    });
   }
 }
 
 void main() {
-  var window = new HelloWindow();
+  var window = new DemoWindow();
   window.display();
 }
