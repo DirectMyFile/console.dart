@@ -1,53 +1,53 @@
 part of console;
 
 class Cursor {
-  CursorPosition get position => Terminal.getCursorPosition();
+  CursorPosition get position => Console.getCursorPosition();
   
   Cursor();
   
   void move(int column, int row) {
-    Terminal.moveCursor(column: column, row: row);
+    Console.moveCursor(column: column, row: row);
   }
   
   void moveUp([int times = 1]) {
-    Terminal.moveCursorUp(times);
+    Console.moveCursorUp(times);
   }
   
   void moveDown([int times = 1]) {
-    Terminal.moveCursorDown(times);
+    Console.moveCursorDown(times);
   }
   
   void moveLeft([int times = 1]) {
-    Terminal.moveCursorBack(times);
+    Console.moveCursorBack(times);
   }
   
   void moveRight([int times = 1]) {
-    Terminal.moveCursorForward(times);
+    Console.moveCursorForward(times);
   }
   
   void show() {
-    Terminal.showCursor();
+    Console.showCursor();
   }
   
   void hide() {
-    Terminal.hideCursor();
+    Console.hideCursor();
   }
   
   void write(String text) {
-    Terminal.write(text);
+    Console.write(text);
   }
   
   void writeAt(int column, int row, String text) {
-    Terminal.saveCursor();
+    Console.saveCursor();
     write(text);
-    Terminal.restoreCursor();
+    Console.restoreCursor();
   }
   
   void save() {
-    Terminal.saveCursor();
+    Console.saveCursor();
   }
   
   void restore() {
-    Terminal.restoreCursor();
+    Console.restoreCursor();
   }
 }

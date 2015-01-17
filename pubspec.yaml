@@ -5,6 +5,7 @@ version: 2.1.2
 homepage: https://github.com/DirectMyFile/console.dart
 dependencies:
   quiver: '>=0.20.0 <0.30.0'
+  binary_interop: ">=0.0.3 <0.1.0"
 dev_dependencies:
   laser: any
 environment:

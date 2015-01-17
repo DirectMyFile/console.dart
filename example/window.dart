@@ -20,8 +20,8 @@ class DemoWindow extends Window {
     if (showWelcomeMessage) {
       writeCentered("Welcome!");
     } else {
-      Terminal.centerCursor();
-      Terminal.moveToColumn(1);
+      Console.centerCursor();
+      Console.moveToColumn(1);
       var loader = new WideLoadingBar();
       loaderTimer = loader.loop();
     }
@@ -31,8 +31,8 @@ class DemoWindow extends Window {
   void initialize() {
     Keyboard.bindKeys(["q", "Q"]).listen((_) {
       close();
-      Terminal.resetAll();
-      Terminal.eraseDisplay();
+      Console.resetAll();
+      Console.eraseDisplay();
       exit(0);
     });
     

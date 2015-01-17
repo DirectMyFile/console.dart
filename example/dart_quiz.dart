@@ -13,7 +13,7 @@ class Question {
 
   bool askQuestion() {
     if (choices != null) {
-      console.log(message);
+      print(message);
       var chooser = new Chooser<String>(scramble(choices), message: "Answer: ");
       return chooser.chooseSync() == answer;
     } else if (answer is String) {

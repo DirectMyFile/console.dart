@@ -18,24 +18,24 @@ abstract class Window {
   void _init() {
     stdin.echoMode = false;
 
-    Terminal.onResize.listen((_) {
+    Console.onResize.listen((_) {
       draw();
     });
   }
   
   void draw() {
-    Terminal.eraseDisplay(2);
-    var width = Terminal.columns;
-    Terminal.moveCursor(row: 1, column: 1);
-    Terminal.setBackgroundColor(7, bright: true);
-    _repeatFunction((i) => Terminal.write(" "), width);
-    Terminal.setTextColor(0);
-    Terminal.moveCursor(row: 1, column: (Terminal.columns / 2).round() - (title.length / 2).round());
-    Terminal.write(title);
-    _repeatFunction((i) => Terminal.write("\n"), Terminal.rows - 1);
-    Terminal.moveCursor(row: 2, column: 1);
-    Terminal.centerCursor(row: true);
-    Terminal.resetBackgroundColor();
+    Console.eraseDisplay(2);
+    var width = Console.columns;
+    Console.moveCursor(row: 1, column: 1);
+    Console.setBackgroundColor(7, bright: true);
+    _repeatFunction((i) => Console.write(" "), width);
+    Console.setTextColor(0);
+    Console.moveCursor(row: 1, column: (Console.columns / 2).round() - (title.length / 2).round());
+    Console.write(title);
+    _repeatFunction((i) => Console.write("\n"), Console.rows - 1);
+    Console.moveCursor(row: 2, column: 1);
+    Console.centerCursor(row: true);
+    Console.resetBackgroundColor();
   }
   
   void display() {
@@ -54,16 +54,16 @@ abstract class Window {
     if (_updateTimer != null) {
       _updateTimer.cancel();
     }
-    Terminal.eraseDisplay();
-    Terminal.moveCursor(row: 1, column: 1);
+    Console.eraseDisplay();
+    Console.moveCursor(row: 1, column: 1);
     stdin.echoMode = true;
   }
   
   void writeCentered(String text) {
-    var column = ((Terminal.columns / 2) - (text.length / 2)).round();
-    var row = (Terminal.rows / 2).round();
-    Terminal.moveCursor(row: row, column: column);
-    Terminal.write(text);
+    var column = ((Console.columns / 2) - (text.length / 2)).round();
+    var row = (Console.rows / 2).round();
+    Console.moveCursor(row: row, column: column);
+    Console.write(text);
   }
 }
 

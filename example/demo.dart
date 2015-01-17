@@ -3,18 +3,18 @@ import "dart:io";
 
 
 void main() {
-  Terminal.init();
+  Console.init();
   print("Demo of Console Features");
   print("------------------------");
-  Terminal.setCrossedOut(true);
+  Console.setCrossedOut(true);
   print("Crossed Out");
-  Terminal.setCrossedOut(false);
-  Terminal.setBold(true);
+  Console.setCrossedOut(false);
+  Console.setBold(true);
   print("Bold");
-  Terminal.setBold(false);
-  Terminal.setTextColor(1, bright: true);
+  Console.setBold(false);
+  Console.setTextColor(1, bright: true);
   print("Bright Red");
-  Terminal.resetAll();
+  Console.resetAll();
   print("Progress Bar");
   var bar = new ProgressBar(complete: 5);
   bar.update(3);

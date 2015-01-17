@@ -32,12 +32,12 @@ class StdioTerminalAdapter extends TerminalAdapter {
 
   @override
   void write(String data) {
-    console.log.write(data);
+    stdout.write(data);
   }
 
   @override
   void writeln(String data) {
-    console.log.writeln(data);
+    stdout.writeln(data);
   }
 
   @override

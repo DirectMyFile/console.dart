@@ -12,37 +12,37 @@ void main([args, port]) {
   
   group('base functions', () {
     test('centerCursor', () {
-      Terminal.centerCursor();
+      Console.centerCursor();
       expect(output, ansi("10;40H"));
     });
     
     test('hideCursor', () {
-      Terminal.hideCursor();
+      Console.hideCursor();
       expect(output, ansi("?25l"));
     });
     
     test('showCursor', () {
-      Terminal.showCursor();
+      Console.showCursor();
       expect(output, ansi("?25h"));
     });
     
     test('moveCursorForward', () {
-      Terminal.moveCursorForward(1);
+      Console.moveCursorForward(1);
       expect(output, ansi("1C"));
     });
     
     test('moveCursorBack', () {
-      Terminal.moveCursorForward(1);
+      Console.moveCursorForward(1);
       expect(output, ansi("1D"));
     });
     
     test('moveCursorUp', () {
-      Terminal.moveCursorForward(1);
+      Console.moveCursorForward(1);
       expect(output, ansi("1A"));
     });
     
     test('moveCursorDown', () {
-      Terminal.moveCursorForward(1);
+      Console.moveCursorForward(1);
       expect(output, ansi("1B"));
     });
   });
@@ -60,7 +60,7 @@ class ANSIMatcher extends Matcher {
 
   @override
   bool matches(item, Map matchState) {
-    return item.toString() == "${Terminal.ANSI_ESCAPE}${value}";
+    return item.toString() == "${Console.ANSI_ESCAPE}${value}";
   }
 }
 

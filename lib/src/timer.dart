@@ -31,15 +31,15 @@ class TimeDisplay {
     if (_isStart) {
       var msg = "(${_watch.elapsed.inSeconds}s)";
       _lastMsg = msg;
-      Terminal.write(msg);
+      Console.write(msg);
       _isStart = false;
     } else {
-      Terminal.moveCursorBack(_lastMsg.length);
+      Console.moveCursorBack(_lastMsg.length);
       var msg = "(${(_watch.elapsed.inMilliseconds / 1000).toStringAsFixed(place)}s)";
       _lastMsg = msg;
-      Terminal.setBold(true);
-      Terminal.write(msg);
-      Terminal.setBold(false);
+      Console.setBold(true);
+      Console.write(msg);
+      Console.setBold(false);
     }
   }
 }

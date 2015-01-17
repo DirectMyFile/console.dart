@@ -45,22 +45,22 @@ class Color {
   
   void makeCurrent({bool background: false}) {
     if (background) {
-      Terminal.setBackgroundColor(id, xterm: xterm, bright: bright);
+      Console.setBackgroundColor(id, xterm: xterm, bright: bright);
     } else {
-      Terminal.setTextColor(id, xterm: xterm, bright: bright);
+      Console.setTextColor(id, xterm: xterm, bright: bright);
     }
   }
   
   @override
   String toString({bool background: false}) {
     if (xterm) {
-      return "${Terminal.ANSI_ESCAPE}${background ? 38 : 48};5;${id}m";
+      return "${Console.ANSI_ESCAPE}${background ? 38 : 48};5;${id}m";
     }
     
     if (bright) {
-      return "${Terminal.ANSI_ESCAPE}${(background ? 40 : 30) + id}m";
+      return "${Console.ANSI_ESCAPE}${(background ? 40 : 30) + id}m";
     } else {
-      return "${Terminal.ANSI_ESCAPE}${(background ? 40 : 30) + id}m";
+      return "${Console.ANSI_ESCAPE}${(background ? 40 : 30) + id}m";
     }
   }
 }
@@ -89,7 +89,7 @@ class TextPen {
   TextPen gray() => setColor(Color.GRAY);
   
   TextPen normal() {
-    buffer.write(Terminal.ANSI_ESCAPE + "0m");
+    buffer.write(Console.ANSI_ESCAPE + "0m");
     return this;
   }
   
@@ -105,7 +105,7 @@ class TextPen {
 
   TextPen print() {
     normal();
-    console.log(buffer.toString());
+    terminalAdapter.writeln(buffer.toString());
     return this;
   }
   

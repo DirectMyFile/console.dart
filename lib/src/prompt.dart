@@ -169,7 +169,7 @@ class Prompter {
     while (true) {
       terminalAdapter.write(message);
       if (secret) terminalAdapter.echoMode = false;
-      var response = Terminal.readLine();
+      var response = Console.readLine();
       if (secret) {
         terminalAdapter.echoMode = true;
         print("");
@@ -188,7 +188,7 @@ class Prompter {
       terminalAdapter.write(message);
       new Future(() {
         if (secret) terminalAdapter.echoMode = false;
-        var response = Terminal.readLine();
+        var response = Console.readLine();
         if (secret) terminalAdapter.echoMode = true;
         if (checker != null && !checker(response)) {
           doAsk();
