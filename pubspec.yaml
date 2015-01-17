@@ -1,12 +1,12 @@
 name: console
+version: 2.2.0
 author: Kenneth Endfinger <kaendfinger@gmail.com>
-description: "Console Power Library"
-version: 2.1.2
+description: Console Power Library
 homepage: https://github.com/DirectMyFile/console.dart
+environment:
+  sdk: '>=1.9.0-edge'
 dependencies:
+  binary_interop: '>=0.0.3 <0.1.0'
   quiver: '>=0.20.0 <0.30.0'
-  binary_interop: ">=0.0.3 <0.1.0"
 dev_dependencies:
   laser: any
-environment:
-  sdk: ">=1.8.1"
