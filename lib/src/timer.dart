@@ -11,7 +11,6 @@ class TimeDisplay {
   
   /// Starts the Timer
   void start([int place = 1]) {
-    stdin.echoMode = false;
     _watch = new Stopwatch();
     _updateTimer = new Timer.periodic(new Duration(milliseconds: 50), (timer) {
       update(place);
@@ -22,7 +21,6 @@ class TimeDisplay {
   /// Stops the Timer
   void stop() {
     _watch.stop();
-    stdin.echoMode = true;
     _updateTimer.cancel();
   }
   
@@ -38,6 +36,7 @@ class TimeDisplay {
       var msg = "(${(_watch.elapsed.inMilliseconds / 1000).toStringAsFixed(place)}s)";
       _lastMsg = msg;
       Console.setBold(true);
+      Console.setTextColor(Color.GRAY.id);
       Console.write(msg);
       Console.setBold(false);
     }
