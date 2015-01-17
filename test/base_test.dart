@@ -6,7 +6,7 @@ import 'package:console/console.dart';
 void main([args, port]) {
   laser(port);
 
-  var output = new BufferTerminalAdapter();
+  var output = new BufferConsoleAdapter();
 
   setUp(() => output.clear());
   

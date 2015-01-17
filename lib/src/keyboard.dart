@@ -31,7 +31,7 @@ abstract class KeyCode {
 }
 
 class Keyboard {
-  static Stream<String> _input = terminalAdapter.byteStream().transform(ASCII.decoder).asBroadcastStream();
+  static Stream<String> _input = Console.adapter.byteStream().transform(ASCII.decoder).asBroadcastStream();
 
   static bool _initialized = false;
   

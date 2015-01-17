@@ -9,6 +9,10 @@ class Console {
   static bool initialized = false;
   static Color _currentTextColor;
   static Color _currentBackgroundColor;
+  static ConsoleAdapter _adapter = new StdioConsoleAdapter();
+  
+  static ConsoleAdapter get adapter => _adapter;
+  static set adapter(ConsoleAdapter val) => _adapter = val; 
   
   /// Initializes the Console
   static void init() {
@@ -172,18 +176,18 @@ class Console {
     writeANSI("${stuff}m");
   }
 
-  static int get rows => terminalAdapter.rows;
-  static int get columns => terminalAdapter.columns;
+  static int get rows => _adapter.rows;
+  static int get columns => _adapter.columns;
 
   static void nextLine([int times = 1]) => writeANSI("${times}E");
   static void previousLine([int times = 1]) => writeANSI("${times}F");
 
   static void write(String content) {
     init();
-    terminalAdapter.write(content);
+    _adapter.write(content);
   }
 
-  static String readLine() => terminalAdapter.read();
+  static String readLine() => _adapter.read();
   
   static void writeANSI(String after) => write("${ANSI_ESCAPE}${after}");
   
@@ -196,25 +200,25 @@ class Console {
   }
   
   static CursorPosition getCursorPosition() {
-    var lm = terminalAdapter.lineMode;
-    var em = terminalAdapter.echoMode;
+    var lm = _adapter.lineMode;
+    var em = _adapter.echoMode;
     
-    terminalAdapter.lineMode = false;
-    terminalAdapter.echoMode = false;
+    _adapter.lineMode = false;
+    _adapter.echoMode = false;
     
     writeANSI("6n");
     var bytes = [];
     
     while (true) {
-      var byte = terminalAdapter.readByte();
+      var byte = _adapter.readByte();
       bytes.add(byte);
       if (byte == 82) {
         break;
       }
     }
     
-    terminalAdapter.lineMode = lm;
-    terminalAdapter.echoMode = em;
+    _adapter.lineMode = lm;
+    _adapter.echoMode = em;
     
     var str = new String.fromCharCodes(bytes);
     

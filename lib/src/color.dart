@@ -105,7 +105,7 @@ class TextPen {
 
   TextPen print() {
     normal();
-    terminalAdapter.writeln(buffer.toString());
+    Console._adapter.writeln(buffer.toString());
     return this;
   }
   

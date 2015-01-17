@@ -1,8 +1,6 @@
 part of console;
 
-TerminalAdapter terminalAdapter = new StdioTerminalAdapter();
-
-abstract class TerminalAdapter {
+abstract class ConsoleAdapter {
   int get rows;
   int get columns;
   
@@ -18,7 +16,7 @@ abstract class TerminalAdapter {
        set lineMode(bool value);
 }
 
-class StdioTerminalAdapter extends TerminalAdapter {
+class StdioConsoleAdapter extends ConsoleAdapter {
   @override
   int get columns => stdout.terminalColumns;
   @override
@@ -60,7 +58,7 @@ class StdioTerminalAdapter extends TerminalAdapter {
   int readByte() => stdin.readByteSync();
 }
 
-class BufferTerminalAdapter extends TerminalAdapter {
+class BufferConsoleAdapter extends ConsoleAdapter {
   StringBuffer buffer = new StringBuffer();
   String input = "";
   

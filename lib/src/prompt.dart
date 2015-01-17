@@ -167,11 +167,11 @@ class Prompter {
 
   String promptSync({ResponseChecker checker}) {
     while (true) {
-      terminalAdapter.write(message);
-      if (secret) terminalAdapter.echoMode = false;
+      Console.adapter.write(message);
+      if (secret) Console.adapter.echoMode = false;
       var response = Console.readLine();
       if (secret) {
-        terminalAdapter.echoMode = true;
+        Console.adapter.echoMode = true;
         print("");
       }
       if (checker != null ? checker(response) : true) {
@@ -185,11 +185,11 @@ class Prompter {
 
     var doAsk;
     doAsk = () {
-      terminalAdapter.write(message);
+      Console.adapter.write(message);
       new Future(() {
-        if (secret) terminalAdapter.echoMode = false;
+        if (secret) Console.adapter.echoMode = false;
         var response = Console.readLine();
-        if (secret) terminalAdapter.echoMode = true;
+        if (secret) Console.adapter.echoMode = true;
         if (checker != null && !checker(response)) {
           doAsk();
           return;
