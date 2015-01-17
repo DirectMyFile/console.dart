@@ -2,6 +2,7 @@ part of console;
 
 /// The root of the console API
 class Console {
+  static const String ANSI_CODE = "\x1b";
   /// ANSI Escape Code
   static const String ANSI_ESCAPE = "\x1b[";
   static bool _cursorCTRLC = false;

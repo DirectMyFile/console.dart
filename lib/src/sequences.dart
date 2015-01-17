@@ -1,6 +1,6 @@
 part of console;
 
-final BiMap<String, String> _inputSequences = new BiMap()..addAll({
+final Map<String, String> _inputSequences = {
   "A": "up",
   "B": "down",
   "C": "right",
@@ -434,4 +434,4 @@ final BiMap<String, String> _inputSequences = new BiMap()..addAll({
   "34;8~": "shift meta ctrl f20",
   "M": "mouse",
   "0n": "status ok"
-});
+};

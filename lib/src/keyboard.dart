@@ -31,7 +31,14 @@ abstract class KeyCode {
 }
 
 class Keyboard {
-  static Stream<String> _input = Console.adapter.byteStream().transform(ASCII.decoder).asBroadcastStream();
+  static Stream<String> _input = Console.adapter.byteStream().transform(ASCII.decoder).asBroadcastStream().map((it) {
+    var code = it.replaceAll(Console.ANSI_CODE, "").substring(1);
+    if (_inputSequences[code] != null) {
+      return _inputSequences[code];
+    } else {
+      return it;
+    }
+  });
 
   static bool _initialized = false;
   
@@ -42,7 +49,7 @@ class Keyboard {
       _initialized = true;
     }
   }
-  
+
   static Stream<String> bindKey(String code) {
     init();
     return _input.where((it) {
