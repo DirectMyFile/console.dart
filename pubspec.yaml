@@ -4,9 +4,9 @@ author: Kenneth Endfinger <kaendfinger@gmail.com>
 description: Console Power Library
 homepage: https://github.com/DirectMyFile/console.dart
 environment:
-  sdk: '>=1.9.0-edge'
+  sdk: '>=1.9.0-dev'
 dependencies:
-  binary_interop: '>=0.0.3 <0.1.0'
   quiver: '>=0.20.0 <0.30.0'
+  vector_math: ">=1.4.3 <2.0.0"
 dev_dependencies:
   laser: any

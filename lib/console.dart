@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:quiver/collection.dart';
+import 'package:vector_math/vector_math.dart';
 
 part 'src/base.dart';
 part 'src/clipboard.dart';
@@ -22,3 +23,4 @@ part 'src/sequences.dart';
 part 'src/utils.dart';
 part 'src/cursor.dart';
 part 'src/signal.dart';
+part 'src/canvas.dart';
