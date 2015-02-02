@@ -8,17 +8,17 @@ Clipboard getClipboard() {
   return null;
 }
 
-class Clipboard {
+abstract class Clipboard {
   String getContent();
 
-  String setContent(String content);
+  void setContent(String content);
 }
 
 class OSXClipboard implements Clipboard {
 
   @override
   String getContent() {
-    var result = Process.runSync("/usr/bin/pbpaste");
+    var result = Process.runSync("/usr/bin/pbpaste", []);
     if (result.exitCode != 0) {
       throw new Exception("Failed to get clipboard content.");
     }
@@ -27,7 +27,7 @@ class OSXClipboard implements Clipboard {
 
   @override
   void setContent(String content) {
-    Process.start("/usr/bin/pbpaste").then((process) {
+    Process.start("/usr/bin/pbpaste", []).then((process) {
       process.stdin.write(content);
       process.stdin.close();
     });
