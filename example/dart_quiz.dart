@@ -43,7 +43,7 @@ void main() {
       "JavaOne",
       "Dart Summit"
     ]),
-    new Question("Who is the Product Manager for Dart at Google?", "Seth Ladd", choices: dartPeople),
+    new Question("Who is a Product Manager for Dart at Google?", "Seth Ladd", choices: dartPeople),
     new Question("What type system does Dart have?", "Dynamic", choices: [ "Static", "Dynamic" ]),
     new Question("What is the package manager for Dart called?", "pub"),
     new Question("What type of execution model does Dart have?", "Event Loop", choices: [ "Multi Threaded", "Single Threaded", "Event Loop" ]),

@@ -3,13 +3,13 @@ part of console;
 abstract class ConsoleAdapter {
   int get rows;
   int get columns;
-  
+
   void write(String data);
   void writeln(String data);
   String read();
   int readByte();
   Stream<List<int>> byteStream();
-  
+
   bool get echoMode;
        set echoMode(bool value);
   bool get lineMode;
@@ -61,12 +61,12 @@ class StdioConsoleAdapter extends ConsoleAdapter {
 class BufferConsoleAdapter extends ConsoleAdapter {
   StringBuffer buffer = new StringBuffer();
   String input = "";
-  
+
   @override
   int get columns => 80;
   @override
   int get rows => 20;
-  
+
   @override
   String read() => input;
 
@@ -95,9 +95,9 @@ class BufferConsoleAdapter extends ConsoleAdapter {
 
   @override
   int readByte() => 0;
-  
+
   void clear() => buffer.clear();
-  
+
   @override
   String toString() => buffer.toString();
 }

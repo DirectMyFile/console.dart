@@ -3,52 +3,52 @@ part of console;
 /// A fancy progress bar
 class ProgressBar {
   final int complete;
-  
+
   int current = 0;
-    
+
   /// Creates a Progress Bar.
-  /// 
+  ///
   /// [complete] is the number that is considered 100%.
   ProgressBar({this.complete: 100});
-  
+
   /// Updates the Progress Bar with a progress of [progress].
   void update(int progress) {
     if (progress == current) {
       return;
     }
-    
+
     current = progress;
-    
+
     var ratio = progress / complete;
     var percent = (ratio * 100).toInt();
 
     var digits = percent.toString().length;
-    
+
     var w = Console.columns - digits - 4;
-    
+
     var count = (ratio * w).toInt();
     var before = "${percent}% [";
     var after = "]";
-    
+
     var out = new StringBuffer(before);
-    
+
     for (int x = 1; x < count; x++)
       out.write("=");
-    
+
     out.write(">");
-    
+
     for (int x = count; x < w; x++)
       out.write(" ");
-    
+
     out.write(after);
-    
+
     if (out.length - 1 == Console.columns) {
       var it = out.toString();
-          
+
       out.clear();
-      out.write(it.substring(0, it.length - 2) + "]"); 
+      out.write(it.substring(0, it.length - 2) + "]");
     }
-    
+
     Console.overwriteLine(out.toString());
   }
 }
@@ -63,12 +63,12 @@ class LoadingBar {
   String position = "<";
   String lastPosition;
   NextPositionLoadingBar nextPosition;
-  
+
   /// Creates a loading bar.
   LoadingBar() {
     nextPosition = _nextPosition;
   }
-  
+
   /// Starts the Loading Bar
   void start() {
     Console.hideCursor();
@@ -77,13 +77,13 @@ class LoadingBar {
       update();
     });
   }
-  
+
   /// Stops the Loading Bar with the specified (and optional) [message].
   void stop([String message]) {
     if (_timer != null) {
       _timer.cancel();
     }
-    
+
     if (message != null) {
       position = message;
       update();
@@ -91,7 +91,7 @@ class LoadingBar {
     Console.showCursor();
     print("");
   }
-  
+
   /// Updates the Loading Bar
   void update() {
     if (started) {
@@ -102,7 +102,7 @@ class LoadingBar {
       Console.write(position);
     }
   }
-  
+
   void _nextPosition() {
     lastPosition = position;
     switch (position) {
@@ -128,15 +128,15 @@ class LoadingBar {
 /// A wide loading bar. Kind of like a Progress Bar.
 class WideLoadingBar {
   int position = 0;
-  
+
   /// Creates a wide loading bar.
   WideLoadingBar();
-  
+
   /// Loops the loading bar.
   Timer loop() {
     var width = Console.columns - 2;
     bool goForward = true;
-    
+
     return new Timer.periodic(new Duration(milliseconds: 50), (timer) {
       for (int i = 1; i <= width; i++) {
         position = i;
@@ -150,7 +150,7 @@ class WideLoadingBar {
       goForward = !goForward;
     });
   }
-  
+
   /// Moves the Bar Forward
   void forward() {
     var out = new StringBuffer("[");
@@ -167,7 +167,7 @@ class WideLoadingBar {
     out.write("]");
     Console.overwriteLine(out.toString());
   }
-  
+
   /// Moves the Bar Backward
   void backward() {
     var out = new StringBuffer("[");

@@ -6,24 +6,26 @@ class TimeDisplay {
   bool _isStart = true;
   String _lastMsg;
   Timer _updateTimer;
-  
+
   TimeDisplay();
-  
+
   /// Starts the Timer
   void start([int place = 1]) {
+    Console.adapter.echoMode = false;
     _watch = new Stopwatch();
-    _updateTimer = new Timer.periodic(new Duration(milliseconds: 50), (timer) {
+    _updateTimer = new Timer.periodic(new Duration(milliseconds: 10), (timer) {
       update(place);
     });
     _watch.start();
   }
-  
+
   /// Stops the Timer
   void stop() {
+    Console.adapter.echoMode = true;
     _watch.stop();
     _updateTimer.cancel();
   }
-  
+
   /// Updates the Timer
   void update([int place = 1]) {
     if (_isStart) {

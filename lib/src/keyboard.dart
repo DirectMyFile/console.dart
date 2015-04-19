@@ -31,36 +31,65 @@ abstract class KeyCode {
 }
 
 class Keyboard {
-  static Stream<String> _input = Console.adapter.byteStream().transform(ASCII.decoder).asBroadcastStream().map((it) {
-    var code = it.replaceAll(Console.ANSI_CODE, "").substring(1);
-    if (_inputSequences[code] != null) {
-      return _inputSequences[code];
-    } else {
-      return it;
-    }
-  });
+  static Map<String, StreamController<String>> _handlers = {};
 
   static bool _initialized = false;
-  
+  static bool echoUnhandledKeys = true;
+
   static void init() {
     if (!_initialized) {
       stdin.echoMode = false;
       stdin.lineMode = false;
       _initialized = true;
+
+      Console.adapter.byteStream().asBroadcastStream().map((bytes) {
+        var it = ASCII.decode(bytes);
+        var original = bytes;
+        var code = it.replaceAll(Console.ANSI_CODE, "");
+
+        if (code.isNotEmpty) {
+          code = code.substring(1);
+        }
+
+        if (_inputSequences[code] != null) {
+          return [original, _inputSequences[code]];
+        } else {
+          return [original, it];
+        }
+      }).listen((List<dynamic> m) {
+        if (_handlers.containsKey(m[1])) {
+          _handlers[m[1]].add(m[1]);
+        } else {
+          var bytes = m[0];
+          if (echoUnhandledKeys) {
+            if (bytes.length == 1 && bytes[0] == 127) {
+              Console.moveCursorBack(1);
+            }
+            stdout.add(m[0]);
+            if (bytes.length == 1 && bytes[0] == 127) {
+              Console.moveCursorBack(1);
+            }
+          }
+        }
+      });
     }
   }
 
   static Stream<String> bindKey(String code) {
     init();
-    return _input.where((it) {
-      return it == code;
-    });
+    if (_handlers.containsKey(code)) {
+      return _handlers[code].stream;
+    } else {
+      return (_handlers[code] = new StreamController<String>.broadcast()).stream;
+    }
   }
 
   static Stream<String> bindKeys(List<String> codes) {
     init();
-    return _input.where((it) {
-      return codes.contains(it);
-    });
+    var controller = new StreamController<String>.broadcast();
+    for (var key in codes) {
+      bindKey(key).listen(controller.add);
+    }
+    return controller.stream;
   }
 }

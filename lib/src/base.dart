@@ -11,17 +11,17 @@ class Console {
   static Color _currentTextColor;
   static Color _currentBackgroundColor;
   static ConsoleAdapter _adapter = new StdioConsoleAdapter();
-  
+
   static ConsoleAdapter get adapter => _adapter;
-  static set adapter(ConsoleAdapter val) => _adapter = val; 
-  
+  static set adapter(ConsoleAdapter val) => _adapter = val;
+
   /// Initializes the Console
   static void init() {
     if (initialized) return;
-    
+
     initialized = true;
   }
-  
+
   static Stream get onResize => ProcessSignal.SIGWINCH.watch();
 
   /// Moves the Cursor Forward the specified amount of [times].
@@ -42,8 +42,8 @@ class Console {
 
   /// Overwrites the current line with [line].
   static void overwriteLine(String line) {
-    moveToColumn(1);
-    eraseLine(2);
+    write("\r");
+    eraseLine(3);
     write(line);
   }
 
@@ -64,7 +64,7 @@ class Console {
     }
     _currentTextColor = color;
   }
-  
+
   static Color getTextColor() => _currentTextColor;
   static Color getBackgroundColor() => _currentBackgroundColor;
 
@@ -78,7 +78,7 @@ class Console {
     }
     writeANSI("?25l");
   }
-  
+
   static void showCursor() {
     writeANSI("?25h");
   }
@@ -97,7 +97,7 @@ class Console {
   static void normBuffer() {
     writeANSI("?47l");
   }
-  
+
   static void setBackgroundColor(int id, {bool xterm: false, bool bright: false}) {
     Color color;
     if (xterm) {
@@ -156,12 +156,12 @@ class Console {
     _currentTextColor = null;
     _currentBackgroundColor = null;
   }
-  
+
   static void resetTextColor() {
     sgr(39);
     _currentTextColor = null;
   }
-  
+
   static void resetBackgroundColor() {
     sgr(49);
     _currentBackgroundColor = null;
@@ -189,9 +189,9 @@ class Console {
   }
 
   static String readLine() => _adapter.read();
-  
+
   static void writeANSI(String after) => write("${ANSI_ESCAPE}${after}");
-  
+
   static bool _bytesEqual(List<int> a, List<int> b) {
     if (a.length != b.length) return false;
     for (var i = 0; i < a.length; i++) {
@@ -199,17 +199,17 @@ class Console {
     }
     return true;
   }
-  
+
   static CursorPosition getCursorPosition() {
     var lm = _adapter.lineMode;
     var em = _adapter.echoMode;
-    
+
     _adapter.lineMode = false;
     _adapter.echoMode = false;
-    
+
     writeANSI("6n");
     var bytes = [];
-    
+
     while (true) {
       var byte = _adapter.readByte();
       bytes.add(byte);
@@ -217,17 +217,17 @@ class Console {
         break;
       }
     }
-    
+
     _adapter.lineMode = lm;
     _adapter.echoMode = em;
-    
+
     var str = new String.fromCharCodes(bytes);
-    
+
     List<int> parts = new List.from(str.substring(2, str.length - 1).split(";").map((it) => int.parse(it))).toList();
-    
+
     return new CursorPosition(parts[0], parts[1]);
   }
-  
+
   static void saveCursor() => writeANSI("s");
   static void restoreCursor() => writeANSI("u");
 }
@@ -237,7 +237,7 @@ class CursorPosition {
   final int column;
 
   CursorPosition(this.column, this.row);
-  
+
   @override
   String toString() => "(${column}, ${row})";
 }
