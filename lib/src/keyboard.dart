@@ -30,12 +30,16 @@ abstract class KeyCode {
   static const String SPACE = " ";
 }
 
+/// API for the Keyboard
 class Keyboard {
   static Map<String, StreamController<String>> _handlers = {};
 
   static bool _initialized = false;
+
+  /// Display input that is not handled.
   static bool echoUnhandledKeys = true;
 
+  /// Initialize Keyboard System
   static void init() {
     if (!_initialized) {
       stdin.echoMode = false;
@@ -57,21 +61,34 @@ class Keyboard {
           return [original, it];
         }
       }).listen((List<dynamic> m) {
-        if (_handlers.containsKey(m[1])) {
-          _handlers[m[1]].add(m[1]);
-        } else {
-          var bytes = m[0];
-          if (echoUnhandledKeys) {
-            if (bytes.length == 1 && bytes[0] == 127) {
-              Console.moveCursorBack(1);
-            }
-            stdout.add(m[0]);
-            if (bytes.length == 1 && bytes[0] == 127) {
-              Console.moveCursorBack(1);
-            }
-          }
-        }
+        handleKey(m[0], m[1]);
       });
+    }
+  }
+
+  static void handleKey(List<int> bytes, String name) {
+    if (_handlers.containsKey(name)) {
+      _handlers[name].add(name);
+      return;
+    }
+
+    if (!echoUnhandledKeys) {
+      return;
+    }
+
+    if (bytes.length == 1 && bytes[0] == 127) {
+      if (Platform.isMacOS) {
+        Console.moveCursorBack(1);
+      } else {
+        stdout.write("\b \b");
+        return;
+      }
+    }
+
+    stdout.add(bytes);
+
+    if (bytes.length == 1 && bytes[0] == 127) {
+      Console.moveCursorBack(1);
     }
   }
 
