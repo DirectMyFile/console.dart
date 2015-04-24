@@ -3,26 +3,28 @@ part of console.curses;
 abstract class Window {
   String _title;
   Timer _updateTimer;
-  
+
   String get title => _title;
   set title(String value) => _title = value;
-  
+
   Window(String title) {
     _title = title;
     _init();
     initialize();
   }
-  
+
   void initialize();
-  
+
   void _init() {
     stdin.echoMode = false;
 
     Console.onResize.listen((_) {
       draw();
     });
+
+    Keyboard.echoUnhandledKeys = false;
   }
-  
+
   void draw() {
     Console.eraseDisplay(2);
     var width = Console.columns;
@@ -37,11 +39,11 @@ abstract class Window {
     Console.centerCursor(row: true);
     Console.resetBackgroundColor();
   }
-  
+
   void display() {
     draw();
   }
-  
+
   Timer startUpdateLoop([Duration wait]) {
     if (wait == null) wait = new Duration(seconds: 2);
     _updateTimer = new Timer.periodic(wait, (timer) {
@@ -49,7 +51,7 @@ abstract class Window {
     });
     return _updateTimer;
   }
-  
+
   void close() {
     if (_updateTimer != null) {
       _updateTimer.cancel();
@@ -58,7 +60,7 @@ abstract class Window {
     Console.moveCursor(row: 1, column: 1);
     stdin.echoMode = true;
   }
-  
+
   void writeCentered(String text) {
     var column = ((Console.columns / 2) - (text.length / 2)).round();
     var row = (Console.rows / 2).round();

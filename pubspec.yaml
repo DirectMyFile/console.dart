@@ -4,9 +4,8 @@ author: Kenneth Endfinger <kaendfinger@gmail.com>
 description: Console Power Library
 homepage: https://github.com/DirectMyFile/console.dart
 environment:
-  sdk: '>=1.9.0-dev'
+  sdk: ">=1.9.0-dev"
 dependencies:
-  quiver: '>=0.20.0 <0.30.0'
   vector_math: ">=1.4.3 <2.0.0"
 dev_dependencies:
-  laser: any
+  test: ">=0.12.0-rc.0 <0.13.0"
