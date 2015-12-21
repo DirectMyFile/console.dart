@@ -225,7 +225,7 @@ class Console {
 
     List<int> parts = new List.from(str.substring(2, str.length - 1).split(";").map((it) => int.parse(it))).toList();
 
-    return new CursorPosition(parts[0], parts[1]);
+    return new CursorPosition(parts[1], parts[0]);
   }
 
   static void saveCursor() => writeANSI("s");
