@@ -43,7 +43,7 @@ class Console {
   /// Overwrites the current line with [line].
   static void overwriteLine(String line) {
     write("\r");
-    eraseLine(3);
+    eraseLine(2);
     write(line);
   }
 
