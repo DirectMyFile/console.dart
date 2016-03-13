@@ -12,3 +12,4 @@ out/
 *.iml
 *.swp
 .c9
+.packages

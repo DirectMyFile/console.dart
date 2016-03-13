@@ -35,7 +35,7 @@ var cube = (() {
 })();
 
 var projection = makePerspectiveMatrix(PI / 3.0, 1.0, 1.0, 50.0);
-var canvas = new Canvas(160, 160);
+var canvas = new DrawingCanvas(160, 160);
 
 void draw() {
   var now = new DateTime.now().millisecondsSinceEpoch;

@@ -4,7 +4,7 @@ import "dart:math" as Math;
 import "package:console/console.dart";
 import "package:console/utils.dart";
 
-Canvas canvas = new Canvas(160, 160);
+DrawingCanvas canvas = new DrawingCanvas(160, 160);
 
 void main() {
   new Timer.periodic(new Duration(milliseconds: 1000 ~/ 24), (t) {

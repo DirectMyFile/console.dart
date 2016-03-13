@@ -32,7 +32,10 @@ abstract class Window {
     Console.setBackgroundColor(7, bright: true);
     _repeatFunction((i) => Console.write(" "), width);
     Console.setTextColor(0);
-    Console.moveCursor(row: 1, column: (Console.columns / 2).round() - (title.length / 2).round());
+    Console.moveCursor(
+      row: 1,
+      column: (Console.columns / 2).round() - (title.length / 2).round()
+    );
     Console.write(title);
     _repeatFunction((i) => Console.write("\n"), Console.rows - 1);
     Console.moveCursor(row: 2, column: 1);

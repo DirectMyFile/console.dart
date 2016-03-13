@@ -192,14 +192,6 @@ class Console {
 
   static void writeANSI(String after) => write("${ANSI_ESCAPE}${after}");
 
-  static bool _bytesEqual(List<int> a, List<int> b) {
-    if (a.length != b.length) return false;
-    for (var i = 0; i < a.length; i++) {
-      if (a[i] != b[i]) return false;
-    }
-    return true;
-  }
-
   static CursorPosition getCursorPosition() {
     var lm = _adapter.lineMode;
     var em = _adapter.echoMode;
@@ -223,7 +215,11 @@ class Console {
 
     var str = new String.fromCharCodes(bytes);
 
-    List<int> parts = new List.from(str.substring(2, str.length - 1).split(";").map((it) => int.parse(it))).toList();
+    List<int> parts = new List.from(
+      str.substring(2, str.length - 1)
+        .split(";")
+        .map((it) => int.parse(it))
+    ).toList();
 
     return new CursorPosition(parts[0], parts[1]);
   }

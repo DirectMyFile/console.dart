@@ -72,7 +72,7 @@ class LoadingBar {
   /// Starts the Loading Bar
   void start() {
     Console.hideCursor();
-    _timer = new Timer.periodic(new Duration(milliseconds: 75), (timer) {
+    _timer = new Timer.periodic(const Duration(milliseconds: 75), (timer) {
       nextPosition();
       update();
     });
@@ -136,11 +136,18 @@ class WideLoadingBar {
   Timer loop() {
     var width = Console.columns - 2;
     bool goForward = true;
+    bool isDone = true;
 
-    return new Timer.periodic(new Duration(milliseconds: 50), (timer) {
+    return new Timer.periodic(const Duration(milliseconds: 50), (timer) async {
+      if (!isDone) {
+        return;
+      }
+
+      isDone = false;
+
       for (int i = 1; i <= width; i++) {
         position = i;
-        sleep(new Duration(milliseconds: 5));
+        await new Future.delayed(const Duration(milliseconds: 5));
         if (goForward) {
           forward();
         } else {
@@ -148,6 +155,7 @@ class WideLoadingBar {
         }
       }
       goForward = !goForward;
+      isDone = true;
     });
   }
 

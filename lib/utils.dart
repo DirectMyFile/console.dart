@@ -1,3 +1,5 @@
+library console.utils;
+
 bresenham(x0, y0, x1, y1, [fn]) {
   var arr = [];
   if (fn == null) {
