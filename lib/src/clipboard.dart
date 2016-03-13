@@ -36,10 +36,12 @@ class OSXClipboard implements Clipboard {
 }
 
 class XClipboard implements Clipboard {
-
   @override
   String getContent() {
-    var result = Process.runSync("/usr/bin/xclip", ["-selection", "clipboard", "-o"]);
+    var result = Process.runSync(
+      "/usr/bin/xclip",
+      ["-selection", "clipboard", "-o"]
+    );
     if (result.exitCode != 0) {
       throw new Exception("Failed to get clipboard content.");
     }
@@ -53,5 +55,4 @@ class XClipboard implements Clipboard {
       process.stdin.close();
     });
   }
-
 }

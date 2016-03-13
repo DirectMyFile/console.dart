@@ -13,7 +13,7 @@ abstract class VariableStyle {
 
   Set<String> findVariables(String input);
   String replace(String input, String variable, String value);
-  
+
   /// Calls [action] in a [Zone] that has it's format
   /// variable style set to [style].
   static void withStyle(VariableStyle style, void action()) {
@@ -116,11 +116,11 @@ String format(String input, {
   if (style == null) {
     style = VariableStyle.DEFAULT;
   }
-  
+
   if (Zone.current['console.format.variable_style'] != null) {
     style = Zone.current['console.format.variable_style'];
   }
-  
+
   var out = input;
   var allKeys = style.findVariables(input);
 
@@ -133,7 +133,7 @@ String format(String input, {
         }
         out = style.replace(out, "${index}", args[index]);
         continue;
-      } on FormatException catch (e) {}
+      } on FormatException {}
     }
 
     if (replace != null && replace.containsKey(id)) {
@@ -157,7 +157,7 @@ String format(String input, {
         continue;
       }
     }
-    
+
     if (id.startsWith("env.")) {
       var envVariable = id.substring(4);
       if (envVariable.isEmpty) {
@@ -168,16 +168,16 @@ String format(String input, {
       out = style.replace(out, id, value);
       continue;
     }
-    
+
     if (id.startsWith("platform.")) {
       var variable = id.substring(9);
-      
+
       if (variable.isEmpty) {
         throw new Exception("Unknown Key: ${id}");
       }
-      
+
       var value = _resolvePlatformVariable(variable);
-      
+
       out = style.replace(out, id, value);
       continue;
     }
