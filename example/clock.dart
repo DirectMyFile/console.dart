@@ -15,13 +15,27 @@ void main() {
 void draw() {
   canvas.clear();
   var time = new DateTime.now();
-  bresenham(80, 80, sin(time.hour / 24, 30), 160 - cos(time.hour / 24, 30), canvas.set);
-  bresenham(80, 80, sin(time.minute / 60, 50), 160 - cos(time.minute / 60, 50), canvas.set);
+  bresenham(
+    80,
+    80,
+    sin(time.hour / 24, 30), 160 - cos(time.hour / 24, 30),
+    canvas.set
+  );
+  bresenham(
+    80,
+    80,
+    sin(time.minute / 60, 50),
+    160 - cos(time.minute / 60, 50),
+    canvas.set
+  );
+
   bresenham(
     80,
     80,
     sin(time.second / 60 + (time.millisecondsSinceEpoch % 1000 / 60000), 75),
-    160  - cos(time.second / 60 + (time.millisecondsSinceEpoch % 1000) / 60000, 75),
+    160 - cos(
+      time.second / 60 + (time.millisecondsSinceEpoch % 1000) / 60000, 75
+    ),
     canvas.set
   );
   Console.write(canvas.frame());

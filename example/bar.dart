@@ -8,7 +8,7 @@ main() {
   Console.eraseDisplay(1);
 
   int l = 1;
-  new Timer.periodic(new Duration(seconds: 2), (_) {
+  new Timer.periodic(const Duration(seconds: 2), (_) {
     l += 2;
 
     for (var i = 0; i < l; i++) {
