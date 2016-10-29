@@ -214,9 +214,9 @@ class Console {
     _adapter.echoMode = em;
 
     var str = new String.fromCharCodes(bytes);
+    str = str.substring(str.lastIndexOf('[') + 1, str.length - 1);
 
-    List<int> parts = new List.from(
-      str.substring(2, str.length - 1)
+    List<int> parts = new List.from(str
         .split(";")
         .map((it) => int.parse(it))
     ).toList();
