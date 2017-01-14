@@ -6,6 +6,9 @@ class TimeDisplay {
   bool _isStart = true;
   String _lastMsg;
   Timer _updateTimer;
+  bool _running = false;
+
+  bool get running => _running;
 
   TimeDisplay();
 
@@ -17,6 +20,7 @@ class TimeDisplay {
       update(place);
     });
     _watch.start();
+    _running = true;
   }
 
   /// Stops the Timer
@@ -24,6 +28,7 @@ class TimeDisplay {
     Console.adapter.echoMode = true;
     _watch.stop();
     _updateTimer.cancel();
+    _running = false;
   }
 
   /// Updates the Timer
