@@ -7,7 +7,7 @@ class TimeDisplay {
   String _lastMsg;
   Timer _updateTimer;
 
-  bool get isRunning => (_watch == null) ? false : _watch.isRunning;
+  bool get isRunning => _watch?.isRunning ?? false;
 
   TimeDisplay();
 
