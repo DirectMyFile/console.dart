@@ -34,7 +34,7 @@ abstract class Window {
     Console.setTextColor(0);
     Console.moveCursor(
       row: 1,
-      column: (Console.columns / 2).round() - (title.length / 2).round()
+      column: (Console.columns / 2).round() - (title.length / 2).round(),
     );
     Console.write(title);
     _repeatFunction((i) => Console.write("\n"), Console.rows - 1);

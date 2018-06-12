@@ -6,17 +6,17 @@ import "dart:async";
 class DemoWindow extends Window {
   bool showWelcomeMessage = true;
   Timer loaderTimer;
-  
+
   DemoWindow() : super("Hello");
-  
+
   @override
   void draw() {
     super.draw();
-    
+
     if (loaderTimer != null) {
       loaderTimer.cancel();
     }
-    
+
     if (showWelcomeMessage) {
       writeCentered("Welcome!");
     } else {
@@ -35,17 +35,17 @@ class DemoWindow extends Window {
       Console.eraseDisplay();
       exit(0);
     });
-    
+
     Keyboard.bindKey("x").listen((_) {
       title = title == "Hello" ? "Goodbye" : "Hello";
       draw();
     });
-    
+
     Keyboard.bindKey(KeyCode.SPACE).listen((_) {
       showWelcomeMessage = false;
       draw();
     });
-    
+
     Keyboard.bindKey("p").listen((_) {
       if (loaderTimer != null) {
         loaderTimer.cancel();

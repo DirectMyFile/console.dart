@@ -14,7 +14,7 @@ List<List<double>> points = [
   [-1.0, 1.0, -1.0],
   [-1.0, 1.0, 1.0],
   [1.0, 1.0, 1.0],
-  [1.0, 1.0, -1.0]
+  [1.0, 1.0, -1.0],
 ];
 
 List<List<int>> quads = [
@@ -23,7 +23,7 @@ List<List<int>> quads = [
   [1, 5, 6, 2],
   [2, 6, 7, 3],
   [3, 7, 4, 0],
-  [4, 7, 6, 5]
+  [4, 7, 6, 5],
 ];
 
 var cube = (() {
@@ -42,7 +42,7 @@ void draw() {
   var modelView = makeViewMatrix(
     new Vector3(0.0, 0.1, 4.0),
     new Vector3(0.0, 0.0, 0.0),
-    new Vector3(0.0, 1.0, 0.0)
+    new Vector3(0.0, 1.0, 0.0),
   );
 
   modelView.rotateY(pi * 2 * now / 10000);
@@ -59,7 +59,7 @@ void draw() {
       out = m.transform3(v);
       return {
         "x": (out[0] * 40 + 80).floor(),
-        "y": (out[1] * 40 + 80).floor()
+        "y": (out[1] * 40 + 80).floor(),
       };
     });
   });

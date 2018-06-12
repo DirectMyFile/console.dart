@@ -2,11 +2,11 @@ part of console;
 
 abstract class VariableStyle {
   static const _SingleBracketVariableStyle SINGLE_BRACKET =
-    const _SingleBracketVariableStyle();
+      const _SingleBracketVariableStyle();
   static const _DoubleBracketVariableStyle DOUBLE_BRACKET =
-    const _DoubleBracketVariableStyle();
+      const _DoubleBracketVariableStyle();
   static const _BashBracketVariableStyle BASH_BRACKET =
-    const _BashBracketVariableStyle();
+      const _BashBracketVariableStyle();
   static VariableStyle DEFAULT = SINGLE_BRACKET;
 
   const VariableStyle();
@@ -19,9 +19,7 @@ abstract class VariableStyle {
   static void withStyle(VariableStyle style, void action()) {
     runZoned(() {
       action();
-    }, zoneValues: {
-      "console.format.variable_style": style
-    });
+    }, zoneValues: {"console.format.variable_style": style});
   }
 }
 
@@ -36,7 +34,6 @@ class _DoubleBracketVariableStyle extends VariableStyle {
     var allKeys = new Set<String>();
 
     for (var match in matches) {
-
       var key = match.group(1);
       if (!allKeys.contains(key)) {
         allKeys.add(key);
@@ -63,7 +60,6 @@ class _BashBracketVariableStyle extends VariableStyle {
     var allKeys = new Set<String>();
 
     for (var match in matches) {
-
       var key = match.group(1);
       if (!allKeys.contains(key)) {
         allKeys.add(key);
@@ -107,12 +103,11 @@ class _SingleBracketVariableStyle extends VariableStyle {
 
 typedef String VariableResolver(String variable);
 
-String format(String input, {
-    List<String> args,
+String format(String input,
+    {List<String> args,
     Map<String, String> replace,
     VariableStyle style,
-    VariableResolver resolver
-}) {
+    VariableResolver resolver}) {
   if (style == null) {
     style = VariableStyle.DEFAULT;
   }

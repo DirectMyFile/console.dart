@@ -3,6 +3,7 @@ part of console;
 /// The root of the console API
 class Console {
   static const String ANSI_CODE = "\x1b";
+
   /// ANSI Escape Code
   static const String ANSI_ESCAPE = "\x1b[";
   static bool _cursorCTRLC = false;
@@ -26,14 +27,19 @@ class Console {
 
   /// Moves the Cursor Forward the specified amount of [times].
   static void moveCursorForward([int times = 1]) => writeANSI("${times}C");
+
   /// Moves the Cursor Back the specified amount of [times].
   static void moveCursorBack([int times = 1]) => writeANSI("${times}D");
+
   /// Moves the Cursor Up the specified amount of [times].
   static void moveCursorUp([int times = 1]) => writeANSI("${times}A");
+
   /// Moves the Cursor Down the specified amount of [times].
   static void moveCursorDown([int times = 1]) => writeANSI("${times}B");
+
   /// Erases the Display
   static void eraseDisplay([int type = 0]) => writeANSI("${type}J");
+
   /// Erases the Line
   static void eraseLine([int type = 0]) => writeANSI("${type}K");
 
@@ -98,7 +104,8 @@ class Console {
     writeANSI("?47l");
   }
 
-  static void setBackgroundColor(int id, {bool xterm: false, bool bright: false}) {
+  static void setBackgroundColor(int id,
+      {bool xterm: false, bool bright: false}) {
     Color color;
     if (xterm) {
       var c = id.clamp(0, 256);
@@ -216,10 +223,8 @@ class Console {
     var str = new String.fromCharCodes(bytes);
     str = str.substring(str.lastIndexOf('[') + 1, str.length - 1);
 
-    List<int> parts = new List.from(str
-        .split(";")
-        .map((it) => int.parse(it))
-    ).toList();
+    List<int> parts =
+        new List.from(str.split(";").map((it) => int.parse(it))).toList();
 
     return new CursorPosition(parts[1], parts[0]);
   }

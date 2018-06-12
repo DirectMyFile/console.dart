@@ -97,7 +97,8 @@ class Keyboard {
     if (_handlers.containsKey(code)) {
       return _handlers[code].stream;
     } else {
-      return (_handlers[code] = new StreamController<String>.broadcast()).stream;
+      return (_handlers[code] = new StreamController<String>.broadcast())
+          .stream;
     }
   }
 
