@@ -1,47 +1,50 @@
 library console.test.base;
 
-import "package:test/test.dart";
-import "package:console/console.dart";
+import 'dart:convert';
+import 'package:test/test.dart';
+import 'package:console/console.dart';
 
 void main([args, port]) {
-  var output = new BufferConsoleAdapter();
+  final output = new BufferConsoleAdapter();
+
+  setUpAll(() => Console.adapter = output);
 
   setUp(() => output.clear());
 
   group('base functions', () {
     test('centerCursor', () {
       Console.centerCursor();
-      expect(output, ansi("10;40H"));
+      expect(output, ansi('10;40H'));
     });
 
     test('hideCursor', () {
       Console.hideCursor();
-      expect(output, ansi("?25l"));
+      expect(output, ansi('?25l'));
     });
 
     test('showCursor', () {
       Console.showCursor();
-      expect(output, ansi("?25h"));
+      expect(output, ansi('?25h'));
     });
 
     test('moveCursorForward', () {
       Console.moveCursorForward(1);
-      expect(output, ansi("1C"));
+      expect(output, ansi('1C'));
     });
 
     test('moveCursorBack', () {
-      Console.moveCursorForward(1);
-      expect(output, ansi("1D"));
+      Console.moveCursorBack(1);
+      expect(output, ansi('1D'));
     });
 
     test('moveCursorUp', () {
-      Console.moveCursorForward(1);
-      expect(output, ansi("1A"));
+      Console.moveCursorUp(1);
+      expect(output, ansi('1A'));
     });
 
     test('moveCursorDown', () {
-      Console.moveCursorForward(1);
-      expect(output, ansi("1B"));
+      Console.moveCursorDown(1);
+      expect(output, ansi('1B'));
     });
   });
 }
@@ -52,14 +55,17 @@ class ANSIMatcher extends Matcher {
   const ANSIMatcher(this.value);
 
   @override
-  Description describe(Description description) {
-    return description;
-  }
+  Description describe(Description description) => description;
 
   @override
-  bool matches(item, Map matchState) {
-    return item.toString() == "${Console.ANSI_ESCAPE}${value}";
-  }
+  bool matches(item, Map matchState) =>
+      item.toString() == '${Console.ANSI_ESCAPE}${value}';
+
+  @override
+  Description describeMismatch(item, Description mismatchDescription,
+          Map matchState, bool verbose) =>
+      mismatchDescription.add('${utf8.encode(item.toString())} != '
+          ' ${utf8.encode(value.toString())}');
 }
 
 Matcher ansi(String value) => new ANSIMatcher(value);

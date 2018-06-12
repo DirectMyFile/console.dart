@@ -22,7 +22,7 @@ class Console {
     initialized = true;
   }
 
-  static Stream get onResize => ProcessSignal.SIGWINCH.watch();
+  static Stream get onResize => ProcessSignal.sigwinch.watch();
 
   /// Moves the Cursor Forward the specified amount of [times].
   static void moveCursorForward([int times = 1]) => writeANSI("${times}C");
@@ -70,7 +70,7 @@ class Console {
 
   static void hideCursor() {
     if (!_cursorCTRLC) {
-      ProcessSignal.SIGINT.watch().listen((signal) {
+      ProcessSignal.sigint.watch().listen((signal) {
         showCursor();
         exit(0);
       });
@@ -85,7 +85,7 @@ class Console {
 
   static void altBuffer() {
     if (!_buffCTRLC) {
-      ProcessSignal.SIGINT.watch().listen((signal) {
+      ProcessSignal.sigint.watch().listen((signal) {
         normBuffer();
         exit(0);
       });
@@ -200,7 +200,7 @@ class Console {
     _adapter.echoMode = false;
 
     writeANSI("6n");
-    var bytes = [];
+    var bytes = <int>[];
 
     while (true) {
       var byte = _adapter.readByte();

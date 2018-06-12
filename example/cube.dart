@@ -34,7 +34,7 @@ var cube = (() {
   }).toList();
 })();
 
-var projection = makePerspectiveMatrix(PI / 3.0, 1.0, 1.0, 50.0);
+var projection = makePerspectiveMatrix(pi / 3.0, 1.0, 1.0, 50.0);
 var canvas = new DrawingCanvas(160, 160);
 
 void draw() {
@@ -45,10 +45,10 @@ void draw() {
     new Vector3(0.0, 1.0, 0.0)
   );
 
-  modelView = modelView.rotateY(PI * 2 * now / 10000);
-  modelView = modelView.rotateZ(PI * 2 * now / 11000);
-  modelView = modelView.rotateX(PI * 2 * now / 9000);
-  modelView = modelView.scale(new Vector3(sin(now / 1000 * PI) / 2 + 1, 1.0, 1.0));
+  modelView.rotateY(pi * 2 * now / 10000);
+  modelView.rotateZ(pi * 2 * now / 11000);
+  modelView.rotateX(pi * 2 * now / 9000);
+  modelView.scale(new Vector3(sin(now / 1000 * pi) / 2 + 1, 1.0, 1.0));
   canvas.clear();
 
   var transformed = cube.map((quad) {

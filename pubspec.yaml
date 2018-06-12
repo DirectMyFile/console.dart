@@ -1,11 +1,14 @@
 name: console
-version: 2.2.4
+version: 3.0.0
 author: Kenneth Endfinger <kaendfinger@gmail.com>
 description: Console Power Library
 homepage: https://github.com/DirectMyFile/console.dart
+
 environment:
-  sdk: ">=1.14.0"
+  sdk: '>=2.0.0-dev.61 <3.0.0'
+
 dependencies:
-  vector_math: ">=1.4.3 <2.0.0"
+  vector_math: ^2.0.7
+
 dev_dependencies:
-  test: ">=0.12.0 <0.13.0"
+  test: '>=0.12.0 <0.13.0'

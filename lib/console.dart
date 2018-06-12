@@ -4,8 +4,6 @@ import "dart:async";
 import "dart:convert";
 import "dart:io";
 
-import "clut.dart" as clut;
-
 part "src/base.dart";
 part "src/clipboard.dart";
 part "src/format.dart";
@@ -19,7 +17,6 @@ part "src/color.dart";
 part "src/keyboard.dart";
 part "src/adapter.dart";
 part "src/sequences.dart";
-part "src/utils.dart";
 part "src/cursor.dart";
 part "src/signal.dart";
 part "src/drawing_canvas.dart";

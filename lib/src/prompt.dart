@@ -2,8 +2,6 @@ part of console;
 
 const List<String> _YES_RESPONSES = const ["yes", "y", "sure", "ok", "yep", "yeah", "true", "yerp"];
 
-const Duration _PROMPT_DELAY = const Duration(milliseconds: 2);
-
 /// Emulates a Shell Prompt
 class ShellPrompt {
   /// Shell Prompt

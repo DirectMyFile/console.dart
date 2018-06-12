@@ -47,7 +47,7 @@ class Keyboard {
       _initialized = true;
 
       Console.adapter.byteStream().asBroadcastStream().map((bytes) {
-        var it = ASCII.decode(bytes);
+        var it = ascii.decode(bytes);
         var original = bytes;
         var code = it.replaceAll(Console.ANSI_CODE, "");
 

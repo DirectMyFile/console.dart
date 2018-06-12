@@ -1,4 +1,3 @@
-import "dart:io";
 import "package:console/console.dart";
 
 var questionCount = 0;

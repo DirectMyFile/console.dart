@@ -42,9 +42,9 @@ void draw() {
 }
 
 num sin(num i, num l) {
-  return (Math.sin(i * 2 * Math.PI) * l + 80).floor();
+  return (Math.sin(i * 2 * Math.pi) * l + 80).floor();
 }
 
 num cos(num i, num l) {
-  return (Math.cos(i * 2 * Math.PI) * l + 80).floor();
+  return (Math.cos(i * 2 * Math.pi) * l + 80).floor();
 }

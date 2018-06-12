@@ -1,6 +1,6 @@
 library console.clut;
 
-final List<List<String>> CLUT = [
+final List<List> CLUT = [
   [0, '000000'],
   [1, '800000'],
   [2, '008000'],
@@ -262,7 +262,7 @@ final List<List<String>> CLUT = [
 Map<int, String> _table;
 Map<int, String> getColorLookupTable() {
   if (_table == null) {
-    var m = {};
+    var m = <int, String>{};
     for (var x in CLUT) {
       m[x[0]] = x[1];
     }
@@ -271,6 +271,4 @@ Map<int, String> getColorLookupTable() {
   return _table;
 }
 
-String getColor(int color) {
-  return getColorLookupTable()[color];
-}
+String getColor(int color) => getColorLookupTable()[color];
