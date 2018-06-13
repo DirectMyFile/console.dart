@@ -32,13 +32,11 @@ class ProgressBar {
 
     var out = new StringBuffer(before);
 
-    for (int x = 1; x < count; x++)
-      out.write("=");
+    for (int x = 1; x < count; x++) out.write("=");
 
     out.write(">");
 
-    for (int x = count; x < w; x++)
-      out.write(" ");
+    for (int x = count; x < w; x++) out.write(" ");
 
     out.write(after);
 

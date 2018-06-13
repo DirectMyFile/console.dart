@@ -11,9 +11,9 @@ abstract class ConsoleAdapter {
   Stream<List<int>> byteStream();
 
   bool get echoMode;
-       set echoMode(bool value);
+  set echoMode(bool value);
   bool get lineMode;
-       set lineMode(bool value);
+  set lineMode(bool value);
 }
 
 class StdioConsoleAdapter extends ConsoleAdapter {
@@ -101,4 +101,3 @@ class BufferConsoleAdapter extends ConsoleAdapter {
   @override
   String toString() => buffer.toString();
 }
-

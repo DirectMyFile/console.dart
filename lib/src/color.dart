@@ -36,13 +36,13 @@ class Color {
   static const Color LIGHT_CYAN = const Color(6, bright: true);
   static const Color LIGHT_GRAY = const Color(7);
   static const Color WHITE = const Color(7, bright: true);
-  
+
   final int id;
   final bool xterm;
   final bool bright;
-  
+
   const Color(this.id, {this.xterm: false, this.bright: false});
-  
+
   void makeCurrent({bool background: false}) {
     if (background) {
       Console.setBackgroundColor(id, xterm: xterm, bright: bright);
@@ -50,13 +50,13 @@ class Color {
       Console.setTextColor(id, xterm: xterm, bright: bright);
     }
   }
-  
+
   @override
   String toString({bool background: false}) {
     if (xterm) {
       return "${Console.ANSI_ESCAPE}${background ? 38 : 48};5;${id}m";
     }
-    
+
     if (bright) {
       return "${Console.ANSI_ESCAPE}${(background ? 40 : 30) + id}m";
     } else {
@@ -67,10 +67,10 @@ class Color {
 
 class TextPen {
   final StringBuffer buffer;
-  
-  TextPen({StringBuffer buffer}) :
-    this.buffer = buffer == null ? new StringBuffer() : buffer;
-  
+
+  TextPen({StringBuffer buffer})
+      : this.buffer = buffer == null ? new StringBuffer() : buffer;
+
   TextPen black() => setColor(Color.BLACK);
   TextPen blue() => setColor(Color.BLUE);
   TextPen red() => setColor(Color.RED);
@@ -87,17 +87,17 @@ class TextPen {
   TextPen lightGray() => setColor(Color.LIGHT_GRAY);
   TextPen white() => setColor(Color.WHITE);
   TextPen gray() => setColor(Color.GRAY);
-  
+
   TextPen normal() {
     buffer.write(Console.ANSI_ESCAPE + "0m");
     return this;
   }
-  
+
   TextPen text(String input) {
     buffer.write(input);
     return this;
   }
-  
+
   TextPen setColor(Color color) {
     buffer.write(color.toString());
     return this;
@@ -108,12 +108,12 @@ class TextPen {
     Console._adapter.writeln(buffer.toString());
     return this;
   }
-  
+
   TextPen reset() {
     buffer.clear();
     return this;
   }
-  
+
   void call([String input]) {
     if (input != null) {
       text(input);
@@ -121,7 +121,7 @@ class TextPen {
       print();
     }
   }
-  
+
   @override
   String toString() => buffer.toString();
 }

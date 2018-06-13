@@ -14,7 +14,7 @@ List<List<double>> points = [
   [-1.0, 1.0, -1.0],
   [-1.0, 1.0, 1.0],
   [1.0, 1.0, 1.0],
-  [1.0, 1.0, -1.0]
+  [1.0, 1.0, -1.0],
 ];
 
 List<List<int>> quads = [
@@ -23,7 +23,7 @@ List<List<int>> quads = [
   [1, 5, 6, 2],
   [2, 6, 7, 3],
   [3, 7, 4, 0],
-  [4, 7, 6, 5]
+  [4, 7, 6, 5],
 ];
 
 var cube = (() {
@@ -34,7 +34,7 @@ var cube = (() {
   }).toList();
 })();
 
-var projection = makePerspectiveMatrix(PI / 3.0, 1.0, 1.0, 50.0);
+var projection = makePerspectiveMatrix(pi / 3.0, 1.0, 1.0, 50.0);
 var canvas = new DrawingCanvas(160, 160);
 
 void draw() {
@@ -42,13 +42,13 @@ void draw() {
   var modelView = makeViewMatrix(
     new Vector3(0.0, 0.1, 4.0),
     new Vector3(0.0, 0.0, 0.0),
-    new Vector3(0.0, 1.0, 0.0)
+    new Vector3(0.0, 1.0, 0.0),
   );
 
-  modelView = modelView.rotateY(PI * 2 * now / 10000);
-  modelView = modelView.rotateZ(PI * 2 * now / 11000);
-  modelView = modelView.rotateX(PI * 2 * now / 9000);
-  modelView = modelView.scale(new Vector3(sin(now / 1000 * PI) / 2 + 1, 1.0, 1.0));
+  modelView.rotateY(pi * 2 * now / 10000);
+  modelView.rotateZ(pi * 2 * now / 11000);
+  modelView.rotateX(pi * 2 * now / 9000);
+  modelView.scale(new Vector3(sin(now / 1000 * pi) / 2 + 1, 1.0, 1.0));
   canvas.clear();
 
   var transformed = cube.map((quad) {
@@ -59,7 +59,7 @@ void draw() {
       out = m.transform3(v);
       return {
         "x": (out[0] * 40 + 80).floor(),
-        "y": (out[1] * 40 + 80).floor()
+        "y": (out[1] * 40 + 80).floor(),
       };
     });
   });

@@ -47,7 +47,7 @@ class Keyboard {
       _initialized = true;
 
       Console.adapter.byteStream().asBroadcastStream().map((bytes) {
-        var it = ASCII.decode(bytes);
+        var it = ascii.decode(bytes);
         var original = bytes;
         var code = it.replaceAll(Console.ANSI_CODE, "");
 
@@ -97,7 +97,8 @@ class Keyboard {
     if (_handlers.containsKey(code)) {
       return _handlers[code].stream;
     } else {
-      return (_handlers[code] = new StreamController<String>.broadcast()).stream;
+      return (_handlers[code] = new StreamController<String>.broadcast())
+          .stream;
     }
   }
 

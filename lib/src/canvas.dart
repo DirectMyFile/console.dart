@@ -22,15 +22,12 @@ class ConsoleCanvas extends Canvas {
   }
 
   @override
-  void setPixel(int x, int y, spec) {
-    if (spec is int) {
-      spec = new PixelSpec(color: spec);
-    }
-
-    if (spec is! PixelSpec) {
-      throw new Exception("Invalid Pixel Spec: ${spec}");
-    }
-    pixels[x][y] = spec;
+  void setPixel(int x, int y, dynamic spec) {
+    pixels[x][y] = spec is PixelSpec
+        ? spec
+        : spec is int
+            ? new PixelSpec(color: spec)
+            : throw new Exception("Invalid Pixel Spec: ${spec}");
   }
 
   void flush() {

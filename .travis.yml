@@ -1,0 +1,16 @@
+language: dart
+
+dart: dev
+
+env:
+  global:
+    - LIBS="example lib test"
+
+dart_task:
+ - dartanalyzer: --fatal-warnings $LIBS
+ - dartfmt: -n $LIBS
+ - test
+
+cache:
+  directories:
+    - $HOME/.pub-cache

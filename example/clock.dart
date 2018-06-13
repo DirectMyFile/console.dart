@@ -18,33 +18,34 @@ void draw() {
   bresenham(
     80,
     80,
-    sin(time.hour / 24, 30), 160 - cos(time.hour / 24, 30),
-    canvas.set
+    sin(time.hour / 24, 30),
+    160 - cos(time.hour / 24, 30),
+    canvas.set,
   );
   bresenham(
     80,
     80,
     sin(time.minute / 60, 50),
     160 - cos(time.minute / 60, 50),
-    canvas.set
+    canvas.set,
   );
 
   bresenham(
     80,
     80,
     sin(time.second / 60 + (time.millisecondsSinceEpoch % 1000 / 60000), 75),
-    160 - cos(
-      time.second / 60 + (time.millisecondsSinceEpoch % 1000) / 60000, 75
-    ),
-    canvas.set
+    160 -
+        cos(time.second / 60 + (time.millisecondsSinceEpoch % 1000) / 60000,
+            75),
+    canvas.set,
   );
   Console.write(canvas.frame());
 }
 
 num sin(num i, num l) {
-  return (Math.sin(i * 2 * Math.PI) * l + 80).floor();
+  return (Math.sin(i * 2 * Math.pi) * l + 80).floor();
 }
 
 num cos(num i, num l) {
-  return (Math.cos(i * 2 * Math.PI) * l + 80).floor();
+  return (Math.cos(i * 2 * Math.pi) * l + 80).floor();
 }

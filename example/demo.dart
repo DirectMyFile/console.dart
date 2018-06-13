@@ -1,5 +1,4 @@
 import "package:console/console.dart";
-import "dart:io";
 
 void main() {
   Console.init();

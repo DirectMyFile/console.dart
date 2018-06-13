@@ -4,9 +4,7 @@ bresenham(x0, y0, x1, y1, [fn]) {
   var arr = [];
   if (fn == null) {
     fn = (x, y) {
-      arr.add({
-        "x": x, "y": y
-      });
+      arr.add({"x": x, "y": y});
     };
   }
   var dx = x1 - x0;
