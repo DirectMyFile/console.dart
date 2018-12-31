@@ -196,7 +196,7 @@ class Prompter {
   }
 
   Future<String> prompt({ResponseChecker checker}) {
-    var completer = new Completer();
+    var completer = new Completer<String>();
 
     var doAsk;
     doAsk = () {
