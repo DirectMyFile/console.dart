@@ -45,8 +45,8 @@ class XClipboard implements Clipboard {
 
   @override
   void setContent(String content) {
-    Process
-        .start("/usr/bin/xclip", ["-selection", "clipboard"]).then((process) {
+    Process.start("/usr/bin/xclip", ["-selection", "clipboard"])
+        .then((process) {
       process.stdin.write(content);
       process.stdin.close();
     });
