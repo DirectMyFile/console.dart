@@ -12,8 +12,8 @@ class TimeDisplay {
   /// Starts the Timer
   void start([int place = 1]) {
     Console.adapter.echoMode = false;
-    _watch = new Stopwatch();
-    _updateTimer = new Timer.periodic(new Duration(milliseconds: 10), (timer) {
+    _watch = Stopwatch();
+    _updateTimer = Timer.periodic(Duration(milliseconds: 10), (timer) {
       update(place);
     });
     _watch.start();

@@ -9,7 +9,7 @@ class ProgressBar {
   /// Creates a Progress Bar.
   ///
   /// [complete] is the number that is considered 100%.
-  ProgressBar({this.complete: 100});
+  ProgressBar({this.complete = 100});
 
   /// Updates the Progress Bar with a progress of [progress].
   void update(int progress) {
@@ -30,7 +30,7 @@ class ProgressBar {
     var before = "${percent}% [";
     var after = "]";
 
-    var out = new StringBuffer(before);
+    var out = StringBuffer(before);
 
     for (int x = 1; x < count; x++) out.write("=");
 
@@ -52,7 +52,7 @@ class ProgressBar {
 }
 
 /// Specifies the next position of the loading bar
-typedef NextPositionLoadingBar();
+typedef NextPositionLoadingBar = Function();
 
 /// A loading bar
 class LoadingBar {
@@ -70,7 +70,7 @@ class LoadingBar {
   /// Starts the Loading Bar
   void start() {
     Console.hideCursor();
-    _timer = new Timer.periodic(const Duration(milliseconds: 75), (timer) {
+    _timer = Timer.periodic(const Duration(milliseconds: 75), (timer) {
       nextPosition();
       update();
     });
@@ -136,7 +136,7 @@ class WideLoadingBar {
     bool goForward = true;
     bool isDone = true;
 
-    return new Timer.periodic(const Duration(milliseconds: 50), (timer) async {
+    return Timer.periodic(const Duration(milliseconds: 50), (timer) async {
       if (!isDone) {
         return;
       }
@@ -145,7 +145,7 @@ class WideLoadingBar {
 
       for (int i = 1; i <= width; i++) {
         position = i;
-        await new Future.delayed(const Duration(milliseconds: 5));
+        await Future.delayed(const Duration(milliseconds: 5));
         if (goForward) {
           forward();
         } else {
@@ -159,7 +159,7 @@ class WideLoadingBar {
 
   /// Moves the Bar Forward
   void forward() {
-    var out = new StringBuffer("[");
+    var out = StringBuffer("[");
     var width = Console.columns - 2;
     var after = width - position;
     var before = width - after - 1;
@@ -176,7 +176,7 @@ class WideLoadingBar {
 
   /// Moves the Bar Backward
   void backward() {
-    var out = new StringBuffer("[");
+    var out = StringBuffer("[");
     var width = Console.columns - 2;
     var before = width - position;
     var after = width - before - 1;

@@ -11,7 +11,7 @@ class Console {
   static bool initialized = false;
   static Color _currentTextColor;
   static Color _currentBackgroundColor;
-  static ConsoleAdapter _adapter = new StdioConsoleAdapter();
+  static ConsoleAdapter _adapter = StdioConsoleAdapter();
 
   static ConsoleAdapter get adapter => _adapter;
   static set adapter(ConsoleAdapter val) => _adapter = val;
@@ -54,14 +54,14 @@ class Console {
   }
 
   /// Sets the Current Text Color.
-  static void setTextColor(int id, {bool xterm: false, bool bright: false}) {
+  static void setTextColor(int id, {bool xterm = false, bool bright = false}) {
     Color color;
     if (xterm) {
       var c = id.clamp(0, 256);
-      color = new Color(c, xterm: true);
+      color = Color(c, xterm: true);
       sgr(38, [5, c]);
     } else {
-      color = new Color(id, bright: true);
+      color = Color(id, bright: true);
       if (bright) {
         sgr(30 + id, [1]);
       } else {
@@ -105,14 +105,14 @@ class Console {
   }
 
   static void setBackgroundColor(int id,
-      {bool xterm: false, bool bright: false}) {
+      {bool xterm = false, bool bright = false}) {
     Color color;
     if (xterm) {
       var c = id.clamp(0, 256);
-      color = new Color(c, xterm: true);
+      color = Color(c, xterm: true);
       sgr(48, [5, c]);
     } else {
-      color = new Color(id, bright: true);
+      color = Color(id, bright: true);
       if (bright) {
         sgr(40 + id, [1]);
       } else {
@@ -122,7 +122,7 @@ class Console {
     _currentBackgroundColor = color;
   }
 
-  static void centerCursor({bool row: true}) {
+  static void centerCursor({bool row = true}) {
     if (row) {
       var column = (columns / 2).round();
       var row = (rows / 2).round();
@@ -220,13 +220,13 @@ class Console {
     _adapter.lineMode = lm;
     _adapter.echoMode = em;
 
-    var str = new String.fromCharCodes(bytes);
+    var str = String.fromCharCodes(bytes);
     str = str.substring(str.lastIndexOf('[') + 1, str.length - 1);
 
     List<int> parts =
-        new List.from(str.split(";").map((it) => int.parse(it))).toList();
+        List.from(str.split(";").map((it) => int.parse(it))).toList();
 
-    return new CursorPosition(parts[1], parts[0]);
+    return CursorPosition(parts[1], parts[0]);
   }
 
   static void saveCursor() => writeANSI("s");

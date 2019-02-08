@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 import 'package:console/console.dart';
 
 void main([args, port]) {
-  final output = new BufferConsoleAdapter();
+  final output = BufferConsoleAdapter();
 
   setUpAll(() => Console.adapter = output);
 
@@ -68,4 +68,4 @@ class ANSIMatcher extends Matcher {
           ' ${utf8.encode(value.toString())}');
 }
 
-Matcher ansi(String value) => new ANSIMatcher(value);
+Matcher ansi(String value) => ANSIMatcher(value);

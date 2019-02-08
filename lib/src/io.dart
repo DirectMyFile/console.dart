@@ -1,10 +1,10 @@
 part of console;
 
-void inheritIO(Process process, {String prefix, bool lineBased: true}) {
+void inheritIO(Process process, {String prefix, bool lineBased = true}) {
   if (lineBased) {
     process.stdout
         .transform(utf8.decoder)
-        .transform(new LineSplitter())
+        .transform(LineSplitter())
         .listen((String data) {
       if (prefix != null) {
         stdout.write(prefix);
@@ -14,7 +14,7 @@ void inheritIO(Process process, {String prefix, bool lineBased: true}) {
 
     process.stderr
         .transform(utf8.decoder)
-        .transform(new LineSplitter())
+        .transform(LineSplitter())
         .listen((String data) {
       if (prefix != null) {
         stderr.write(prefix);

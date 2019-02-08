@@ -1,6 +1,6 @@
 part of console;
 
-const List<String> _YES_RESPONSES = const [
+const List<String> _YES_RESPONSES = [
   "yes",
   "y",
   "sure",
@@ -17,7 +17,7 @@ class ShellPrompt {
   String message;
   bool _stop = false;
 
-  ShellPrompt({this.message: r"$ "});
+  ShellPrompt({this.message = r"$ "});
 
   /// Stops a Loop
   void stop() {
@@ -26,7 +26,7 @@ class ShellPrompt {
 
   /// Runs a shell prompt in a loop.
   Stream<String> loop() {
-    var controller = new StreamController<String>();
+    var controller = StreamController<String>();
 
     var doRead;
 
@@ -35,13 +35,13 @@ class ShellPrompt {
         _stop = false;
         return;
       }
-      new Prompter(message).prompt().then((it) {
+      Prompter(message).prompt().then((it) {
         controller.add(it);
-        new Future(doRead);
+        Future(doRead);
       });
     };
 
-    new Future(doRead);
+    Future(doRead);
 
     return controller.stream;
   }
@@ -53,12 +53,12 @@ class Chooser<T> {
   final ChooserEntryFormatter<T> formatter;
 
   Chooser(this.choices,
-      {this.message: "Choice: ", this.formatter: _defaultFormatter});
+      {this.message = "Choice: ", this.formatter = _defaultFormatter});
 
   static String _defaultFormatter(input, int index) => "[${index}] ${input}";
 
   T chooseSync() {
-    var buff = new StringBuffer();
+    var buff = StringBuffer();
     int i = -1;
 
     for (var choice in choices) {
@@ -69,7 +69,7 @@ class Chooser<T> {
     buff.write(message);
 
     while (true) {
-      var input = new Prompter(buff.toString()).promptSync();
+      var input = Prompter(buff.toString()).promptSync();
       int result = _parseInteger(input);
 
       if (result == null) {
@@ -96,7 +96,7 @@ class Chooser<T> {
   }
 
   Future<T> choose() {
-    var buff = new StringBuffer();
+    var buff = StringBuffer();
     int i = -1;
 
     for (var choice in choices) {
@@ -106,7 +106,7 @@ class Chooser<T> {
 
     buff.write(message);
 
-    var completer = new Completer();
+    var completer = Completer();
 
     var process;
     process = (String input) {
@@ -133,23 +133,23 @@ class Chooser<T> {
         choice = choices[result - 1];
         completer.complete(choice);
       } catch (e) {
-        new Prompter(buff.toString()).prompt().then(process);
+        Prompter(buff.toString()).prompt().then(process);
       }
     };
 
-    new Prompter(buff.toString()).prompt().then(process);
+    Prompter(buff.toString()).prompt().then(process);
 
     return completer.future;
   }
 }
 
-typedef String ChooserEntryFormatter<T>(T choice, int index);
+typedef ChooserEntryFormatter<T> = String Function(T choice, int index);
 
 class Prompter {
   final String message;
   final bool secret;
 
-  Prompter(this.message, {this.secret: false});
+  Prompter(this.message, {this.secret = false});
 
   /// Prompts a user for a yes or no answer.
   ///
@@ -167,13 +167,13 @@ class Prompter {
   /// You can add more to the list of positive responses using the [positive] argument.
   ///
   /// The input will be changed to lowercase and then checked.
-  bool askSync({List<String> positive: const []}) {
+  bool askSync({List<String> positive = const []}) {
     var answer = promptSync();
     return _YES_RESPONSES.contains(answer.toLowerCase()) ||
         positive.contains(message.toLowerCase());
   }
 
-  Future<bool> ask({List<String> positive: const []}) {
+  Future<bool> ask({List<String> positive = const []}) {
     return prompt().then((answer) {
       return _YES_RESPONSES.contains(answer.toLowerCase()) ||
           positive.contains(message.toLowerCase());
@@ -196,12 +196,12 @@ class Prompter {
   }
 
   Future<String> prompt({ResponseChecker checker}) {
-    var completer = new Completer<String>();
+    var completer = Completer<String>();
 
     var doAsk;
     doAsk = () {
       Console.adapter.write(message);
-      new Future(() {
+      Future(() {
         if (secret) Console.adapter.echoMode = false;
         var response = Console.readLine();
         if (secret) Console.adapter.echoMode = true;
@@ -220,11 +220,11 @@ class Prompter {
 }
 
 Future<String> readInput(String message,
-    {bool secret: false, ResponseChecker checker}) {
-  return new Prompter(message, secret: secret).prompt(checker: checker);
+    {bool secret = false, ResponseChecker checker}) {
+  return Prompter(message, secret: secret).prompt(checker: checker);
 }
 
-typedef bool ResponseChecker(String response);
+typedef ResponseChecker = bool Function(String response);
 
 int _parseInteger(String input) {
   try {

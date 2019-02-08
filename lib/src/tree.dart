@@ -1,12 +1,12 @@
 part of console;
 
 /// Prints a tree. This is ported from the NPM code (the dependency tree)
-void printTree(input, {String prefix: '', Map opts}) {
+void printTree(input, {String prefix = '', Map opts}) {
   Console.write(createTree(input, prefix: prefix, opts: opts));
 }
 
 /// Creates a Tree (this is like the npm dependency tree)
-String createTree(input, {String prefix: '', Map opts}) {
+String createTree(input, {String prefix = '', Map opts}) {
   if (input is String) {
     input = {"label": input};
   }

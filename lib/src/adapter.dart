@@ -59,7 +59,7 @@ class StdioConsoleAdapter extends ConsoleAdapter {
 }
 
 class BufferConsoleAdapter extends ConsoleAdapter {
-  StringBuffer buffer = new StringBuffer();
+  StringBuffer buffer = StringBuffer();
   String input = "";
 
   @override
@@ -72,8 +72,8 @@ class BufferConsoleAdapter extends ConsoleAdapter {
 
   @override
   Stream<List<int>> byteStream() {
-    var c = new StreamController();
-    new Future(() {
+    var c = StreamController();
+    Future(() {
       c.add(input.codeUnits);
       c.add("\n".codeUnits);
     });

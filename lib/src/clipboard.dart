@@ -1,9 +1,9 @@
 part of console;
 
 Clipboard getClipboard() {
-  if (Platform.isMacOS) return new OSXClipboard();
-  if (Platform.isLinux && new File("/usr/bin/xclip").existsSync())
-    return new XClipboard();
+  if (Platform.isMacOS) return OSXClipboard();
+  if (Platform.isLinux && File("/usr/bin/xclip").existsSync())
+    return XClipboard();
   return null;
 }
 
@@ -18,7 +18,7 @@ class OSXClipboard implements Clipboard {
   String getContent() {
     var result = Process.runSync("/usr/bin/pbpaste", []);
     if (result.exitCode != 0) {
-      throw new Exception("Failed to get clipboard content.");
+      throw Exception("Failed to get clipboard content.");
     }
     return result.stdout.toString();
   }
@@ -38,7 +38,7 @@ class XClipboard implements Clipboard {
     var result =
         Process.runSync("/usr/bin/xclip", ["-selection", "clipboard", "-o"]);
     if (result.exitCode != 0) {
-      throw new Exception("Failed to get clipboard content.");
+      throw Exception("Failed to get clipboard content.");
     }
     return result.stdout.toString();
   }
