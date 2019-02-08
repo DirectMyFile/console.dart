@@ -1,15 +1,17 @@
 ## 3.0.0
 
-- Console Colors (ANSI)
+First Dart 2 release.
+
+- Console colors (ANSI)
 - Icons (UTF-8)
-- Keyboard Capture
-- Experimental Clipboard Support
-- Progress Bars
-- Flexible Prompts
-- Shell Prompts
+- Keyboard capture
+- Experimental clipboard support
+- Progress bars
+- Flexible prompts
+- Shell prompts
 - Choosers
-- Fancy Formatting
-- Loading Bars
+- Fancy formatting
+- Loading bars
 - Timer (like pub's timer)
-- Fancy Trees (like the npm dependency trees)
-- Simple Unit Testing
+- Fancy trees (like the npm dependency trees)
+- Simple unit testing
