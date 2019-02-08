@@ -27,22 +27,20 @@ class Question {
 }
 
 void main() {
-  var dartPeople = [
-    "Lars Bak",
-    "Kasper Lund",
-    "Seth Ladd",
+  const dartPeople = [
+    "Dan Grove",
+    "Michael Thomsen",
+    "Leaf Petersen",
     "Bob Nystrom",
-    "Florian Loitsch",
+    "Vyacheslav Egorov",
     "Kathy Walrath",
   ];
 
   [
     Question("What conference was Dart released at?", "GOTO Conference",
         choices: ["Google I/O", "GOTO Conference", "JavaOne", "Dart Summit"]),
-    Question("Who is a Product Manager for Dart at Google?", "Seth Ladd",
+    Question("Who is a Product Manager for Dart at Google?", "Michael Thomsen",
         choices: dartPeople),
-    Question("What type system does Dart have?", "Dynamic",
-        choices: ["Static", "Dynamic"]),
     Question("What is the package manager for Dart called?", "pub"),
     Question("What type of execution model does Dart have?", "Event Loop",
         choices: ["Multi Threaded", "Single Threaded", "Event Loop"]),
@@ -58,7 +56,6 @@ void main() {
     Question(
         "Before dart2js, what was the name of the Dart to JavaScript Compiler?",
         "frog"),
-    Question("Is Dart faster than JavaScript in most cases?", true)
   ].forEach((q) {
     questionCount++;
     var correct = q.askQuestion();
@@ -81,7 +78,7 @@ void results() {
 }
 
 List<String> scramble(List<String> choices) {
-  var out = List.from(choices);
+  var out = List<String>.from(choices);
   out.shuffle();
   return out;
 }
