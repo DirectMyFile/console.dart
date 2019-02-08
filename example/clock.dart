@@ -4,17 +4,17 @@ import "dart:math" as Math;
 import "package:console/console.dart";
 import "package:console/utils.dart";
 
-DrawingCanvas canvas = new DrawingCanvas(160, 160);
+DrawingCanvas canvas = DrawingCanvas(160, 160);
 
 void main() {
-  new Timer.periodic(new Duration(milliseconds: 1000 ~/ 24), (t) {
+  Timer.periodic(Duration(milliseconds: 1000 ~/ 24), (t) {
     draw();
   });
 }
 
 void draw() {
   canvas.clear();
-  var time = new DateTime.now();
+  var time = DateTime.now();
   bresenham(
     80,
     80,

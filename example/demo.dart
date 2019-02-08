@@ -14,7 +14,7 @@ void main() {
   print("Bright Red");
   Console.resetAll();
   print("Progress Bar");
-  var bar = new ProgressBar(complete: 5);
+  var bar = ProgressBar(complete: 5);
   bar.update(3);
   print("${Icon.CHECKMARK} Icons");
 }

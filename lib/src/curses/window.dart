@@ -48,8 +48,8 @@ abstract class Window {
   }
 
   Timer startUpdateLoop([Duration wait]) {
-    if (wait == null) wait = new Duration(seconds: 2);
-    _updateTimer = new Timer.periodic(wait, (timer) {
+    if (wait == null) wait = Duration(seconds: 2);
+    _updateTimer = Timer.periodic(wait, (timer) {
       draw();
     });
     return _updateTimer;

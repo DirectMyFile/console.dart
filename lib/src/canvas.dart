@@ -14,11 +14,11 @@ class ConsoleCanvas extends Canvas {
   List<List<PixelSpec>> pixels;
   Cursor cursor;
 
-  ConsoleCanvas({PixelSpec defaultSpec: PixelSpec.EMPTY}) {
-    pixels = new List<List<PixelSpec>>.generate(width, (i) {
-      return new List<PixelSpec>.filled(height, defaultSpec);
+  ConsoleCanvas({PixelSpec defaultSpec = PixelSpec.EMPTY}) {
+    pixels = List<List<PixelSpec>>.generate(width, (i) {
+      return List<PixelSpec>.filled(height, defaultSpec);
     });
-    cursor = new Cursor();
+    cursor = Cursor();
   }
 
   @override
@@ -26,8 +26,8 @@ class ConsoleCanvas extends Canvas {
     pixels[x][y] = spec is PixelSpec
         ? spec
         : spec is int
-            ? new PixelSpec(color: spec)
-            : throw new Exception("Invalid Pixel Spec: ${spec}");
+            ? PixelSpec(color: spec)
+            : throw Exception("Invalid Pixel Spec: ${spec}");
   }
 
   void flush() {
@@ -43,9 +43,9 @@ class ConsoleCanvas extends Canvas {
 }
 
 class PixelSpec {
-  static const PixelSpec EMPTY = const PixelSpec();
+  static const PixelSpec EMPTY = PixelSpec();
 
   final int color;
 
-  const PixelSpec({this.color: 0});
+  const PixelSpec({this.color = 0});
 }

@@ -15,14 +15,14 @@ class DrawingCanvas {
 
   DrawingCanvas(this.width, this.height) {
     if (width % 2 != 0) {
-      throw new Exception("Width must be a multiple of 2!");
+      throw Exception("Width must be a multiple of 2!");
     }
 
     if (height % 4 != 0) {
-      throw new Exception("Height must be a multiple of 4!");
+      throw Exception("Height must be a multiple of 4!");
     }
 
-    content = new List<int>(width * height ~/ 8);
+    content = List<int>(width * height ~/ 8);
     _fillContent();
   }
 
@@ -79,7 +79,7 @@ class DrawingCanvas {
       if (content[i] == 0) {
         result.add(' ');
       } else {
-        result.add(new String.fromCharCode(0x2800 + content[i]));
+        result.add(String.fromCharCode(0x2800 + content[i]));
       }
     }
     result.add(delimiter);

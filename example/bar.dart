@@ -2,13 +2,13 @@ import "dart:async";
 
 import "package:console/console.dart";
 
-DrawingCanvas canvas = new DrawingCanvas(100, 100);
+DrawingCanvas canvas = DrawingCanvas(100, 100);
 
 main() {
   Console.eraseDisplay(1);
 
   int l = 1;
-  new Timer.periodic(const Duration(seconds: 2), (_) {
+  Timer.periodic(const Duration(seconds: 2), (_) {
     l += 2;
 
     for (var i = 0; i < l; i++) {

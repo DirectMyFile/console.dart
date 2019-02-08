@@ -29,32 +29,32 @@ List<List<int>> quads = [
 var cube = (() {
   return quads.map((quad) {
     return quad.map((v) {
-      return new Vector3.array(points[v]);
+      return Vector3.array(points[v]);
     }).toList();
   }).toList();
 })();
 
 var projection = makePerspectiveMatrix(pi / 3.0, 1.0, 1.0, 50.0);
-var canvas = new DrawingCanvas(160, 160);
+var canvas = DrawingCanvas(160, 160);
 
 void draw() {
-  var now = new DateTime.now().millisecondsSinceEpoch;
+  var now = DateTime.now().millisecondsSinceEpoch;
   var modelView = makeViewMatrix(
-    new Vector3(0.0, 0.1, 4.0),
-    new Vector3(0.0, 0.0, 0.0),
-    new Vector3(0.0, 1.0, 0.0),
+    Vector3(0.0, 0.1, 4.0),
+    Vector3(0.0, 0.0, 0.0),
+    Vector3(0.0, 1.0, 0.0),
   );
 
   modelView.rotateY(pi * 2 * now / 10000);
   modelView.rotateZ(pi * 2 * now / 11000);
   modelView.rotateX(pi * 2 * now / 9000);
-  modelView.scale(new Vector3(sin(now / 1000 * pi) / 2 + 1, 1.0, 1.0));
+  modelView.scale(Vector3(sin(now / 1000 * pi) / 2 + 1, 1.0, 1.0));
   canvas.clear();
 
   var transformed = cube.map((quad) {
     return quad.map((v) {
       Matrix4 m;
-      var out = new Vector3.zero();
+      var out = Vector3.zero();
       m = projection * modelView;
       out = m.transform3(v);
       return {
@@ -78,7 +78,7 @@ void draw() {
 }
 
 void main() {
-  new Timer.periodic(new Duration(milliseconds: 1000 ~/ 24), (_) {
+  Timer.periodic(Duration(milliseconds: 1000 ~/ 24), (_) {
     draw();
   });
 }

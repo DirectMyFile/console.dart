@@ -97,14 +97,13 @@ class Keyboard {
     if (_handlers.containsKey(code)) {
       return _handlers[code].stream;
     } else {
-      return (_handlers[code] = new StreamController<String>.broadcast())
-          .stream;
+      return (_handlers[code] = StreamController<String>.broadcast()).stream;
     }
   }
 
   static Stream<String> bindKeys(List<String> codes) {
     init();
-    var controller = new StreamController<String>.broadcast();
+    var controller = StreamController<String>.broadcast();
     for (var key in codes) {
       bindKey(key).listen(controller.add);
     }

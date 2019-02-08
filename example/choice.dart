@@ -1,7 +1,7 @@
 import "package:console/console.dart";
 
 void main() {
-  var chooser = new Chooser<String>(
+  var chooser = Chooser<String>(
     ["A", "B", "C", "D"],
     message: "Select a Letter: ",
   );

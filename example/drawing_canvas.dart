@@ -3,7 +3,7 @@ import "package:console/console.dart";
 import "dart:io";
 
 void main() {
-  var canvas = new DrawingCanvas(120, 120);
+  var canvas = DrawingCanvas(120, 120);
 
   void draw() {
     for (var x = 1; x < canvas.width; x++) {

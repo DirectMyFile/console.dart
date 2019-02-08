@@ -22,7 +22,7 @@ class DemoWindow extends Window {
     } else {
       Console.centerCursor();
       Console.moveToColumn(1);
-      var loader = new WideLoadingBar();
+      var loader = WideLoadingBar();
       loaderTimer = loader.loop();
     }
   }
@@ -56,6 +56,6 @@ class DemoWindow extends Window {
 }
 
 void main() {
-  var window = new DemoWindow();
+  var window = DemoWindow();
   window.display();
 }

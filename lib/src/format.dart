@@ -2,11 +2,11 @@ part of console;
 
 abstract class VariableStyle {
   static const _SingleBracketVariableStyle SINGLE_BRACKET =
-      const _SingleBracketVariableStyle();
+      _SingleBracketVariableStyle();
   static const _DoubleBracketVariableStyle DOUBLE_BRACKET =
-      const _DoubleBracketVariableStyle();
+      _DoubleBracketVariableStyle();
   static const _BashBracketVariableStyle BASH_BRACKET =
-      const _BashBracketVariableStyle();
+      _BashBracketVariableStyle();
   static VariableStyle DEFAULT = SINGLE_BRACKET;
 
   const VariableStyle();
@@ -24,14 +24,14 @@ abstract class VariableStyle {
 }
 
 class _DoubleBracketVariableStyle extends VariableStyle {
-  static final RegExp _REGEX = new RegExp(r"\{\{(.+?)\}\}");
+  static final RegExp _REGEX = RegExp(r"\{\{(.+?)\}\}");
 
   const _DoubleBracketVariableStyle();
 
   @override
   Set<String> findVariables(String input) {
     var matches = _REGEX.allMatches(input);
-    var allKeys = new Set<String>();
+    var allKeys = Set<String>();
 
     for (var match in matches) {
       var key = match.group(1);
@@ -50,14 +50,14 @@ class _DoubleBracketVariableStyle extends VariableStyle {
 }
 
 class _BashBracketVariableStyle extends VariableStyle {
-  static final RegExp _REGEX = new RegExp(r"\$\{(.+?)\}");
+  static final RegExp _REGEX = RegExp(r"\$\{(.+?)\}");
 
   const _BashBracketVariableStyle();
 
   @override
   Set<String> findVariables(String input) {
     var matches = _REGEX.allMatches(input);
-    var allKeys = new Set<String>();
+    var allKeys = Set<String>();
 
     for (var match in matches) {
       var key = match.group(1);
@@ -76,14 +76,14 @@ class _BashBracketVariableStyle extends VariableStyle {
 }
 
 class _SingleBracketVariableStyle extends VariableStyle {
-  static final RegExp _REGEX = new RegExp(r"\{(.+?)\}");
+  static final RegExp _REGEX = RegExp(r"\{(.+?)\}");
 
   const _SingleBracketVariableStyle();
 
   @override
   Set<String> findVariables(String input) {
     var matches = _REGEX.allMatches(input);
-    var allKeys = new Set<String>();
+    var allKeys = Set<String>();
 
     for (var match in matches) {
       var key = match.group(1);
@@ -101,7 +101,7 @@ class _SingleBracketVariableStyle extends VariableStyle {
   }
 }
 
-typedef String VariableResolver(String variable);
+typedef VariableResolver = String Function(String variable);
 
 String format(String input,
     {List<String> args,
@@ -124,7 +124,7 @@ String format(String input,
       try {
         var index = int.parse(id);
         if (index < 0 || index > args.length - 1) {
-          throw new RangeError.range(index, 0, args.length - 1);
+          throw RangeError.range(index, 0, args.length - 1);
         }
         out = style.replace(out, "${index}", args[index]);
         continue;
@@ -139,7 +139,7 @@ String format(String input,
     if (id.startsWith("@") || id.startsWith("color.")) {
       var color = id.startsWith("@") ? id.substring(1) : id.substring(6);
       if (color.length == 0) {
-        throw new Exception("color directive requires an argument");
+        throw Exception("color directive requires an argument");
       }
 
       if (_COLORS.containsKey(color)) {
@@ -156,7 +156,7 @@ String format(String input,
     if (id.startsWith("env.")) {
       var envVariable = id.substring(4);
       if (envVariable.isEmpty) {
-        throw new Exception("Unknown Key: ${id}");
+        throw Exception("Unknown Key: ${id}");
       }
       var value = Platform.environment[envVariable];
       if (value == null) value = "";
@@ -168,7 +168,7 @@ String format(String input,
       var variable = id.substring(9);
 
       if (variable.isEmpty) {
-        throw new Exception("Unknown Key: ${id}");
+        throw Exception("Unknown Key: ${id}");
       }
 
       var value = _resolvePlatformVariable(variable);
@@ -181,7 +181,7 @@ String format(String input,
       var value = resolver(id);
       out = style.replace(out, id, value);
     } else {
-      throw new Exception("Unknown Key: ${id}");
+      throw Exception("Unknown Key: ${id}");
     }
   }
 
@@ -201,6 +201,6 @@ String _resolvePlatformVariable(String name) {
     case "script":
       return Platform.script.toString();
     default:
-      throw new Exception("Unsupported Platform Variable: ${name}");
+      throw Exception("Unsupported Platform Variable: ${name}");
   }
 }
