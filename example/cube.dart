@@ -64,9 +64,9 @@ void draw() {
     });
   });
 
-  transformed.forEach((quad) {
+  transformed.forEach((quadIterable) {
     var i = 0;
-    quad = quad.toList();
+    final quad = quadIterable.toList();
     quad.forEach((v) {
       var n = quad[((i.isNegative ? i.abs() : -i) + 1) % 4];
       bresenham(v["x"], v["y"], n["x"], n["y"], canvas.set);
