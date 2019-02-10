@@ -1,5 +1,5 @@
 name: console
-version: 3.0.0
+version: 3.1.0
 author: Kenneth Endfinger <kaendfinger@gmail.com>
 description: A library for common features required by console applications, including color formatting, keyboard input, and progress bars. 
 homepage: https://github.com/DirectMyFile/console.dart
