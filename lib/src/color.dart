@@ -1,29 +1,29 @@
 part of console;
 
 final Map<String, Color> _COLORS = {
-  "black": Color(0),
-  "gray": Color(0, bright: true),
-  "red": Color(1),
-  "dark_red": Color(1, bright: true),
-  "lime": Color(2, bright: true),
-  "green": Color(2),
-  "gold": Color(3),
-  "yellow": Color(3, bright: true),
-  "blue": Color(4, bright: true),
-  "dark_blue": Color(4),
-  "magenta": Color(5),
-  "light_magenta": Color(5, bright: true),
-  "cyan": Color(6),
-  "light_cyan": Color(6, bright: true),
-  "light_gray": Color(7),
-  "white": Color(7, bright: true)
+  'black': Color(0),
+  'gray': Color(0, bright: true),
+  'dark_red': Color(1),
+  'red': Color(1, bright: true),
+  'green': Color(2),
+  'lime': Color(2, bright: true),
+  'gold': Color(3),
+  'yellow': Color(3, bright: true),
+  'dark_blue': Color(4),
+  'blue': Color(4, bright: true),
+  'magenta': Color(5),
+  'light_magenta': Color(5, bright: true),
+  'cyan': Color(6),
+  'light_cyan': Color(6, bright: true),
+  'light_gray': Color(7),
+  'white': Color(7, bright: true)
 };
 
 class Color {
   static const Color BLACK = Color(0);
   static const Color GRAY = Color(0, bright: true);
-  static const Color RED = Color(1);
-  static const Color DARK_RED = Color(1, bright: true);
+  static const Color RED = Color(1, bright: true);
+  static const Color DARK_RED = Color(1);
   static const Color LIME = Color(2, bright: true);
   static const Color GREEN = Color(2);
   static const Color GOLD = Color(3);
@@ -43,6 +43,8 @@ class Color {
 
   const Color(this.id, {this.xterm = false, this.bright = false});
 
+  static Map<String, Color> getColors() => _COLORS;
+
   void makeCurrent({bool background = false}) {
     if (background) {
       Console.setBackgroundColor(id, xterm: xterm, bright: bright);
@@ -54,13 +56,13 @@ class Color {
   @override
   String toString({bool background = false}) {
     if (xterm) {
-      return "${Console.ANSI_ESCAPE}${background ? 38 : 48};5;${id}m";
+      return '${Console.ANSI_ESCAPE}${background ? 38 : 48};5;${id}m';
     }
 
     if (bright) {
-      return "${Console.ANSI_ESCAPE}${(background ? 40 : 30) + id}m";
+      return '${Console.ANSI_ESCAPE}1;${(background ? 40 : 30) + id}m';
     } else {
-      return "${Console.ANSI_ESCAPE}${(background ? 40 : 30) + id}m";
+      return '${Console.ANSI_ESCAPE}0;${(background ? 40 : 30) + id}m';
     }
   }
 }
@@ -89,7 +91,7 @@ class TextPen {
   TextPen gray() => setColor(Color.GRAY);
 
   TextPen normal() {
-    buffer.write(Console.ANSI_ESCAPE + "0m");
+    buffer.write(Console.ANSI_ESCAPE + '0m');
     return this;
   }
 
