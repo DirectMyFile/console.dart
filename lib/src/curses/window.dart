@@ -18,9 +18,11 @@ abstract class Window {
   void _init() {
     stdin.echoMode = false;
 
-    Console.onResize.listen((_) {
-      draw();
-    });
+    if (!Platform.isWindows) {
+      Console.onResize.listen((_) {
+        draw();
+      });
+    }
 
     Keyboard.echoUnhandledKeys = false;
   }
