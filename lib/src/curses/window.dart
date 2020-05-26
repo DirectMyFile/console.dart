@@ -16,9 +16,8 @@ abstract class Window {
   void initialize();
 
   void _init() {
-    stdin.echoMode = false;
-
     if (!Platform.isWindows) {
+      stdin.echoMode = false;
       Console.onResize.listen((_) {
         draw();
       });
@@ -63,7 +62,7 @@ abstract class Window {
     }
     Console.eraseDisplay();
     Console.moveCursor(row: 1, column: 1);
-    stdin.echoMode = true;
+    Platform.isWindows ? null : stdin.echoMode = true;
   }
 
   void writeCentered(String text) {
