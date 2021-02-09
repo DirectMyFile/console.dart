@@ -16,22 +16,22 @@ abstract class VariableStyle {
 
   /// Calls [action] in a [Zone] that has it's format
   /// variable style set to [style].
-  static void withStyle(VariableStyle style, void action()) {
+  static void withStyle(VariableStyle style, void Function() action) {
     runZoned(() {
       action();
-    }, zoneValues: {"console.format.variable_style": style});
+    }, zoneValues: {'console.format.variable_style': style});
   }
 }
 
 class _DoubleBracketVariableStyle extends VariableStyle {
-  static final RegExp _REGEX = RegExp(r"\{\{(.+?)\}\}");
+  static final RegExp _REGEX = RegExp(r'\{\{(.+?)\}\}');
 
   const _DoubleBracketVariableStyle();
 
   @override
   Set<String> findVariables(String input) {
     var matches = _REGEX.allMatches(input);
-    var allKeys = Set<String>();
+    var allKeys = <String>{};
 
     for (var match in matches) {
       var key = match.group(1);
@@ -45,19 +45,19 @@ class _DoubleBracketVariableStyle extends VariableStyle {
 
   @override
   String replace(String input, String variable, String value) {
-    return input.replaceAll("{{${variable}}}", value);
+    return input.replaceAll('{{${variable}}}', value);
   }
 }
 
 class _BashBracketVariableStyle extends VariableStyle {
-  static final RegExp _REGEX = RegExp(r"\$\{(.+?)\}");
+  static final RegExp _REGEX = RegExp(r'\$\{(.+?)\}');
 
   const _BashBracketVariableStyle();
 
   @override
   Set<String> findVariables(String input) {
     var matches = _REGEX.allMatches(input);
-    var allKeys = Set<String>();
+    var allKeys = <String>{};
 
     for (var match in matches) {
       var key = match.group(1);
@@ -71,19 +71,19 @@ class _BashBracketVariableStyle extends VariableStyle {
 
   @override
   String replace(String input, String variable, String value) {
-    return input.replaceAll("\${${variable}}", value);
+    return input.replaceAll('\${${variable}}', value);
   }
 }
 
 class _SingleBracketVariableStyle extends VariableStyle {
-  static final RegExp _REGEX = RegExp(r"\{(.+?)\}");
+  static final RegExp _REGEX = RegExp(r'\{(.+?)\}');
 
   const _SingleBracketVariableStyle();
 
   @override
   Set<String> findVariables(String input) {
     var matches = _REGEX.allMatches(input);
-    var allKeys = Set<String>();
+    var allKeys = <String>{};
 
     for (var match in matches) {
       var key = match.group(1);
@@ -97,7 +97,7 @@ class _SingleBracketVariableStyle extends VariableStyle {
 
   @override
   String replace(String input, String variable, String value) {
-    return input.replaceAll("{${variable}}", value);
+    return input.replaceAll('{${variable}}', value);
   }
 }
 
@@ -108,9 +108,7 @@ String format(String input,
     Map<String, String> replace,
     VariableStyle style,
     VariableResolver resolver}) {
-  if (style == null) {
-    style = VariableStyle.DEFAULT;
-  }
+  style ??= VariableStyle.DEFAULT;
 
   if (Zone.current['console.format.variable_style'] != null) {
     style = Zone.current['console.format.variable_style'];
@@ -126,8 +124,9 @@ String format(String input,
         if (index < 0 || index > args.length - 1) {
           throw RangeError.range(index, 0, args.length - 1);
         }
-        out = style.replace(out, "${index}", args[index]);
+        out = style.replace(out, '${index}', args[index]);
         continue;
+        // ignore: empty_catches
       } on FormatException {}
     }
 
@@ -136,39 +135,39 @@ String format(String input,
       continue;
     }
 
-    if (id.startsWith("@") || id.startsWith("color.")) {
-      var color = id.startsWith("@") ? id.substring(1) : id.substring(6);
-      if (color.length == 0) {
-        throw Exception("color directive requires an argument");
+    if (id.startsWith('@') || id.startsWith('color.')) {
+      var color = id.startsWith('@') ? id.substring(1) : id.substring(6);
+      if (color.isEmpty) {
+        throw Exception('color directive requires an argument');
       }
 
       if (_COLORS.containsKey(color)) {
-        out = style.replace(out, "${id}", _COLORS[color].toString());
+        out = style.replace(out, '${id}', _COLORS[color].toString());
         continue;
       }
 
-      if (color == "normal" || color == "end") {
-        out = style.replace(out, id, "${Console.ANSI_ESCAPE}0m");
+      if (color == 'normal' || color == 'end') {
+        out = style.replace(out, id, '${Console.ANSI_ESCAPE}0m');
         continue;
       }
     }
 
-    if (id.startsWith("env.")) {
+    if (id.startsWith('env.')) {
       var envVariable = id.substring(4);
       if (envVariable.isEmpty) {
-        throw Exception("Unknown Key: ${id}");
+        throw Exception('Unknown Key: ${id}');
       }
       var value = Platform.environment[envVariable];
-      if (value == null) value = "";
+      value ??= '';
       out = style.replace(out, id, value);
       continue;
     }
 
-    if (id.startsWith("platform.")) {
+    if (id.startsWith('platform.')) {
       var variable = id.substring(9);
 
       if (variable.isEmpty) {
-        throw Exception("Unknown Key: ${id}");
+        throw Exception('Unknown Key: ${id}');
       }
 
       var value = _resolvePlatformVariable(variable);
@@ -181,7 +180,7 @@ String format(String input,
       var value = resolver(id);
       out = style.replace(out, id, value);
     } else {
-      throw Exception("Unknown Key: ${id}");
+      throw Exception('Unknown Key: ${id}');
     }
   }
 
@@ -190,17 +189,17 @@ String format(String input,
 
 String _resolvePlatformVariable(String name) {
   switch (name) {
-    case "hostname":
+    case 'hostname':
       return Platform.localHostname;
-    case "executable":
+    case 'executable':
       return Platform.executable;
-    case "os":
+    case 'os':
       return Platform.operatingSystem;
-    case "version":
+    case 'version':
       return Platform.version;
-    case "script":
+    case 'script':
       return Platform.script.toString();
     default:
-      throw Exception("Unsupported Platform Variable: ${name}");
+      throw Exception('Unsupported Platform Variable: ${name}');
   }
 }

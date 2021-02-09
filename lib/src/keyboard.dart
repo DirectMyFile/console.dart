@@ -35,7 +35,7 @@ abstract class KeyCode {
 
 /// API for the Keyboard
 class Keyboard {
-  static Map<String, StreamController<String>> _handlers = {};
+  static final Map<String, StreamController<String>> _handlers = {};
 
   static bool _initialized = false;
 

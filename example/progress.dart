@@ -1,6 +1,6 @@
-import "dart:async";
+import 'dart:async';
 
-import "package:console/console.dart";
+import 'package:console/console.dart';
 
 void main() {
   var progress = ProgressBar();

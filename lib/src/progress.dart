@@ -27,16 +27,20 @@ class ProgressBar {
     var w = Console.columns - digits - 4;
 
     var count = (ratio * w).toInt();
-    var before = "${percent}% [";
-    var after = "]";
+    var before = '${percent}% [';
+    var after = ']';
 
     var out = StringBuffer(before);
 
-    for (int x = 1; x < count; x++) out.write("=");
+    for (var x = 1; x < count; x++) {
+      out.write('=');
+    }
 
-    out.write(">");
+    out.write('>');
 
-    for (int x = count; x < w; x++) out.write(" ");
+    for (var x = count; x < w; x++) {
+      out.write(' ');
+    }
 
     out.write(after);
 
@@ -44,7 +48,7 @@ class ProgressBar {
       var it = out.toString();
 
       out.clear();
-      out.write(it.substring(0, it.length - 2) + "]");
+      out.write(it.substring(0, it.length - 2) + ']');
     }
 
     Console.overwriteLine(out.toString());
@@ -58,7 +62,7 @@ typedef NextPositionLoadingBar = Function();
 class LoadingBar {
   Timer _timer;
   bool started = true;
-  String position = "<";
+  String position = '<';
   String lastPosition;
   NextPositionLoadingBar nextPosition;
 
@@ -87,7 +91,7 @@ class LoadingBar {
       update();
     }
     Console.showCursor();
-    print("");
+    print('');
   }
 
   /// Updates the Loading Bar
@@ -104,20 +108,20 @@ class LoadingBar {
   void _nextPosition() {
     lastPosition = position;
     switch (position) {
-      case "|":
-        position = "/";
+      case '|':
+        position = '/';
         break;
-      case "/":
-        position = "-";
+      case '/':
+        position = '-';
         break;
-      case "-":
-        position = "\\";
+      case '-':
+        position = '\\';
         break;
-      case "\\":
-        position = "|";
+      case '\\':
+        position = '|';
         break;
       default:
-        position = "|";
+        position = '|';
         break;
     }
   }
@@ -133,8 +137,8 @@ class WideLoadingBar {
   /// Loops the loading bar.
   Timer loop() {
     var width = Console.columns - 2;
-    bool goForward = true;
-    bool isDone = true;
+    var goForward = true;
+    var isDone = true;
 
     return Timer.periodic(const Duration(milliseconds: 50), (timer) async {
       if (!isDone) {
@@ -143,7 +147,7 @@ class WideLoadingBar {
 
       isDone = false;
 
-      for (int i = 1; i <= width; i++) {
+      for (var i = 1; i <= width; i++) {
         position = i;
         await Future.delayed(const Duration(milliseconds: 5));
         if (goForward) {
@@ -159,35 +163,35 @@ class WideLoadingBar {
 
   /// Moves the Bar Forward
   void forward() {
-    var out = StringBuffer("[");
+    var out = StringBuffer('[');
     var width = Console.columns - 2;
     var after = width - position;
     var before = width - after - 1;
-    for (int i = 1; i <= before; i++) {
-      out.write(" ");
+    for (var i = 1; i <= before; i++) {
+      out.write(' ');
     }
-    out.write("=");
-    for (int i = 1; i <= after; i++) {
-      out.write(" ");
+    out.write('=');
+    for (var i = 1; i <= after; i++) {
+      out.write(' ');
     }
-    out.write("]");
+    out.write(']');
     Console.overwriteLine(out.toString());
   }
 
   /// Moves the Bar Backward
   void backward() {
-    var out = StringBuffer("[");
+    var out = StringBuffer('[');
     var width = Console.columns - 2;
     var before = width - position;
     var after = width - before - 1;
-    for (int i = 1; i <= before; i++) {
-      out.write(" ");
+    for (var i = 1; i <= before; i++) {
+      out.write(' ');
     }
-    out.write("=");
-    for (int i = 1; i <= after; i++) {
-      out.write(" ");
+    out.write('=');
+    for (var i = 1; i <= after; i++) {
+      out.write(' ');
     }
-    out.write("]");
+    out.write(']');
     Console.overwriteLine(out.toString());
   }
 }

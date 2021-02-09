@@ -8,7 +8,9 @@ abstract class Canvas {
 }
 
 class ConsoleCanvas extends Canvas {
+  @override
   int get width => Console.columns;
+  @override
   int get height => Console.rows;
 
   List<List<PixelSpec>> pixels;
@@ -27,7 +29,7 @@ class ConsoleCanvas extends Canvas {
         ? spec
         : spec is int
             ? PixelSpec(color: spec)
-            : throw Exception("Invalid Pixel Spec: ${spec}");
+            : throw Exception('Invalid Pixel Spec: ${spec}');
   }
 
   void flush() {
@@ -35,7 +37,7 @@ class ConsoleCanvas extends Canvas {
     for (var y = 0; y < height; y++) {
       for (var x = 0; x < width; x++) {
         var pixel = pixels[x][y];
-        Console.write("\x1b[48;5;${pixel.color}m ");
+        Console.write('\x1b[48;5;${pixel.color}m ');
         cursor.move(x, y);
       }
     }

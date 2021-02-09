@@ -2,10 +2,10 @@ part of console;
 
 /// The root of the console API
 class Console {
-  static const String ANSI_CODE = "\x1b";
+  static const String ANSI_CODE = '\x1b';
 
   /// ANSI Escape Code
-  static const String ANSI_ESCAPE = "\x1b[";
+  static const String ANSI_ESCAPE = '\x1b[';
   static bool _cursorCTRLC = false;
   static bool _buffCTRLC = false;
   static bool initialized = false;
@@ -26,29 +26,29 @@ class Console {
   static Stream get onResize => ProcessSignal.sigwinch.watch();
 
   /// Moves the Cursor Forward the specified amount of [times].
-  static void moveCursorForward([int times = 1]) => writeANSI("${times}C");
+  static void moveCursorForward([int times = 1]) => writeANSI('${times}C');
 
   /// Moves the Cursor Back the specified amount of [times].
-  static void moveCursorBack([int times = 1]) => writeANSI("${times}D");
+  static void moveCursorBack([int times = 1]) => writeANSI('${times}D');
 
   /// Moves the Cursor Up the specified amount of [times].
-  static void moveCursorUp([int times = 1]) => writeANSI("${times}A");
+  static void moveCursorUp([int times = 1]) => writeANSI('${times}A');
 
   /// Moves the Cursor Down the specified amount of [times].
-  static void moveCursorDown([int times = 1]) => writeANSI("${times}B");
+  static void moveCursorDown([int times = 1]) => writeANSI('${times}B');
 
   /// Erases the Display
-  static void eraseDisplay([int type = 0]) => writeANSI("${type}J");
+  static void eraseDisplay([int type = 0]) => writeANSI('${type}J');
 
   /// Erases the Line
-  static void eraseLine([int type = 0]) => writeANSI("${type}K");
+  static void eraseLine([int type = 0]) => writeANSI('${type}K');
 
   /// Moves the the column specified in [number].
-  static void moveToColumn(int number) => writeANSI("${number}G");
+  static void moveToColumn(int number) => writeANSI('${number}G');
 
   /// Overwrites the current line with [line].
   static void overwriteLine(String line) {
-    write("\r");
+    write('\r');
     eraseLine(2);
     write(line);
   }
@@ -82,11 +82,11 @@ class Console {
       });
       _cursorCTRLC = true;
     }
-    writeANSI("?25l");
+    writeANSI('?25l');
   }
 
   static void showCursor() {
-    writeANSI("?25h");
+    writeANSI('?25h');
   }
 
   static void altBuffer() {
@@ -97,11 +97,11 @@ class Console {
       });
       _buffCTRLC = true;
     }
-    writeANSI("?47h");
+    writeANSI('?47h');
   }
 
   static void normBuffer() {
-    writeANSI("?47l");
+    writeANSI('?47l');
   }
 
   static void setBackgroundColor(int id,
@@ -133,15 +133,15 @@ class Console {
   }
 
   static void moveCursor({int row, int column}) {
-    var out = "";
+    var out = '';
     if (row != null) {
       out += row.toString();
     }
-    out += ";";
+    out += ';';
     if (column != null) {
       out += column.toString();
     }
-    writeANSI("${out}H");
+    writeANSI('${out}H');
   }
 
   static void setBold(bool bold) => sgr(bold ? 1 : 22);
@@ -181,14 +181,14 @@ class Console {
     } else {
       stuff = id.toString();
     }
-    writeANSI("${stuff}m");
+    writeANSI('${stuff}m');
   }
 
   static int get rows => _adapter.rows;
   static int get columns => _adapter.columns;
 
-  static void nextLine([int times = 1]) => writeANSI("${times}E");
-  static void previousLine([int times = 1]) => writeANSI("${times}F");
+  static void nextLine([int times = 1]) => writeANSI('${times}E');
+  static void previousLine([int times = 1]) => writeANSI('${times}F');
 
   static void write(String content) {
     init();
@@ -197,7 +197,7 @@ class Console {
 
   static String readLine() => _adapter.read();
 
-  static void writeANSI(String after) => write("${ANSI_ESCAPE}${after}");
+  static void writeANSI(String after) => write('${ANSI_ESCAPE}${after}');
 
   static CursorPosition getCursorPosition() {
     var lm = _adapter.lineMode;
@@ -206,7 +206,7 @@ class Console {
     _adapter.lineMode = false;
     _adapter.echoMode = false;
 
-    writeANSI("6n");
+    writeANSI('6n');
     var bytes = <int>[];
 
     while (true) {
@@ -224,13 +224,13 @@ class Console {
     str = str.substring(str.lastIndexOf('[') + 1, str.length - 1);
 
     List<int> parts =
-        List.from(str.split(";").map((it) => int.parse(it))).toList();
+        List.from(str.split(';').map((it) => int.parse(it))).toList();
 
     return CursorPosition(parts[1], parts[0]);
   }
 
-  static void saveCursor() => writeANSI("s");
-  static void restoreCursor() => writeANSI("u");
+  static void saveCursor() => writeANSI('s');
+  static void restoreCursor() => writeANSI('u');
 }
 
 class CursorPosition {
@@ -240,5 +240,5 @@ class CursorPosition {
   CursorPosition(this.column, this.row);
 
   @override
-  String toString() => "(${column}, ${row})";
+  String toString() => '(${column}, ${row})';
 }

@@ -1,13 +1,13 @@
-import "dart:async";
+import 'dart:async';
 
-import "package:console/console.dart";
+import 'package:console/console.dart';
 
 DrawingCanvas canvas = DrawingCanvas(100, 100);
 
-main() {
+void main() {
   Console.eraseDisplay(1);
 
-  int l = 1;
+  var l = 1;
   Timer.periodic(const Duration(seconds: 2), (_) {
     l += 2;
 

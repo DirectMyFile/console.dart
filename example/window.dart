@@ -1,13 +1,13 @@
-import "package:console/curses.dart";
-import "dart:io";
-import "package:console/console.dart";
-import "dart:async";
+import 'package:console/curses.dart';
+import 'dart:io';
+import 'package:console/console.dart';
+import 'dart:async';
 
 class DemoWindow extends Window {
   bool showWelcomeMessage = true;
   Timer loaderTimer;
 
-  DemoWindow() : super("Hello");
+  DemoWindow() : super('Hello');
 
   @override
   void draw() {
@@ -18,7 +18,7 @@ class DemoWindow extends Window {
     }
 
     if (showWelcomeMessage) {
-      writeCentered("Welcome!");
+      writeCentered('Welcome!');
     } else {
       Console.centerCursor();
       Console.moveToColumn(1);
@@ -29,15 +29,15 @@ class DemoWindow extends Window {
 
   @override
   void initialize() {
-    Keyboard.bindKeys(["q", "Q"]).listen((_) {
+    Keyboard.bindKeys(['q', 'Q']).listen((_) {
       close();
       Console.resetAll();
       Console.eraseDisplay();
       exit(0);
     });
 
-    Keyboard.bindKey("x").listen((_) {
-      title = title == "Hello" ? "Goodbye" : "Hello";
+    Keyboard.bindKey('x').listen((_) {
+      title = title == 'Hello' ? 'Goodbye' : 'Hello';
       draw();
     });
 
@@ -46,7 +46,7 @@ class DemoWindow extends Window {
       draw();
     });
 
-    Keyboard.bindKey("p").listen((_) {
+    Keyboard.bindKey('p').listen((_) {
       if (loaderTimer != null) {
         loaderTimer.cancel();
         loaderTimer = null;

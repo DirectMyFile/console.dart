@@ -60,7 +60,7 @@ class StdioConsoleAdapter extends ConsoleAdapter {
 
 class BufferConsoleAdapter extends ConsoleAdapter {
   StringBuffer buffer = StringBuffer();
-  String input = "";
+  String input = '';
 
   @override
   int get columns => 80;
@@ -75,7 +75,7 @@ class BufferConsoleAdapter extends ConsoleAdapter {
     var c = StreamController();
     Future(() {
       c.add(input.codeUnits);
-      c.add("\n".codeUnits);
+      c.add('\n'.codeUnits);
     });
     return c.stream;
   }
@@ -90,7 +90,9 @@ class BufferConsoleAdapter extends ConsoleAdapter {
     buffer.writeln(data);
   }
 
+  @override
   bool echoMode = true;
+  @override
   bool lineMode = true;
 
   @override

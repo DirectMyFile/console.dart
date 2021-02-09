@@ -15,18 +15,18 @@ class DrawingCanvas {
 
   DrawingCanvas(this.width, this.height) {
     if (width % 2 != 0) {
-      throw Exception("Width must be a multiple of 2!");
+      throw Exception('Width must be a multiple of 2!');
     }
 
     if (height % 4 != 0) {
-      throw Exception("Height must be a multiple of 4!");
+      throw Exception('Height must be a multiple of 4!');
     }
 
-    content = List<int>(width * height ~/ 8);
+    content = List<int>.filled(width * height ~/ 8, 0);
     _fillContent();
   }
 
-  void _doIt(x, y, void func(coord, mask)) {
+  void _doIt(int x, int y, void Function(int coord, int mask) func) {
     if (!(x >= 0 && x < width && y >= 0 && y < height)) {
       return;
     }
@@ -68,7 +68,7 @@ class DrawingCanvas {
     });
   }
 
-  String frame([String delimiter = "\n"]) {
+  String frame([String delimiter = '\n']) {
     var result = [];
     for (var i = 0, j = 0; i < content.length; i++, j++) {
       if (j == width / 2) {
