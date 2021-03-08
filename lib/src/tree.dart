@@ -8,14 +8,14 @@ void printTree(input, {String prefix = '', Map opts}) {
 /// Creates a Tree (this is like the npm dependency tree)
 String createTree(input, {String prefix = '', Map opts}) {
   if (input is String) {
-    input = {"label": input};
+    input = {'label': input};
   }
 
-  var label = input.containsKey("label") ? input['label'] : "";
+  var label = input.containsKey('label') ? input['label'] : '';
 
-  var nodes = input.containsKey("nodes") ? input['nodes'] : [];
+  var nodes = input.containsKey('nodes') ? input['nodes'] : [];
 
-  var lines = label.split("\n");
+  var lines = label.split('\n');
   var splitter =
       '\n' + prefix + (nodes.isNotEmpty ? Icon.PIPE_VERTICAL : ' ') + ' ';
 
@@ -25,7 +25,7 @@ String createTree(input, {String prefix = '', Map opts}) {
       nodes.map((node) {
         var last = nodes.last == node;
         var more = node is Map &&
-            node.containsKey("nodes") &&
+            node.containsKey('nodes') &&
             node['nodes'] is List &&
             node['nodes'].isNotEmpty;
         var prefix_ = prefix + (last ? ' ' : Icon.PIPE_VERTICAL) + ' ';

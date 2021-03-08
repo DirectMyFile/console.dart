@@ -1,14 +1,14 @@
 part of console;
 
 const List<String> _YES_RESPONSES = [
-  "yes",
-  "y",
-  "sure",
-  "ok",
-  "yep",
-  "yeah",
-  "true",
-  "yerp",
+  'yes',
+  'y',
+  'sure',
+  'ok',
+  'yep',
+  'yeah',
+  'true',
+  'yerp',
 ];
 
 /// Emulates a Shell Prompt
@@ -17,7 +17,7 @@ class ShellPrompt {
   String message;
   bool _stop = false;
 
-  ShellPrompt({this.message = r"$ "});
+  ShellPrompt({this.message = r'$ '});
 
   /// Stops a Loop
   void stop() {
@@ -53,13 +53,13 @@ class Chooser<T> {
   final ChooserEntryFormatter<T> formatter;
 
   Chooser(this.choices,
-      {this.message = "Choice: ", this.formatter = _defaultFormatter});
+      {this.message = 'Choice: ', this.formatter = _defaultFormatter});
 
-  static String _defaultFormatter(input, int index) => "[${index}] ${input}";
+  static String _defaultFormatter(input, int index) => '[${index}] ${input}';
 
   T chooseSync() {
     var buff = StringBuffer();
-    int i = -1;
+    var i = -1;
 
     for (var choice in choices) {
       i++;
@@ -70,10 +70,10 @@ class Chooser<T> {
 
     while (true) {
       var input = Prompter(buff.toString()).promptSync();
-      int result = _parseInteger(input);
+      var result = _parseInteger(input);
 
       if (result == null) {
-        bool exists = choices
+        var exists = choices
             .map((it) => it.toString().trim().toLowerCase())
             .contains(input.trim().toLowerCase());
         if (exists) {
@@ -91,13 +91,14 @@ class Chooser<T> {
       try {
         choice = choices[result - 1];
         return choice;
+        // ignore: empty_catches
       } catch (e) {}
     }
   }
 
   Future<T> choose() {
     var buff = StringBuffer();
-    int i = -1;
+    var i = -1;
 
     for (var choice in choices) {
       i++;
@@ -110,10 +111,10 @@ class Chooser<T> {
 
     var process;
     process = (String input) {
-      int result = _parseInteger(input);
+      var result = _parseInteger(input);
 
       if (result == null) {
-        bool exists = choices
+        var exists = choices
             .map((it) => it.toString().trim().toLowerCase())
             .contains(input.trim().toLowerCase());
         if (exists) {
@@ -187,7 +188,7 @@ class Prompter {
       var response = Console.readLine();
       if (secret) {
         Console.adapter.echoMode = true;
-        print("");
+        print('');
       }
       if (checker != null ? checker(response) : true) {
         return response;

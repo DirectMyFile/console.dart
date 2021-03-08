@@ -29,14 +29,14 @@ class TimeDisplay {
   /// Updates the Timer
   void update([int place = 1]) {
     if (_isStart) {
-      var msg = "(${_watch.elapsed.inSeconds}s)";
+      var msg = '(${_watch.elapsed.inSeconds}s)';
       _lastMsg = msg;
       Console.write(msg);
       _isStart = false;
     } else {
       Console.moveCursorBack(_lastMsg.length);
       var msg =
-          "(${(_watch.elapsed.inMilliseconds / 1000).toStringAsFixed(place)}s)";
+          '(${(_watch.elapsed.inMilliseconds / 1000).toStringAsFixed(place)}s)';
       _lastMsg = msg;
       Console.setBold(true);
       Console.setTextColor(Color.GRAY.id);

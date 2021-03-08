@@ -5,10 +5,11 @@ description: A library for common features required by console applications, inc
 homepage: https://github.com/DirectMyFile/console.dart
 
 environment:
-  sdk: '>=2.0.0 <3.0.0'
+  sdk: '>=2.10.0 <3.0.0'
 
 dependencies:
   vector_math: ^2.0.7
 
 dev_dependencies:
   test: ^1.0.0
+  pedantic: any

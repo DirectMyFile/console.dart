@@ -1,6 +1,6 @@
-import "package:console/console.dart";
+import 'package:console/console.dart';
 
-main() async {
+void main() async {
   var canvas = ConsoleCanvas(defaultSpec: PixelSpec(color: 0));
 
   for (var i = 0; i < 5; i++) {

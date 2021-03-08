@@ -1,20 +1,20 @@
-import "package:console/console.dart";
+import 'package:console/console.dart';
 
 void main() {
   Console.init();
-  print("Demo of Console Features");
-  print("------------------------");
+  print('Demo of Console Features');
+  print('------------------------');
   Console.setCrossedOut(true);
-  print("Crossed Out");
+  print('Crossed Out');
   Console.setCrossedOut(false);
   Console.setBold(true);
-  print("Bold");
+  print('Bold');
   Console.setBold(false);
   Console.setTextColor(1, bright: true);
-  print("Bright Red");
+  print('Bright Red');
   Console.resetAll();
-  print("Progress Bar");
+  print('Progress Bar');
   var bar = ProgressBar(complete: 5);
   bar.update(3);
-  print("${Icon.CHECKMARK} Icons");
+  print('${Icon.CHECKMARK} Icons');
 }

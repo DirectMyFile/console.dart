@@ -1,8 +1,8 @@
-import "dart:async";
-import "dart:math" as Math;
+import 'dart:async';
+import 'dart:math' as math;
 
-import "package:console/console.dart";
-import "package:console/utils.dart";
+import 'package:console/console.dart';
+import 'package:console/utils.dart';
 
 DrawingCanvas canvas = DrawingCanvas(160, 160);
 
@@ -43,9 +43,9 @@ void draw() {
 }
 
 num sin(num i, num l) {
-  return (Math.sin(i * 2 * Math.pi) * l + 80).floor();
+  return (math.sin(i * 2 * math.pi) * l + 80).floor();
 }
 
 num cos(num i, num l) {
-  return (Math.cos(i * 2 * Math.pi) * l + 80).floor();
+  return (math.cos(i * 2 * math.pi) * l + 80).floor();
 }

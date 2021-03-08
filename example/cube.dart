@@ -1,10 +1,10 @@
-import "package:console/console.dart";
-import "package:console/utils.dart";
+import 'package:console/console.dart';
+import 'package:console/utils.dart';
 
-import "package:vector_math/vector_math.dart";
-import "dart:math";
-import "dart:io";
-import "dart:async";
+import 'package:vector_math/vector_math.dart';
+import 'dart:math';
+import 'dart:io';
+import 'dart:async';
 
 List<List<double>> points = [
   [-1.0, -1.0, -1.0],
@@ -58,8 +58,8 @@ void draw() {
       m = projection * modelView;
       out = m.transform3(v);
       return {
-        "x": (out[0] * 40 + 80).floor(),
-        "y": (out[1] * 40 + 80).floor(),
+        'x': (out[0] * 40 + 80).floor(),
+        'y': (out[1] * 40 + 80).floor(),
       };
     });
   });
@@ -69,7 +69,7 @@ void draw() {
     final quad = quadIterable.toList();
     quad.forEach((v) {
       var n = quad[((i.isNegative ? i.abs() : -i) + 1) % 4];
-      bresenham(v["x"], v["y"], n["x"], n["y"], canvas.set);
+      bresenham(v['x'], v['y'], n['x'], n['y'], canvas.set);
       i++;
     });
   });

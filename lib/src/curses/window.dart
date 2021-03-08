@@ -30,14 +30,14 @@ abstract class Window {
     var width = Console.columns;
     Console.moveCursor(row: 1, column: 1);
     Console.setBackgroundColor(7, bright: true);
-    _repeatFunction((i) => Console.write(" "), width);
+    _repeatFunction((i) => Console.write(' '), width);
     Console.setTextColor(0);
     Console.moveCursor(
       row: 1,
       column: (Console.columns / 2).round() - (title.length / 2).round(),
     );
     Console.write(title);
-    _repeatFunction((i) => Console.write("\n"), Console.rows - 1);
+    _repeatFunction((i) => Console.write('\n'), Console.rows - 1);
     Console.moveCursor(row: 2, column: 1);
     Console.centerCursor(row: true);
     Console.resetBackgroundColor();
@@ -48,7 +48,7 @@ abstract class Window {
   }
 
   Timer startUpdateLoop([Duration wait]) {
-    if (wait == null) wait = Duration(seconds: 2);
+    wait ??= Duration(seconds: 2);
     _updateTimer = Timer.periodic(wait, (timer) {
       draw();
     });
@@ -73,7 +73,7 @@ abstract class Window {
 }
 
 void _repeatFunction(Function func, int times) {
-  for (int i = 1; i <= times; i++) {
+  for (var i = 1; i <= times; i++) {
     func(i);
   }
 }

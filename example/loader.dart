@@ -1,5 +1,5 @@
-import "dart:async";
-import "package:console/console.dart";
+import 'dart:async';
+import 'package:console/console.dart';
 
 void main() {
   var loader = WideLoadingBar();
