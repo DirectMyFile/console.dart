@@ -1,3 +1,7 @@
+## 4.0.0
+
+- Null Safety
+
 ## 3.0.0
 
 First Dart 2 release.
