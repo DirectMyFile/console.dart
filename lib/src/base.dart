@@ -9,8 +9,8 @@ class Console {
   static bool _cursorCTRLC = false;
   static bool _buffCTRLC = false;
   static bool initialized = false;
-  static Color _currentTextColor;
-  static Color _currentBackgroundColor;
+  static Color? _currentTextColor;
+  static Color? _currentBackgroundColor;
   static ConsoleAdapter _adapter = StdioConsoleAdapter();
 
   static ConsoleAdapter get adapter => _adapter;
@@ -71,8 +71,8 @@ class Console {
     _currentTextColor = color;
   }
 
-  static Color getTextColor() => _currentTextColor;
-  static Color getBackgroundColor() => _currentBackgroundColor;
+  static Color? getTextColor() => _currentTextColor;
+  static Color? getBackgroundColor() => _currentBackgroundColor;
 
   static void hideCursor() {
     if (!_cursorCTRLC) {
@@ -132,7 +132,7 @@ class Console {
     }
   }
 
-  static void moveCursor({int row, int column}) {
+  static void moveCursor({int? row, int? column}) {
     var out = '';
     if (row != null) {
       out += row.toString();
@@ -174,7 +174,7 @@ class Console {
     _currentBackgroundColor = null;
   }
 
-  static void sgr(int id, [List<int> params]) {
+  static void sgr(int id, [List<int>? params]) {
     String stuff;
     if (params != null) {
       stuff = "${id};${params.join(";")}";
@@ -190,12 +190,12 @@ class Console {
   static void nextLine([int times = 1]) => writeANSI('${times}E');
   static void previousLine([int times = 1]) => writeANSI('${times}F');
 
-  static void write(String content) {
+  static void write(String? content) {
     init();
     _adapter.write(content);
   }
 
-  static String readLine() => _adapter.read();
+  static String? readLine() => _adapter.read();
 
   static void writeANSI(String after) => write('${ANSI_ESCAPE}${after}');
 
@@ -223,8 +223,8 @@ class Console {
     var str = String.fromCharCodes(bytes);
     str = str.substring(str.lastIndexOf('[') + 1, str.length - 1);
 
-    List<int> parts =
-        List.from(str.split(';').map((it) => int.parse(it))).toList();
+    final parts =
+        List<int>.from(str.split(';').map((it) => int.parse(it))).toList();
 
     return CursorPosition(parts[1], parts[0]);
   }

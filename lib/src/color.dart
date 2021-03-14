@@ -70,7 +70,7 @@ class Color {
 class TextPen {
   final StringBuffer buffer;
 
-  TextPen({StringBuffer buffer}) : buffer = buffer ?? StringBuffer();
+  TextPen({StringBuffer? buffer}) : buffer = buffer ?? StringBuffer();
 
   TextPen black() => setColor(Color.BLACK);
   TextPen blue() => setColor(Color.BLUE);
@@ -115,7 +115,7 @@ class TextPen {
     return this;
   }
 
-  void call([String input]) {
+  void call([String? input]) {
     if (input != null) {
       text(input);
     } else {

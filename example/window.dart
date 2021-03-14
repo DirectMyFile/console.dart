@@ -5,7 +5,7 @@ import 'dart:async';
 
 class DemoWindow extends Window {
   bool showWelcomeMessage = true;
-  Timer loaderTimer;
+  Timer? loaderTimer;
 
   DemoWindow() : super('Hello');
 
@@ -14,7 +14,7 @@ class DemoWindow extends Window {
     super.draw();
 
     if (loaderTimer != null) {
-      loaderTimer.cancel();
+      loaderTimer!.cancel();
     }
 
     if (showWelcomeMessage) {
@@ -48,7 +48,7 @@ class DemoWindow extends Window {
 
     Keyboard.bindKey('p').listen((_) {
       if (loaderTimer != null) {
-        loaderTimer.cancel();
+        loaderTimer!.cancel();
         loaderTimer = null;
       }
     });

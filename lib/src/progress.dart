@@ -60,11 +60,11 @@ typedef NextPositionLoadingBar = Function();
 
 /// A loading bar
 class LoadingBar {
-  Timer _timer;
+  Timer? _timer;
   bool started = true;
   String position = '<';
-  String lastPosition;
-  NextPositionLoadingBar nextPosition;
+  late String lastPosition;
+  late NextPositionLoadingBar nextPosition;
 
   /// Creates a loading bar.
   LoadingBar() {
@@ -81,9 +81,9 @@ class LoadingBar {
   }
 
   /// Stops the Loading Bar with the specified (and optional) [message].
-  void stop([String message]) {
+  void stop([String? message]) {
     if (_timer != null) {
-      _timer.cancel();
+      _timer!.cancel();
     }
 
     if (message != null) {

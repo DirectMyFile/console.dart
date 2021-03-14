@@ -1,6 +1,6 @@
 part of console;
 
-void inheritIO(Process process, {String prefix, bool lineBased = true}) {
+void inheritIO(Process process, {String? prefix, bool lineBased = true}) {
   if (lineBased) {
     process.stdout
         .transform(utf8.decoder)

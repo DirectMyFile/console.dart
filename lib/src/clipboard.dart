@@ -1,6 +1,6 @@
 part of console;
 
-Clipboard getClipboard() {
+Clipboard? getClipboard() {
   if (Platform.isMacOS) return OSXClipboard();
   if (Platform.isLinux && File('/usr/bin/xclip').existsSync()) {
     return XClipboard();

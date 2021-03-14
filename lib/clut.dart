@@ -259,7 +259,7 @@ final List<List> CLUT = [
   [255, 'eeeeee'],
 ];
 
-Map<int, String> _table;
+Map<int, String>? _table;
 Map<int, String> getColorLookupTable() {
   if (_table == null) {
     var m = <int, String>{};
@@ -268,7 +268,8 @@ Map<int, String> getColorLookupTable() {
     }
     _table = m;
   }
-  return _table;
+  return _table!;
 }
 
-String getColor(int color) => getColorLookupTable()[color];
+String getColor(int color) =>
+    getColorLookupTable()[(color < 0 || color > 255) ? 255 : color]!;

@@ -69,9 +69,13 @@ class Keyboard {
     }
   }
 
-  static void handleKey(List<int> bytes, String name) {
+  static void handleKey(List<int>? bytes, String? name) {
+    if (bytes == null || name == null) {
+      return;
+    }
+
     if (_handlers.containsKey(name)) {
-      _handlers[name].add(name);
+      _handlers[name]!.add(name);
       return;
     }
 
@@ -98,7 +102,7 @@ class Keyboard {
   static Stream<String> bindKey(String code) {
     init();
     if (_handlers.containsKey(code)) {
-      return _handlers[code].stream;
+      return _handlers[code]!.stream;
     } else {
       return (_handlers[code] = StreamController<String>.broadcast()).stream;
     }
