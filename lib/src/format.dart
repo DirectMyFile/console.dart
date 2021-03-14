@@ -164,7 +164,6 @@ String format(String input,
     }
 
     if (id.startsWith('platform.')) {
-      print(id);
       var variable = id.substring(9);
 
       if (variable.isEmpty) {

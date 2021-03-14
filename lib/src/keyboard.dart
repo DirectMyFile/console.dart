@@ -70,7 +70,7 @@ class Keyboard {
   }
 
   static void handleKey(List<int>? bytes, String? name) {
-    if (bytes == null || name == null) {
+    if (name == null) {
       return;
     }
 
@@ -80,6 +80,10 @@ class Keyboard {
     }
 
     if (!echoUnhandledKeys) {
+      return;
+    }
+
+    if (bytes == null) {
       return;
     }
 
