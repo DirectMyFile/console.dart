@@ -16,20 +16,20 @@ List<dynamic> bresenham(x0, y0, x1, y1, [fn]) {
   if (adx > ady) {
     for (var x = x0, y = y0; sx < 0 ? x >= x1 : x <= x1; x += sx) {
       fn(x, y);
-      eps += ady;
+      eps += ady as int;
       if ((eps << 1) >= adx) {
         y += sy;
-        eps -= adx;
+        eps -= adx as int;
       }
     }
   } else {
     for (var x = x0, y = y0; sy < 0 ? y >= y1 : y <= y1; y += sy) {
       fn(x, y);
-      eps += adx;
+      eps += adx as int;
 
       if ((eps << 1) >= ady) {
         x += sx;
-        eps -= ady;
+        eps -= ady as int;
       }
     }
   }

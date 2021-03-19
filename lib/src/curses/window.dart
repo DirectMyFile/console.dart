@@ -1,11 +1,11 @@
 part of console.curses;
 
 abstract class Window {
-  String _title;
-  Timer _updateTimer;
+  String? _title;
+  Timer? _updateTimer;
 
-  String get title => _title;
-  set title(String value) => _title = value;
+  String? get title => _title;
+  set title(String? value) => _title = value;
 
   Window(String title) {
     _title = title;
@@ -34,7 +34,7 @@ abstract class Window {
     Console.setTextColor(0);
     Console.moveCursor(
       row: 1,
-      column: (Console.columns / 2).round() - (title.length / 2).round(),
+      column: (Console.columns / 2).round() - (title!.length / 2).round(),
     );
     Console.write(title);
     _repeatFunction((i) => Console.write('\n'), Console.rows - 1);
@@ -47,7 +47,7 @@ abstract class Window {
     draw();
   }
 
-  Timer startUpdateLoop([Duration wait]) {
+  Timer? startUpdateLoop([Duration? wait]) {
     wait ??= Duration(seconds: 2);
     _updateTimer = Timer.periodic(wait, (timer) {
       draw();
@@ -57,7 +57,7 @@ abstract class Window {
 
   void close() {
     if (_updateTimer != null) {
-      _updateTimer.cancel();
+      _updateTimer!.cancel();
     }
     Console.eraseDisplay();
     Console.moveCursor(row: 1, column: 1);

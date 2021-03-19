@@ -4,9 +4,9 @@ abstract class ConsoleAdapter {
   int get rows;
   int get columns;
 
-  void write(String data);
+  void write(String? data);
   void writeln(String data);
-  String read();
+  String? read();
   int readByte();
   Stream<List<int>> byteStream();
 
@@ -23,13 +23,13 @@ class StdioConsoleAdapter extends ConsoleAdapter {
   int get rows => stdout.terminalLines;
 
   @override
-  String read() => stdin.readLineSync();
+  String? read() => stdin.readLineSync();
 
   @override
   Stream<List<int>> byteStream() => stdin;
 
   @override
-  void write(String data) {
+  void write(String? data) {
     stdout.write(data);
   }
 
@@ -77,11 +77,11 @@ class BufferConsoleAdapter extends ConsoleAdapter {
       c.add(input.codeUnits);
       c.add('\n'.codeUnits);
     });
-    return c.stream;
+    return c.stream as Stream<List<int>>;
   }
 
   @override
-  void write(String data) {
+  void write(String? data) {
     buffer.write(data);
   }
 

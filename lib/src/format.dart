@@ -11,8 +11,8 @@ abstract class VariableStyle {
 
   const VariableStyle();
 
-  Set<String> findVariables(String input);
-  String replace(String input, String variable, String value);
+  Set<String?> findVariables(String input);
+  String replace(String input, String? variable, String? value);
 
   /// Calls [action] in a [Zone] that has it's format
   /// variable style set to [style].
@@ -29,9 +29,9 @@ class _DoubleBracketVariableStyle extends VariableStyle {
   const _DoubleBracketVariableStyle();
 
   @override
-  Set<String> findVariables(String input) {
+  Set<String?> findVariables(String input) {
     var matches = _REGEX.allMatches(input);
-    var allKeys = <String>{};
+    var allKeys = <String?>{};
 
     for (var match in matches) {
       var key = match.group(1);
@@ -44,8 +44,8 @@ class _DoubleBracketVariableStyle extends VariableStyle {
   }
 
   @override
-  String replace(String input, String variable, String value) {
-    return input.replaceAll('{{${variable}}}', value);
+  String replace(String input, String? variable, String? value) {
+    return input.replaceAll('{{${variable}}}', value!);
   }
 }
 
@@ -55,9 +55,9 @@ class _BashBracketVariableStyle extends VariableStyle {
   const _BashBracketVariableStyle();
 
   @override
-  Set<String> findVariables(String input) {
+  Set<String?> findVariables(String input) {
     var matches = _REGEX.allMatches(input);
-    var allKeys = <String>{};
+    var allKeys = <String?>{};
 
     for (var match in matches) {
       var key = match.group(1);
@@ -70,8 +70,8 @@ class _BashBracketVariableStyle extends VariableStyle {
   }
 
   @override
-  String replace(String input, String variable, String value) {
-    return input.replaceAll('\${${variable}}', value);
+  String replace(String input, String? variable, String? value) {
+    return input.replaceAll('\${${variable}}', value!);
   }
 }
 
@@ -81,9 +81,9 @@ class _SingleBracketVariableStyle extends VariableStyle {
   const _SingleBracketVariableStyle();
 
   @override
-  Set<String> findVariables(String input) {
+  Set<String?> findVariables(String input) {
     var matches = _REGEX.allMatches(input);
-    var allKeys = <String>{};
+    var allKeys = <String?>{};
 
     for (var match in matches) {
       var key = match.group(1);
@@ -96,18 +96,18 @@ class _SingleBracketVariableStyle extends VariableStyle {
   }
 
   @override
-  String replace(String input, String variable, String value) {
-    return input.replaceAll('{${variable}}', value);
+  String replace(String input, String? variable, String? value) {
+    return input.replaceAll('{${variable}}', value!);
   }
 }
 
-typedef VariableResolver = String Function(String variable);
+typedef VariableResolver = String Function(String? variable);
 
 String format(String input,
-    {List<String> args,
-    Map<String, String> replace,
-    VariableStyle style,
-    VariableResolver resolver}) {
+    {List<String>? args,
+    Map<String, String>? replace,
+    VariableStyle? style,
+    VariableResolver? resolver}) {
   style ??= VariableStyle.DEFAULT;
 
   if (Zone.current['console.format.variable_style'] != null) {
@@ -115,12 +115,12 @@ String format(String input,
   }
 
   var out = input;
-  var allKeys = style.findVariables(input);
+  var allKeys = style!.findVariables(input);
 
   for (var id in allKeys) {
     if (args != null) {
       try {
-        var index = int.parse(id);
+        var index = int.parse(id!);
         if (index < 0 || index > args.length - 1) {
           throw RangeError.range(index, 0, args.length - 1);
         }
@@ -131,11 +131,11 @@ String format(String input,
     }
 
     if (replace != null && replace.containsKey(id)) {
-      out = style.replace(out, id, replace[id]);
+      out = style.replace(out, id, replace[id!]);
       continue;
     }
 
-    if (id.startsWith('@') || id.startsWith('color.')) {
+    if (id!.startsWith('@') || id.startsWith('color.')) {
       var color = id.startsWith('@') ? id.substring(1) : id.substring(6);
       if (color.isEmpty) {
         throw Exception('color directive requires an argument');

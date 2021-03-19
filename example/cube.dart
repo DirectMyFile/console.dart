@@ -53,10 +53,10 @@ void draw() {
 
   var transformed = cube.map((quad) {
     return quad.map((v) {
-      Matrix4 m;
+      Matrix4? m;
       var out = Vector3.zero();
       m = projection * modelView;
-      out = m.transform3(v);
+      out = m!.transform3(v);
       return {
         'x': (out[0] * 40 + 80).floor(),
         'y': (out[1] * 40 + 80).floor(),

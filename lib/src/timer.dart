@@ -2,10 +2,10 @@ part of console;
 
 /// A timer display that mimics pub's timer.
 class TimeDisplay {
-  Stopwatch _watch;
+  late Stopwatch _watch;
   bool _isStart = true;
-  String _lastMsg;
-  Timer _updateTimer;
+  late String _lastMsg;
+  late Timer _updateTimer;
 
   TimeDisplay();
 

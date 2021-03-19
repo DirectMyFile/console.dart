@@ -6,17 +6,17 @@ var points = 0;
 class Question {
   final String message;
   final answer;
-  final List<String> choices;
+  final List<String>? choices;
 
   Question(this.message, this.answer, {this.choices});
 
   bool askQuestion() {
     if (choices != null) {
       print(message);
-      var chooser = Chooser<String>(scramble(choices), message: 'Answer: ');
+      var chooser = Chooser<String>(scramble(choices!), message: 'Answer: ');
       return chooser.chooseSync() == answer;
     } else if (answer is String) {
-      return Prompter('${message} ').promptSync().toLowerCase().trim() ==
+      return Prompter('${message} ').promptSync()!.toLowerCase().trim() ==
           answer.toLowerCase().trim();
     } else if (answer is bool) {
       return Prompter('${message} ').askSync() == answer;

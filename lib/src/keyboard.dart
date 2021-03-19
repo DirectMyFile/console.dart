@@ -35,7 +35,7 @@ abstract class KeyCode {
 
 /// API for the Keyboard
 class Keyboard {
-  static final Map<String, StreamController<String>> _handlers = {};
+  static final Map<String, StreamController<String?>> _handlers = {};
 
   static bool _initialized = false;
 
@@ -69,9 +69,9 @@ class Keyboard {
     }
   }
 
-  static void handleKey(List<int> bytes, String name) {
+  static void handleKey(List<int>? bytes, String? name) {
     if (_handlers.containsKey(name)) {
-      _handlers[name].add(name);
+      _handlers[name!]!.add(name);
       return;
     }
 
@@ -79,7 +79,7 @@ class Keyboard {
       return;
     }
 
-    if (bytes.length == 1 && bytes[0] == 127) {
+    if (bytes!.length == 1 && bytes[0] == 127) {
       if (Platform.isMacOS) {
         Console.moveCursorBack(1);
       } else {
@@ -95,18 +95,18 @@ class Keyboard {
     }
   }
 
-  static Stream<String> bindKey(String code) {
+  static Stream<String?> bindKey(String code) {
     init();
     if (_handlers.containsKey(code)) {
-      return _handlers[code].stream;
+      return _handlers[code]!.stream;
     } else {
-      return (_handlers[code] = StreamController<String>.broadcast()).stream;
+      return (_handlers[code] = StreamController<String?>.broadcast()).stream;
     }
   }
 
-  static Stream<String> bindKeys(List<String> codes) {
+  static Stream<String?> bindKeys(List<String> codes) {
     init();
-    var controller = StreamController<String>.broadcast();
+    var controller = StreamController<String?>.broadcast();
     for (var key in codes) {
       bindKey(key).listen(controller.add);
     }

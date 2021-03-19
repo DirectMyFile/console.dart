@@ -259,8 +259,8 @@ final List<List> CLUT = [
   [255, 'eeeeee'],
 ];
 
-Map<int, String> _table;
-Map<int, String> getColorLookupTable() {
+Map<int, String>? _table;
+Map<int, String>? getColorLookupTable() {
   if (_table == null) {
     var m = <int, String>{};
     for (var x in CLUT) {
@@ -271,4 +271,4 @@ Map<int, String> getColorLookupTable() {
   return _table;
 }
 
-String getColor(int color) => getColorLookupTable()[color];
+String? getColor(int color) => getColorLookupTable()![color];
