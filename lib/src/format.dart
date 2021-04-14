@@ -35,7 +35,7 @@ class _DoubleBracketVariableStyle extends VariableStyle {
 
     for (var match in matches) {
       var key = match.group(1);
-      if (!allKeys.contains(key)) {
+      if (key != null && !allKeys.contains(key)) {
         allKeys.add(key);
       }
     }
@@ -61,7 +61,7 @@ class _BashBracketVariableStyle extends VariableStyle {
 
     for (var match in matches) {
       var key = match.group(1);
-      if (!allKeys.contains(key)) {
+      if (key != null && !allKeys.contains(key)) {
         allKeys.add(key);
       }
     }
@@ -87,7 +87,7 @@ class _SingleBracketVariableStyle extends VariableStyle {
 
     for (var match in matches) {
       var key = match.group(1);
-      if (!allKeys.contains(key)) {
+      if (key != null && !allKeys.contains(key)) {
         allKeys.add(key);
       }
     }
@@ -104,10 +104,10 @@ class _SingleBracketVariableStyle extends VariableStyle {
 typedef VariableResolver = String Function(String variable);
 
 String format(String input,
-    {List<String> args,
-    Map<String, String> replace,
-    VariableStyle style,
-    VariableResolver resolver}) {
+    {List<String>? args,
+    Map<String, String>? replace,
+    VariableStyle? style,
+    VariableResolver? resolver}) {
   style ??= VariableStyle.DEFAULT;
 
   if (Zone.current['console.format.variable_style'] != null) {
@@ -115,7 +115,7 @@ String format(String input,
   }
 
   var out = input;
-  var allKeys = style.findVariables(input);
+  var allKeys = style!.findVariables(input);
 
   for (var id in allKeys) {
     if (args != null) {
@@ -131,7 +131,7 @@ String format(String input,
     }
 
     if (replace != null && replace.containsKey(id)) {
-      out = style.replace(out, id, replace[id]);
+      out = style.replace(out, id, replace[id]!);
       continue;
     }
 

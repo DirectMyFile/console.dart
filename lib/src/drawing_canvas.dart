@@ -11,7 +11,7 @@ class DrawingCanvas {
   final int width;
   final int height;
 
-  List<int> content;
+  late List<int> content;
 
   DrawingCanvas(this.width, this.height) {
     if (width % 2 != 0) {

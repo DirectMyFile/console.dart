@@ -1,8 +1,8 @@
 part of console.curses;
 
 abstract class Window {
-  String _title;
-  Timer _updateTimer;
+  late String _title;
+  Timer? _updateTimer;
 
   String get title => _title;
   set title(String value) => _title = value;
@@ -47,7 +47,7 @@ abstract class Window {
     draw();
   }
 
-  Timer startUpdateLoop([Duration wait]) {
+  Timer? startUpdateLoop([Duration? wait]) {
     wait ??= Duration(seconds: 2);
     _updateTimer = Timer.periodic(wait, (timer) {
       draw();
@@ -57,7 +57,7 @@ abstract class Window {
 
   void close() {
     if (_updateTimer != null) {
-      _updateTimer.cancel();
+      _updateTimer!.cancel();
     }
     Console.eraseDisplay();
     Console.moveCursor(row: 1, column: 1);

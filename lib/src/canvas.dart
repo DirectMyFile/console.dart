@@ -13,8 +13,8 @@ class ConsoleCanvas extends Canvas {
   @override
   int get height => Console.rows;
 
-  List<List<PixelSpec>> pixels;
-  Cursor cursor;
+  late List<List<PixelSpec>> pixels;
+  late Cursor cursor;
 
   ConsoleCanvas({PixelSpec defaultSpec = PixelSpec.EMPTY}) {
     pixels = List<List<PixelSpec>>.generate(width, (i) {

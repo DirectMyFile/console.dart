@@ -70,9 +70,9 @@ class Chooser<T> {
 
     while (true) {
       var input = Prompter(buff.toString()).promptSync();
-      var result = _parseInteger(input);
+      var result = _parseInteger(input ?? '');
 
-      if (result == null) {
+      if (result == null && input != null) {
         var exists = choices
             .map((it) => it.toString().trim().toLowerCase())
             .contains(input.trim().toLowerCase());
@@ -89,14 +89,16 @@ class Chooser<T> {
       var choice;
 
       try {
-        choice = choices[result - 1];
-        return choice;
+        if (result != null) {
+          choice = choices[result - 1];
+          return choice;
+        }
         // ignore: empty_catches
       } catch (e) {}
     }
   }
 
-  Future<T> choose() {
+  Future<dynamic> choose() {
     var buff = StringBuffer();
     var i = -1;
 
@@ -131,8 +133,12 @@ class Chooser<T> {
       var choice;
 
       try {
-        choice = choices[result - 1];
-        completer.complete(choice);
+        if (result == null) {
+          Prompter(buff.toString()).prompt().then(process);
+        } else {
+          choice = choices[result - 1];
+          completer.complete(choice);
+        }
       } catch (e) {
         Prompter(buff.toString()).prompt().then(process);
       }
@@ -168,8 +174,11 @@ class Prompter {
   /// You can add more to the list of positive responses using the [positive] argument.
   ///
   /// The input will be changed to lowercase and then checked.
-  bool askSync({List<String> positive = const []}) {
+  bool? askSync({List<String> positive = const []}) {
     var answer = promptSync();
+    if (answer == null) {
+      return null;
+    }
     return _YES_RESPONSES.contains(answer.toLowerCase()) ||
         positive.contains(message.toLowerCase());
   }
@@ -181,7 +190,7 @@ class Prompter {
     });
   }
 
-  String promptSync({ResponseChecker checker}) {
+  String? promptSync({ResponseChecker? checker}) {
     while (true) {
       Console.adapter.write(message);
       if (secret) Console.adapter.echoMode = false;
@@ -190,13 +199,13 @@ class Prompter {
         Console.adapter.echoMode = true;
         print('');
       }
-      if (checker != null ? checker(response) : true) {
+      if ((checker != null && response != null) ? checker(response) : true) {
         return response;
       }
     }
   }
 
-  Future<String> prompt({ResponseChecker checker}) {
+  Future<String> prompt({ResponseChecker? checker}) {
     var completer = Completer<String>();
 
     var doAsk;
@@ -206,7 +215,7 @@ class Prompter {
         if (secret) Console.adapter.echoMode = false;
         var response = Console.readLine();
         if (secret) Console.adapter.echoMode = true;
-        if (checker != null && !checker(response)) {
+        if (checker != null && response != null && !checker(response)) {
           doAsk();
           return;
         }
@@ -221,16 +230,12 @@ class Prompter {
 }
 
 Future<String> readInput(String message,
-    {bool secret = false, ResponseChecker checker}) {
+    {bool secret = false, ResponseChecker? checker}) {
   return Prompter(message, secret: secret).prompt(checker: checker);
 }
 
 typedef ResponseChecker = bool Function(String response);
 
-int _parseInteger(String input) {
-  try {
-    return int.parse(input);
-  } catch (e) {
-    return null;
-  }
+int? _parseInteger(String input) {
+  return int.tryParse(input);
 }

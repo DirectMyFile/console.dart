@@ -1,6 +1,10 @@
-## 4.0.0
+## 4.1.0
 
 - Null Safety
+
+## 4.0.0
+
+- Code styling updates
 
 ## 3.0.0
 
