@@ -7,6 +7,8 @@ class TimeDisplay {
   late String _lastMsg;
   Timer? _updateTimer;
 
+  bool get isRunning => _watch?.isRunning ?? false;
+
   TimeDisplay();
 
   /// Starts the Timer
