@@ -26,7 +26,7 @@ class OSXClipboard implements Clipboard {
 
   @override
   void setContent(String content) {
-    Process.start('/usr/bin/pbpaste', []).then((process) {
+    Process.start('/usr/bin/pbcopy', []).then((process) {
       process.stdin.write(content);
       process.stdin.close();
     });
