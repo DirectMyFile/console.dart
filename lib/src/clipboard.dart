@@ -5,6 +5,7 @@ Clipboard? getClipboard() {
   if (Platform.isLinux && File('/usr/bin/xclip').existsSync()) {
     return XClipboard();
   }
+  if (Platform.isWindows) return WinClipboard();
   return null;
 }
 
@@ -51,5 +52,33 @@ class XClipboard implements Clipboard {
       process.stdin.write(content);
       process.stdin.close();
     });
+  }
+}
+
+class WinClipboard implements Clipboard {
+  @override
+  String getContent() {
+    OpenClipboard(NULL);
+    if (IsClipboardFormatAvailable(CF_TEXT) == FALSE) return '';
+
+    var hg = GetClipboardData(CF_TEXT);
+    if (hg == NULL) return '';
+
+    var ptstr = GlobalLock(hg);
+
+    GlobalUnlock(hg);
+    CloseClipboard();
+
+    return ptstr.cast<Utf8>().toDartString();
+  }
+
+  @override
+  void setContent(String content) {
+    var ptstr = content.toNativeUtf8();
+
+    OpenClipboard(NULL);
+    EmptyClipboard();
+    SetClipboardData(CF_TEXT, ptstr.address);
+    CloseClipboard();
   }
 }
