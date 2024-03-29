@@ -180,13 +180,13 @@ class Prompter {
       return null;
     }
     return _YES_RESPONSES.contains(answer.toLowerCase()) ||
-        positive.contains(message.toLowerCase());
+        positive.contains(answer.toLowerCase());
   }
 
   Future<bool> ask({List<String> positive = const []}) {
     return prompt().then((answer) {
       return _YES_RESPONSES.contains(answer.toLowerCase()) ||
-          positive.contains(message.toLowerCase());
+          positive.contains(answer.toLowerCase());
     });
   }
 
