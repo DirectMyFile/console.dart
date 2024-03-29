@@ -1,3 +1,7 @@
+## 4.1.1
+
+- DrawingCanvas unset fix (properly clears pixels now)
+
 ## 4.1.0
 
 - Null Safety
