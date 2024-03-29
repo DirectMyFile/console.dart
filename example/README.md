@@ -8,6 +8,7 @@ This package comes with a number of examples to demonstrate various features.
 | `bar.dart` | Simple demonstration of DrawingCanvas for drawing a vertical bar. |
 | `canvas.dart` | Shows use of ConsoleCanvas for character-based positioning. |
 | `choice.dart` | Select a multiple choice option. |
+| `clipboard.dart` | Simple example of clipboard operation. |
 | `clock.dart` | Sophisticated example of using DrawingCanvas to display a clock. |
 | `colors.dart` | Setting colored output with the TextPen class. |
 | `cube.dart` | Draws a 3D cube with DrawingCanvas. |
