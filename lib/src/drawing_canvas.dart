@@ -58,7 +58,7 @@ class DrawingCanvas {
 
   void unset(int x, int y) {
     _doIt(x, y, (coord, mask) {
-      content[coord] &= mask;
+      content[coord] &= ~mask;
     });
   }
 
